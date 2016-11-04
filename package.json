@@ -45,14 +45,17 @@
   },
   "dependencies": {
     "express": "^4.14.0",
+    "foreman": "^2.0.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2"
   },
   "scripts": {
-    "start": "node ./scripts/start.js",
-    "build": "node ./scripts/build.js"
+    "startwebpack": "node ./scripts/start.js",
+    "build": "node ./scripts/build.js",
+    "server": "node ./server.js",
+    "start": "nf start -p 3000"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"
