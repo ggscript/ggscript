@@ -6,7 +6,7 @@ var app = express();
  
 var compiler = webpack(webpackConfig);
  
-app.use(express.static(__dirname + '/www'));
+app.use(express.static(__dirname + '/client/public'));
  
 app.use(webpackDevMiddleware(compiler, {
   hot: true,

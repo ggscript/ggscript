@@ -1,12 +1,12 @@
 var path = require('path');
 
 var config = {
-  context: path.join(__dirname, 'src'),
+  context: path.join(__dirname, 'client/app'),
   entry: [
     './index.js',
   ],
   output: {
-    path: path.join(__dirname, 'www'),
+    path: path.join(__dirname, 'client/public'),
     filename: 'bundle.js',
   },
   module: {
@@ -15,12 +15,6 @@ var config = {
         test: /\.js$/,
         exclude: /node_modules/,
         loaders: ['babel'],
-      },
-      {
-        test: /\.css$/, loader: "style!css"
-      },
-      {
-        test: /\.svg$/, loader: 'babel?presets[]=es2015,presets[]=react!svg-react'
       }
     ],
   },
