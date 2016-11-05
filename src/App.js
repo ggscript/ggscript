@@ -10,6 +10,7 @@ class App extends Component {
       <div>
         <h2> Our Awesome Phaser Sandbox - Now more Reacty </h2>
         <Sandbox />
+        <button>Load Data</button>
       </div>
     );
   }
