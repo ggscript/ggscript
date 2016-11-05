@@ -29,7 +29,7 @@
     "compile": "webpack",
     "start-dev": "webpack-dev-server --inline --content-base ./client/public",
     "build": "webpack --config webpack.config.js",
-    "heroku-prebuild": "webpack --config webpack.config.js"
+    "heroku-postbuild": "webpack --config webpack.config.js"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"
