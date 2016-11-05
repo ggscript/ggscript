@@ -2,18 +2,22 @@
   "name": "ggscript",
   "version": "0.0.1",
   "private": true,
-  "devDependencies": {},
+  "devDependencies": {
+    "css-loader": "^0.25.0"
+  },
   "dependencies": {
     "babel-core": "6.11.4",
     "babel-loader": "^6.2.7",
     "babel-preset-es2015": "6.9.0",
     "babel-preset-es2016": "6.11.3",
     "babel-preset-react": "6.11.1",
+    "css-loader": "^0.25.0",
     "express": "^4.14.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.3"
   },
   "scripts": {
