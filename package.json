@@ -23,7 +23,7 @@
     "webpack": "^1.13.3"
   },
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "compile": "webpack",
     "start-dev": "webpack-dev-server --inline --content-base ./client/public"
   },
