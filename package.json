@@ -25,7 +25,7 @@
     "webpack-dev-middleware": "^1.8.4"
   },
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "compile": "webpack",
     "start-dev": "webpack-dev-server --inline --content-base ./client/public",
     "build": "webpack --config webpack.config.js",
