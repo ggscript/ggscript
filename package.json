@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
-    "css-loader": "^0.25.0"
+    "css-loader": "^0.25.0",
+    "http-server": "^0.9.0",
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "babel-core": "6.11.4",
@@ -22,7 +24,8 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "compile": "webpack"
+    "compile": "webpack",
+    "start-dev": "webpack-dev-server --inline --content-base ./client/public"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"
