@@ -17,7 +17,8 @@
     "webpack": "^1.13.3"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "compile": "webpack"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"
