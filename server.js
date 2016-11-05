@@ -7,16 +7,19 @@ var app = express();
 var compiler = webpack(webpackConfig);
  
 app.use(express.static(__dirname + '/client/public'));
- 
-app.use(webpackDevMiddleware(compiler, {
-  hot: true,
-  filename: 'bundle.js',
-  publicPath: '/',
-  stats: {
-    colors: true,
-  },
-  historyApiFallback: true,
-}));
+
+//use the webpackdevmiddleware if NODE_ENV is not production
+if (process.env.NODE_ENV !== 'production') {
+  app.use(webpackDevMiddleware(compiler, {
+    hot: true,
+    filename: 'bundle.js',
+    publicPath: '/',
+    stats: {
+      colors: true,
+    },
+    historyApiFallback: true,
+  }));  
+}
 
 app.get('/api/test', function(req, res) {
   console.log('request recieved');

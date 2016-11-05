@@ -18,14 +18,18 @@
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",
+    "react-router": "^3.0.0",
     "redux": "^3.5.2",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "webpack-dev-middleware": "^1.8.4"
   },
   "scripts": {
     "start": "nodemon server.js",
     "compile": "webpack",
-    "start-dev": "webpack-dev-server --inline --content-base ./client/public"
+    "start-dev": "webpack-dev-server --inline --content-base ./client/public",
+    "build": "webpack --config webpack.config.js",
+    "heroku-prebuild": "webpack --config webpack.config.js"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"
