@@ -1,3 +1,5 @@
+'use strict';
+
 import React, { Component } from 'react';
 import './App.css';
 import Sandbox from './components/Sandbox';
@@ -11,6 +13,6 @@ class App extends Component {
       </div>
     );
   }
-}
+};
 
 export default App;
