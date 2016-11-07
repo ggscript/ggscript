@@ -1,12 +1,12 @@
 var path = require('path');
 
 var config = {
-  context: path.join(__dirname, 'client/app'),
+  context: path.join(__dirname, '../client/app'),
   entry: [
     './index.js',
   ],
   output: {
-    path: path.join(__dirname, 'client/public'),
+    path: path.join(__dirname, '../client/public'),
     filename: 'bundle.js',
   },
   module: {
@@ -23,12 +23,12 @@ var config = {
   },
   resolveLoader: {
     root: [
-      path.join(__dirname, 'node_modules'),
+      path.join(__dirname, '../node_modules'),
     ],
   },
   resolve: {
     root: [
-      path.join(__dirname, 'node_modules'),
+      path.join(__dirname, '../node_modules'),
     ],
   },
 };
