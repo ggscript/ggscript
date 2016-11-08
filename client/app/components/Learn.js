@@ -6,7 +6,6 @@ require('../../../node_modules/codemirror/addon/edit/matchbrackets.js');
 require('../../../node_modules/codemirror/addon/edit/closebrackets.js');
 require('../../../node_modules/codemirror/addon/hint/javascript-hint.js');
 require('../../../node_modules/codemirror/addon/hint/show-hint.js');
-// require('../../../node_modules/phaser/src/Phaser.js');
 
 class Sandbox extends React.Component {
   constructor(props) {
