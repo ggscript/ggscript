@@ -8,7 +8,7 @@ import SampleApp from './components/SampleApp'
 import { Router, Route, hashHistory } from 'react-router'
 import Login from './components/Login'
 import Logout from './components/Logout'
-import Learn from './components/Learn'
+import { Sandbox } from './components/Learn'
 import Home from './components/Home'
 import Profile from './components/Profile'
 
@@ -20,7 +20,7 @@ render(
     <Router history={hashHistory}>
       <Route path="/" component={App}>
         <Route path="/home" component={Home}/>
-        <Route path="/learn" component={Learn}/>
+        <Route path="/learn" component={Sandbox}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/logout" component={Logout}/>
         <Route path="/login" component={Login}/>
