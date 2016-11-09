@@ -21,6 +21,8 @@ var config = {
       }
     ],
   },
+  debug: true,
+  devtool: "#eval-source-map",
   resolveLoader: {
     root: [
       path.join(__dirname, '../node_modules'),
