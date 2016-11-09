@@ -23,7 +23,7 @@ class App extends React.Component {
           <li><NavLink to="/login">Log In</NavLink></li>
           <li><NavLink to="/logout">Log Out</NavLink></li>
         </ul>
-        <div>{`these are da props ${this.props.data.profile.display_name}`}</div>
+        <div>{`these are da props ${this.props.data.username}`}</div>
         {this.props.children}
       </div>
     )
@@ -31,9 +31,7 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state){
-  return {
-    data: state
-  };
+  return {data: state.initializeStore};
 }
 
 function mapDispatchToProps(dispatch){
