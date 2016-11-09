@@ -3,11 +3,14 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import NavLink from '../components/NavLink'
 import { initializeStore } from '../actions'
+import { bindActionCreators } from 'redux';
+//makes sure action flows thru reducers
 
 
 class App extends React.Component {
   componentWillMount(){
     this.props.initializeStore();
+    console.log(this, 'this');
   }
   render() {
     return (
@@ -20,18 +23,21 @@ class App extends React.Component {
           <li><NavLink to="/login">Log In</NavLink></li>
           <li><NavLink to="/logout">Log Out</NavLink></li>
         </ul>
-        <div>{`these are da props ${this.props.username}`}</div>
+        <div>{`these are da props ${this.props.data.profile.display_name}`}</div>
         {this.props.children}
       </div>
     )
   }
 }
 
-function mapStateToProps({username}){
-  return {username: username};
+function mapStateToProps(state){
+  return {
+    data: state
+  };
 }
 
 function mapDispatchToProps(dispatch){
+  // return bindActionCreators({ initializeStore: initializeStore }, dispatch)
   return {
     initializeStore: () => {
       dispatch(initializeStore())
@@ -39,9 +45,8 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-const containerApp = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(App);
 
-export default containerApp
