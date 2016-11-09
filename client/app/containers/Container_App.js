@@ -16,12 +16,12 @@ class App extends React.Component {
         <ul role="nav">
           <li><NavLink to="/sampleApp">Sample App</NavLink></li>
           <li><NavLink to="/Home">Home</NavLink></li>
-          <li><NavLink to="/learn">Sandbox</NavLink></li>
+          <li><NavLink to="/learn">Learn</NavLink></li>
+          <li><NavLink to="/sandbox">Sandbox</NavLink></li>
           <li><NavLink to="/profile">Profile</NavLink></li>
           <li><NavLink to="/login">Log In</NavLink></li>
           <li><NavLink to="/logout">Log Out</NavLink></li>
         </ul>
-        <div>{`these are da props ${this.props.data.username}`}</div>
         {this.props.children}
       </div>
     )

@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux'
 import todos from './todos'
 import visibilityFilter from './visibilityFilter'
-import initializeStore from './initializeStore'
+import initializeStore from './Reducer_InitializeStore'
+import getLevelData from './Reducer_GetLevelData'
 
-const todoApp = combineReducers({
+const ggscript = combineReducers({
   todos,
   visibilityFilter,
-  initializeStore
+  initializeStore,
+  getLevelData
 })
 
 
-export default todoApp
+export default ggscript
