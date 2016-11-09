@@ -1,4 +1,4 @@
-const profile = (state = {}, action) => {
+const initializeStore = (state = {}, action) => {
   switch (action.type) {
     case 'INITIALIZE_STORE':
       console.log(action.data, 'action');
@@ -10,4 +10,4 @@ const profile = (state = {}, action) => {
   }
 }
 
-export default profile
+export default initializeStore
