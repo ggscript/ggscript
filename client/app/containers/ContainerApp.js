@@ -8,6 +8,7 @@ import { initializeStore } from '../actions'
 class App extends React.Component {
   componentWillMount(){
     this.props.initializeStore();
+    console.log(this, 'this')
   }
   render() {
     return (
@@ -20,15 +21,15 @@ class App extends React.Component {
           <li><NavLink to="/login">Log In</NavLink></li>
           <li><NavLink to="/logout">Log Out</NavLink></li>
         </ul>
-        <div>{`these are da props ${this.props.username}`}</div>
+        <div>{`these are da props ${this.props.data.username}`}</div>
         {this.props.children}
       </div>
     )
   }
 }
 
-function mapStateToProps({username}){
-  return {username: username};
+function mapStateToProps(state){
+  return {data: state.initializeStore};
 }
 
 function mapDispatchToProps(dispatch){

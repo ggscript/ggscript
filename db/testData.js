@@ -340,6 +340,7 @@ levelData = {
   level: '4',
   level_name: 'Mordor',
   prompt: 'Do the game',
+  description: 'Read the docs',
   hint_1: 'semicolons?',
   hint_2: 'did you check the docs?',
   hint_3: '¯\_(ツ)_/¯',
