@@ -20,14 +20,15 @@ class App extends React.Component {
           <li><NavLink to="/login">Log In</NavLink></li>
           <li><NavLink to="/logout">Log Out</NavLink></li>
         </ul>
+        <div>{`these are da props ${this.props.username}`}</div>
         {this.props.children}
       </div>
     )
   }
 }
 
-function mapStateToProps(){
-  return {};
+function mapStateToProps({username}){
+  return {username: username};
 }
 
 function mapDispatchToProps(dispatch){

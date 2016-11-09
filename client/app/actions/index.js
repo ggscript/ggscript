@@ -28,7 +28,7 @@ export const toggleTodo = (id) => {
 // renamed optimistic action creator - this won't be called directly 
 // by the React components anymore, but from our async thunk function
 export function initializeStoreUponResponse(data) {
-  return { type: INITIALIZE_STORE, data };
+  return { type: 'INITIALIZE_STORE', data };
 }
 
 // the async action creator uses the name of the old action creator, so 
@@ -53,8 +53,7 @@ export function initializeStore(text) {
     fetch('http://localhost:3000/api/dummydata/users', {
       method: 'get'
     }).then(response => {
-        console.log(response, 'rsponse from server');
-        dispatch(initializeStoreUponResponse(response));
+        response.json().then(res => dispatch(initializeStoreUponResponse(res))).catch(err => {console.log(err)})
     }).catch(err => {
         console.log(err);
     });

@@ -1,9 +1,9 @@
 const profile = (state = {}, action) => {
   switch (action.type) {
-    case 'loggedin':
-      return {
-        isloggedin: true,
-      }
+    case 'INITIALIZE_STORE':
+      console.log(action.data, 'action');
+      console.log(state, 'state');
+      return action.data
 
     default:
       return state
