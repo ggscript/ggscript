@@ -32,10 +32,10 @@
   "scripts": {
     "start": "node server/server.js",
     "compile": "webpack",
-    "start-dev": "webpack-dev-server --inline --content-base client/public --config config/webpack.config.js",
+    "start-dev": "webpack-dev-server --inline --content-base client/public --config config/webpack.dev.config.js",
     "build": "webpack --config config/webpack.config.js",
     "heroku-postbuild": "webpack --config config/webpack.config.js",
-    "test": "node spec/jasmine-runner.js"
+    "test": "NODE_ENV=production node spec/jasmine-runner.js"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"
