@@ -1,7 +1,5 @@
 var dummy = require('../db/testData');
 
-
-
 module.exports = {
 
   //send the dummy user data back

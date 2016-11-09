@@ -1,9 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router'
-import NavLink from './NavLink'
+import { connect } from 'react-redux'
+import NavLink from '../components/NavLink'
+import { initializeStore } from '../actions'
 
 
-export default React.createClass({
+class App extends React.Component {
+  componentWillMount(){
+    this.props.initializeStore();
+  }
   render() {
     return (
       <div>
@@ -19,4 +24,23 @@ export default React.createClass({
       </div>
     )
   }
-})
+}
+
+function mapStateToProps(){
+  return {};
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    initializeStore: () => {
+      dispatch(initializeStore())
+    }
+  }
+}
+
+const containerApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
+
+export default containerApp
