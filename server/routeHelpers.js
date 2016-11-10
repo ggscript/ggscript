@@ -30,6 +30,7 @@ module.exports = {
     // Only logged in users can access their current level
     } else {
       db.query(`SELECT * from leveldata, users WHERE users.currlevel = leveldata.id`)
+      // db.query(`SELECT * from leveldata`)
         .on('end', (result) => {
           res.send(result.rows);
         });
