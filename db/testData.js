@@ -7,7 +7,7 @@ userData = {
   level: '4'
 };
 
-var novice = `var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
+var novice = `var game = new Phaser.Game(600, 450, Phaser.CANVAS, 'gamebox', { preload: preload, create: create, update: update });
 
 function preload() {
   game.load.image('pandaback', 'http://thesmashable.com/wp-content/uploads/2013/12/free-christmas-tree-background-christmas-patterns-christmas-wallpapers.png');
@@ -157,7 +157,7 @@ function collectSushi (player, sushi) {
 }
  `;
 
-var heroic = `var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
+var heroic = `var game = new Phaser.Game(600, 450, Phaser.CANVAS, 'gamebox', { preload: preload, create: create, update: update });
 
 function preload() {
   game.load.image('pandaback', 'http://thesmashable.com/wp-content/uploads/2013/12/free-christmas-tree-background-christmas-patterns-christmas-wallpapers.png');
@@ -304,7 +304,7 @@ function collectSushi (player, sushi) {
 }
  `
 
-var mythic = `var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
+var mythic = `var game = new Phaser.Game(600, 450, Phaser.CANVAS, 'gamebox', { preload: preload, create: create, update: update });
 
 function preload() {
   // good luck ;)

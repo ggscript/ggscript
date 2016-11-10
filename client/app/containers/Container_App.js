@@ -30,9 +30,9 @@ class App extends React.Component {
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <ul className="nav navbar-nav" role="nav">
-              <li><NavLink to="/Home">Home</NavLink></li>
-              <li><NavLink to="/sampleApp">Learn Phaser</NavLink></li>
-              <li><NavLink to="/learn">Sandbox</NavLink></li>
+              <li><NavLink to="/home">Home</NavLink></li>
+              <li><NavLink to="/learn">Learn Phaser</NavLink></li>
+              <li><NavLink to="/sandbox">Sandbox</NavLink></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li><NavLink id="logged" to="/login">Log In</NavLink></li>

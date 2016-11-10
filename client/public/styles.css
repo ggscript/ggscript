@@ -3,18 +3,33 @@
   color: green;
 }
 
-canvas {
-	display: inline;
-}
 
 body {
 	background-color: white;
 }
 
+#gamebox {
+  display: inline-block !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+#prompt {
+  font-weight: bolder;
+  padding: 10px;
+  font-size: 1.5em;
+}
+
 html {
 	font-family: 'video';
 }
-
+.ReactCodeMirror{
+  display: inline-block;
+  height:  450px;
+  width: -webkit-calc(100% - 600px);
+  width:    -moz-calc(100% - 600px);
+  width:         calc(100% - 600px);
+}
 #gameCard {
 	color: white;
 	background-color: #212121;
@@ -58,8 +73,12 @@ html {
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
-  height: 300px;
+  height: 100%;
+  width: 100%;
   color: black;
+  margin: 0px;
+  padding: 0px;
+  display: block;
 }
 
 /* PADDING */
