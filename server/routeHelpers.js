@@ -18,5 +18,21 @@ module.exports = {
       .on('end', (result) => {
       res.send(result.rows);
     });
+  },
+  // Returns all level 1 data which is availale to anyone visting our site otherwise access is restricted
+  sendLevelData: function(req, res) {
+    // Users not logged in can access level 1 (req.user.session?)
+    if(!true){
+      db.query(`SELECT * from leveldata WHERE leveldata.id = 1`)
+        .on('end', (result) => {
+          res.send(result.rows);
+        });
+    // Only logged in users can access their current level
+    } else {
+      db.query(`SELECT * from leveldata, users WHERE users.currlevel = leveldata.id`)
+        .on('end', (result) => {
+          res.send(result.rows);
+        });
+    }
   }
 }
