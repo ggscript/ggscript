@@ -10,7 +10,7 @@ import Login from './components/Login'
 import Logout from './components/Logout'
 import Sandbox from './components/Learn'
 import Home from './components/Home'
-import Profile from './components/Profile'
+import Profile from './containers/Container_Profile'
 import thunk from 'redux-thunk'
 
 let store =  applyMiddleware(thunk)(createStore)(todoApp);

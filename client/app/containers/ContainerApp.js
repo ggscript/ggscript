@@ -10,17 +10,16 @@ class App extends React.Component {
   componentWillMount(){
     this.props.initializeStore();
     this.setState({navTitle: ''})
-    $('#logout').hide();
   }
   componentWillReceiveProps(nextProps) {
     console.log(nextProps.data.username);
     var navTitle= '';
-    if(nextProps.data.username2) {
+    if(nextProps.data.username) {
       navTitle = "Welcome, "+ nextProps.data.username;
       $('#logged').hide();
     }
-    if(!nextProps.data.username2) {
-      navTitle = '';
+    if(!nextProps.data.username) {
+      $('#logout').hide();
       $('#profile').hide();
     }
     this.setState({navTitle: navTitle});

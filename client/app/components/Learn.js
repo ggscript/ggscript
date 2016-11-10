@@ -11,7 +11,7 @@ class Sandbox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: "var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', { preload: preload, create: create }); \nfunction preload() {\n} \nfunction create() {\n}"
+      code: "var game = new Phaser.Game(600, 450, Phaser.CANVAS, '', { preload: preload, create: create }); \nfunction preload() {\n} \nfunction create() {\n}"
     }
   }
   updateCode(newCode) {
@@ -42,6 +42,10 @@ class Sandbox extends React.Component {
   	document.getElementsByTagName('canvas')[0].remove();
   }
 
+  shouldComponentUpdate(){
+  	document.getElementsByTagName('canvas').addClass('col-sm-3');
+  }
+
   render() {
     const options = {
       lineNumbers: true,
@@ -55,8 +59,10 @@ class Sandbox extends React.Component {
     };
     return (
     	<div>
-    		<Codemirror value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
-    		<button className="btn btn-default" onClick={this.loadCode.bind(this)}> Load Data </button>
+    		<div className="col-sm-10">
+    			<Codemirror value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
+    		</div>
+    		<button onClick={this.loadCode.bind(this)}> Load Data </button>
     		<div id="gameCode"></div>
     	</div>
     	)
