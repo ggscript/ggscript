@@ -17,7 +17,8 @@ const customStyles = {
     left              : 0,
     right             : 0,
     bottom            : 0,
-    backgroundColor   : 'rgba(255, 255, 255, 255)'
+    backgroundColor   : 'rgba(255, 255, 255, .5)',
+    zIndex            : '10'
   },
   content : {
     position                   : 'absolute',
@@ -26,12 +27,13 @@ const customStyles = {
     right                      : '10%',
     bottom                     : '10%',
     border                     : '3px solid #ccc',
-    background                 : 'rgba(255, 255, 255, 255)',
+    backgroundColor            : 'rgba(255, 255, 255, 1)',
     overflow                   : 'auto',
     WebkitOverflowScrolling    : 'touch',
     borderRadius               : '30px',
     outline                    : 'none',
-    padding                    : '50px'
+    padding                    : '50px',
+    zIndex                     : '100'
   }
 };
 
@@ -50,7 +52,7 @@ class Learn extends React.Component {
 
   afterOpenModal() {
     // references are now sync'd and can be accessed.
-    this.refs.subtitle.style.color = '#f00';
+    // this.refs.subtitle.style.color = '#f00';
   }
 
   closeModal() {
@@ -65,6 +67,19 @@ class Learn extends React.Component {
     this.setState({
       code: newCode
     });
+  }
+
+  startLevel(code, level) {
+    var selectedCode = this.props[code];
+    //load the code base based on the user's selected difficulty level;
+    this.setState({
+      code: selectedCode
+    }) 
+    //change the difficulty level to the current selected level, used for sending response to server later
+    this.setState({
+      difficultyLevel: level,
+    })
+    this.closeModal();
   }
 
   loadCode() {
@@ -106,24 +121,23 @@ class Learn extends React.Component {
     return (
       <div>
         <button onClick={this.openModal.bind(this)}>Open Modal</button>
+        {/*pop up modal for giving level description before start*/}
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
-          contentLabel="Example Modal"
-        >
+          contentLabel="Example Modal">
 
-          <h2 ref="subtitle">Hello</h2>
-          <button onClick={this.closeModal.bind(this)}>close</button>
-          <div>I am a modal</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
+          <h1 ref="subtitle">Welcome to Level {this.props.level}!</h1>
+          <h2>{this.props.level_name}</h2>
+          <h2>Description:</h2>
+          <div>{this.props.description}</div>
+          <br></br>
+          <h3>What difficulty level would you like to complete {this.props.level_name} at?</h3>
+          <button onClick={this.startLevel.bind(this, 'novice_level_code', 'Novice')}>Novice</button>
+          <button onClick={this.startLevel.bind(this, 'heroic_level_code', 'Heroic')}>Heroic</button>
+          <button onClick={this.startLevel.bind(this, 'mythic_level_code', 'Mythic')}>Mythic</button>
         </Modal>
         <div>{`Level: ${this.props.level} Level Description: ${this.props.description}
         Level Name: ${this.props.level_name} Prompt: ${this.props.prompt}
@@ -131,8 +145,8 @@ class Learn extends React.Component {
         Hint 2: ${this.props.hint_2} Hint 3: ${this.props.hint_3}`}
         </div>
         <Codemirror value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
-        <button onClick={this.loadCode.bind(this)}> Load Data </button>
         <div id="gameCode"></div>
+        <button onClick={this.loadCode.bind(this)}> Load Data </button>
       </div>
       )
   }
