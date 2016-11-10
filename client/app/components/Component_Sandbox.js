@@ -44,7 +44,6 @@ class Sandbox extends React.Component {
     document.getElementById('gameScript').remove();
     document.getElementsByTagName('canvas')[0].remove();
   }
-  //comment
 
   render() {
     const options = {
