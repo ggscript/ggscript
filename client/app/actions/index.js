@@ -1,6 +1,8 @@
+import getLevelData from './Action_GetLevelData'
+
 let nextTodoId = 0
 
-export const addTodo = (text) => {
+const addTodo = (text) => {
   return {
     type: 'ADD_TODO',
     id: nextTodoId++,
@@ -9,7 +11,7 @@ export const addTodo = (text) => {
 }
 
 
-export const setVisibilityFilter = (filter) => {
+const setVisibilityFilter = (filter) => {
   return {
     type: 'SET_VISIBILITY_FILTER',
     filter
@@ -17,42 +19,24 @@ export const setVisibilityFilter = (filter) => {
 }
 
 
-export const toggleTodo = (id) => {
+const toggleTodo = (id) => {
   return {
     type: 'TOGGLE_TODO',
     id
   }
 }
 
-
-// renamed optimistic action creator - this won't be called directly 
-// by the React components anymore, but from our async thunk function
-export function initializeStoreUponResponse(data) {
+//this action creator is called from redux-thunk function (intializeStore)
+function initializeStoreUponResponse(data) {
   return { type: 'INITIALIZE_STORE', data };
 }
-
-// the async action creator uses the name of the old action creator, so 
-// it will get called by the existing code when a new todo item should 
-//  be added
-export function initializeStore(text) {
-  // we return a thunk function, not an action object!
-  // the thunk function needs to dispatch some actions to change the 
-  // Store status, so it receives the "dispatch" function as its first parameter
+//this is a thunk function that called initializeStoreUponResponse when a response is recieved
+function initializeStore(text) {
   return function(dispatch) {
-    // here starts the code that actually gets executed when the addTodo action 
-    // creator is dispatched
-
-    // first of all, let's do the optimistic UI update - we need to 
-    // dispatch the old synchronous action object, using the renamed 
-    // action creator
-    
-
-    // now that the Store has been notified of the new todo item, we 
-    // should also notify our server - we'll use here ES6 fetch function 
-    // to post the data
     fetch('http://localhost:3000/api/dummydata/users', {
       method: 'get'
     }).then(response => {
+      //parse the response and then called the action creator via promise
         response.json().then(res => dispatch(initializeStoreUponResponse(res))).catch(err => {console.log(err)})
     }).catch(err => {
         console.log(err);
@@ -61,4 +45,12 @@ export function initializeStore(text) {
   // this action creator
   return null; 
   }
+}
+
+export {
+  addTodo,
+  setVisibilityFilter,
+  toggleTodo,
+  initializeStore,
+  getLevelData
 }
