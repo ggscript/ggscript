@@ -2,10 +2,36 @@
 .active {
   color: green;
 }
+.homepage {
+	font-family: 'video'
+}
 
+a {
+	color: #333333 !important;
+}
 
 body {
 	background-color: white;
+	text-decoration: none !important;
+}
+
+#trophy {
+	height: 35%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("http://i.imgur.com/0jUvIEe.png?1");
+}
+#trophy:hover {
+	background-image: url("http://i.imgur.com/rbLEhOD.png?1");
+}
+#arcade {
+	height: 38%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("http://i.imgur.com/18mVifw.png?1");
+}
+#arcade:hover {
+	background-image: url("http://i.imgur.com/b97yqeG.png");
 }
 
 #gamebox {
@@ -23,6 +49,7 @@ body {
 html {
 	font-family: 'video';
 }
+
 .ReactCodeMirror{
   display: inline-block;
   height:  450px;
@@ -30,6 +57,7 @@ html {
   width:    -moz-calc(100% - 600px);
   width:         calc(100% - 600px);
 }
+
 #gameCard {
 	color: white;
 	background-color: #212121;
