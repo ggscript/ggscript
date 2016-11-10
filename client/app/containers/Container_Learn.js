@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getLevelData } from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
+import { bindActionCreators } from 'redux';
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
 require('../../../node_modules/codemirror/addon/edit/matchbrackets.js');
 require('../../../node_modules/codemirror/addon/edit/closebrackets.js');
@@ -73,16 +74,18 @@ class Learn extends React.Component {
     var selectedCode = this.props[code];
     //load the code base based on the user's selected difficulty level;
     this.setState({
-      code: selectedCode
-    }) 
-    //change the difficulty level to the current selected level, used for sending response to server later
-    this.setState({
-      difficultyLevel: level,
-    })
+      code: selectedCode,
+      difficultyLevel: level
+    }, function() {
+      //after state has been set (happens asyncronously), load code
+      this.loadCode();
+    });
     this.closeModal();
+    this.loadCode();
   }
 
   loadCode() {
+  
     document.getElementsByTagName('canvas')[0].remove();
     document.getElementById('gameScript').remove();
     const script = document.createElement("script");
@@ -121,7 +124,6 @@ class Learn extends React.Component {
     };
     return (
       <div>
-        <button onClick={this.openModal.bind(this)}>Open Modal</button>
         {/*pop up modal for giving level description before start*/}
         <Modal
           isOpen={this.state.modalIsOpen}
@@ -140,10 +142,7 @@ class Learn extends React.Component {
           <button onClick={this.startLevel.bind(this, 'heroic_level_code', 'Heroic')}>Heroic</button>
           <button onClick={this.startLevel.bind(this, 'mythic_level_code', 'Mythic')}>Mythic</button>
         </Modal>
-        <div>{`Level: ${this.props.level} Level Description: ${this.props.description}
-        Level Name: ${this.props.level_name} Prompt: ${this.props.prompt}
-        Description: ${this.props.description} Hint 1: ${this.props.hint_1}
-        Hint 2: ${this.props.hint_2} Hint 3: ${this.props.hint_3}`}
+        <div id="prompt">{`Level: ${this.props.level_name} | Difficulty: ${this.state.difficultyLevel} | Mission: ${this.props.prompt}`}
         </div>
         <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
         <div id="gamebox"></div>
@@ -165,7 +164,8 @@ function mapStateToProps(state){
     hint_3: state.getLevelData.hint_3,
     heroic_level_code: state.getLevelData.heroic_level_code,
     mythic_level_code: state.getLevelData.mythic_level_code,
-    novice_level_code: state.getLevelData.novice_level_code
+    novice_level_code: state.getLevelData.novice_level_code,
+    difficultyLevel: state.getLevelData.difficultyLevel
   }
 }
 
@@ -173,7 +173,8 @@ function mapDispatchToProps(dispatch){
   return {
     getLevelData: () => {
       dispatch(getLevelData())
-    }
+    },
+    dispatch: dispatch
   }
 }
 

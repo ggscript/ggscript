@@ -5,6 +5,11 @@ const initializeStore = (state = {}, action) => {
       console.log(state, 'state');
       return action
 
+    case 'UPDATE_STORE':
+      console.log(action, 'action');
+      console.log(state, 'state');
+      return action
+
     default:
       return state
   }
