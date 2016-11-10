@@ -8,16 +8,25 @@ body {
 	background-color: white;
 }
 
+.navbar {
+  margin: 0px !important;
+}
+
 #gamebox {
   display: inline-block !important;
   margin: 0px !important;
-  padding: 0px !important;
+  padding: 0px 10px 0px 10px !important;
+  vertical-align: top;
 }
 
 #prompt {
   font-weight: bolder;
-  padding: 10px;
+  margin: 10px;
+  padding: 20px;
   font-size: 1.5em;
+  border-radius: 1px;
+  border: 10px;
+  background-color: #f2f2f2;
 }
 
 html {
@@ -25,10 +34,11 @@ html {
 }
 .ReactCodeMirror{
   display: inline-block;
-  height:  450px;
-  width: -webkit-calc(100% - 600px);
-  width:    -moz-calc(100% - 600px);
-  width:         calc(100% - 600px);
+  height:  80%;
+  width: -webkit-calc(100% - 630px);
+  width:    -moz-calc(100% - 630px);
+  width:         calc(100% - 630px);
+  padding-left: 10px;
 }
 #gameCard {
 	color: white;
@@ -67,6 +77,9 @@ html {
 	src: url('slkscr.ttf');
 }
 
+#learnbox {
+  display: block;
+}
 
 
 /*beginning of codemirror css*/

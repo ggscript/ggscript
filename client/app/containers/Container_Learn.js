@@ -123,7 +123,7 @@ class Learn extends React.Component {
       theme: 'pastel-on-dark',
     };
     return (
-      <div>
+      <div id="learnbox">
         {/*pop up modal for giving level description before start*/}
         <Modal
           isOpen={this.state.modalIsOpen}
@@ -138,6 +138,7 @@ class Learn extends React.Component {
           <div>{this.props.description}</div>
           <br></br>
           <h3>What difficulty level would you like to complete {this.props.level_name} at?</h3>
+        {/*button for choosing difficulty level*/}
           <button onClick={this.startLevel.bind(this, 'novice_level_code', 'Novice')}>Novice</button>
           <button onClick={this.startLevel.bind(this, 'heroic_level_code', 'Heroic')}>Heroic</button>
           <button onClick={this.startLevel.bind(this, 'mythic_level_code', 'Mythic')}>Mythic</button>
