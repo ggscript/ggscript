@@ -14,6 +14,11 @@ body {
   padding: 0px !important;
 }
 
+#prompt {
+  font-weight: bolder;
+  padding: 10px;
+  font-size: 1.5em;
+}
 
 html {
 	font-family: 'video';
