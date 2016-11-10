@@ -59,10 +59,14 @@ class Sandbox extends React.Component {
     return (
       <div>
         <h1 id='makeVideo'> Phaser Sandbox</h1>
-        <Codemirror id="sandboxCode" value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
-        <div id="gamebox"></div>
-        <div id="gameCode"></div>
+        <div id="moveright">
+        <Codemirror value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
+        <div id='sandboxrightside'>
+          <div id="gamebox"></div>
+        </div>
         <button onClick={this.loadCode.bind(this)}> Load Data </button>
+        <div id="gameCode"></div>
+        </div>
       </div>
       )
   }
