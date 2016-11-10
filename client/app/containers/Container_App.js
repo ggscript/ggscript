@@ -24,13 +24,14 @@ class App extends React.Component {
     }
     this.setState({navTitle: navTitle});
   }
+
   render() {
     return (
       <div>
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <ul className="nav navbar-nav" role="nav">
-              <li><NavLink to="/home">Home</NavLink></li>
+              <li><NavLink to="/">GGScript</NavLink></li>
               <li><NavLink to="/learn">Learn Phaser</NavLink></li>
               <li><NavLink to="/sandbox">Sandbox</NavLink></li>
             </ul>
