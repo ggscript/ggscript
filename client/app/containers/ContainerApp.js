@@ -6,24 +6,42 @@ import { initializeStore } from '../actions'
 import { bindActionCreators } from 'redux';
 //makes sure action flows thru reducers
 
-
 class App extends React.Component {
   componentWillMount(){
     this.props.initializeStore();
-    console.log(this, 'this');
+    this.setState({navTitle: ''})
+    $('#logout').hide();
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.data.username);
+    var navTitle= '';
+    if(nextProps.data.username2) {
+      navTitle = "Welcome, "+ nextProps.data.username;
+      $('#logged').hide();
+    }
+    if(!nextProps.data.username2) {
+      navTitle = '';
+      $('#profile').hide();
+    }
+    this.setState({navTitle: navTitle});
   }
   render() {
     return (
       <div>
-        <ul role="nav">
-          <li><NavLink to="/sampleApp">Sample App</NavLink></li>
-          <li><NavLink to="/Home">Home</NavLink></li>
-          <li><NavLink to="/learn">Sandbox</NavLink></li>
-          <li><NavLink to="/profile">Profile</NavLink></li>
-          <li><NavLink to="/login">Log In</NavLink></li>
-          <li><NavLink to="/logout">Log Out</NavLink></li>
-        </ul>
-        <div>{`these are da props ${this.props.data.username}`}</div>
+        <nav className="navbar navbar-default">
+          <div className="container-fluid">
+            <ul className="nav navbar-nav" role="nav">
+              <li><NavLink to="/Home">Home</NavLink></li>
+              <li><NavLink to="/sampleApp">Learn Phaser</NavLink></li>
+              <li><NavLink to="/learn">Sandbox</NavLink></li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li><NavLink id="logged" to="/login">Log In</NavLink></li>
+              <li><NavLink id="profile" to="/profile">{this.state.navTitle}</NavLink></li>
+              <li><NavLink id="logout" to="/logout">Log Out</NavLink></li>
+            </ul>
+          </div>
+        </nav>
         {this.props.children}
       </div>
     )
@@ -35,7 +53,6 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  // return bindActionCreators({ initializeStore: initializeStore }, dispatch)
   return {
     initializeStore: () => {
       dispatch(initializeStore())

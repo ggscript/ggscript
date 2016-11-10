@@ -56,7 +56,7 @@ class Sandbox extends React.Component {
     return (
     	<div>
     		<Codemirror value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
-    		<button onClick={this.loadCode.bind(this)}> Load Data </button>
+    		<button className="btn btn-default" onClick={this.loadCode.bind(this)}> Load Data </button>
     		<div id="gameCode"></div>
     	</div>
     	)
