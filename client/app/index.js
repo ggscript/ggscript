@@ -19,8 +19,8 @@ let store =  applyMiddleware(thunk)(createStore)(ggscript);
 render(
   <Provider store={store}>
     <Router history={hashHistory}>
-      <Route path="/" component={App}>
-        <Route path="/home" component={Home}/>
+      <Route component={App}>
+        <Route path="/" component={Home}/>
         <Route path="/learn" component={Learn}/>
         <Route path="/sandbox" component={Sandbox}/>
         <Route path="/profile" component={Profile}/>
