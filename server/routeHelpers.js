@@ -12,9 +12,10 @@ module.exports = {
   sendDummyLevelData: function(req, res) {
     res.send(dummy.levelData);
   },
-
+  // Returns all user data including name, picture, games titles, game code, etc
   sendUserData: function(req, res) {
-    db.query(`SELECT * FROM users WHERE users.id = 1`).on('end', (result) => {
+    db.query(`SELECT * FROM users, titlepoints, games WHERE users.id = 1 AND titlepoints.points = users.points`)
+      .on('end', (result) => {
       res.send(result.rows);
     });
   }
