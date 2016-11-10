@@ -1,4 +1,5 @@
 var dummy = require('../db/testData');
+var db = require('../db/db');
 
 module.exports = {
 
@@ -10,5 +11,11 @@ module.exports = {
   // send the dummy level data back
   sendDummyLevelData: function(req, res) {
     res.send(dummy.levelData);
+  },
+
+  sendUserData: function(req, res) {
+    db.query(`SELECT * FROM users WHERE users.id = 1`).on('end', (result) => {
+      res.send(result.rows);
+    });
   }
 }
