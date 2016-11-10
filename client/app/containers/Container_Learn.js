@@ -41,7 +41,7 @@ class Learn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: "var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', { preload: preload, create: create }); \nfunction preload() {\n} \nfunction create() {\n}",
+      code: "var game = new Phaser.Game(600, 450, Phaser.CANVAS, 'gamebox', { preload: preload, create: create }); \nfunction preload() {\n} \nfunction create() {\n}",
       modalIsOpen: false
     }
   }
@@ -113,7 +113,7 @@ class Learn extends React.Component {
       lineNumbers: true,
       mode: 'javascript',
       tabSize: 2,
-      // lineWrapping: true,
+      lineWrapping: true,
       matchBrackets: true,
       // autoCloseBrackets: true,
       // styleActiveLine: true,
@@ -145,7 +145,8 @@ class Learn extends React.Component {
         Description: ${this.props.description} Hint 1: ${this.props.hint_1}
         Hint 2: ${this.props.hint_2} Hint 3: ${this.props.hint_3}`}
         </div>
-        <Codemirror value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
+        <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
+        <div id="gamebox"></div>
         <div id="gameCode"></div>
         <button onClick={this.loadCode.bind(this)}> Load Data </button>
       </div>
