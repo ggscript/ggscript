@@ -334,41 +334,41 @@ connection.query(`INSERT INTO difflevelpoints
 // Gets user status title based upon points they currently have
 // Title will not change every time points change so need to set up logic
 // for when points hit a certain threshold, update user status title
-connection.query(
-  `SELECT title FROM titlepoints, users
-    WHERE users.id = 1 AND users.points = titlepoints.points`,
-    (err) => {
-      if(err) {
-        console.error(err);
-      } else {
-        console.log('Cannot get user title');
-      }
-});
+// connection.query(
+//   `SELECT title FROM titlepoints, users
+//     WHERE users.id = 1 AND users.points = titlepoints.points`,
+//     (err) => {
+//       if(err) {
+//         console.error(err);
+//       } else {
+//         console.log('Cannot get user title');
+//       }
+// });
 
-// Gets name of saved game based on user
-connection.query(
-  `SELECT title FROM games
-    WHERE users.id = 1`,
-    (err) => {
-      if(err) {
-        console.error(err);
-      } else {
-        console.log('Cannot get user title');
-      }
-});
+// // Gets name of saved game based on user
+// connection.query(
+//   `SELECT title FROM games
+//     WHERE users.id = 1`,
+//     (err) => {
+//       if(err) {
+//         console.error(err);
+//       } else {
+//         console.log('Cannot get user title');
+//       }
+// });
 
-// Grab users current level data (all data) AND need all saved game titles
-`SELECT * FROM leveldata, users WHERE (users.currlevel = leveldata.id)`
+// // Grab users current level data (all data) AND need all saved game titles
+// `SELECT * FROM leveldata, users WHERE (users.currlevel = leveldata.id)`
 
-// For not logged in users, only allow them to do level 1
-`SELECT * FROM leveldata WHERE leveldata.id = 1`
+// // For not logged in users, only allow them to do level 1
+// `SELECT * FROM leveldata WHERE leveldata.id = 1`
 
-// Update user points based on level they chose
-// Chain queries, get appropriate point value then update user points
-`UPDATE users SET points = points + 10 WHERE users.id = 1`
+// // Update user points based on level they chose
+// // Chain queries, get appropriate point value then update user points
+// `UPDATE users SET points = points + 10 WHERE users.id = 1`
 
-// If user advances to next level
-`UPDATE users SET currlevel = currlevel + 1 WHERE users.id = 1`
+// // If user advances to next level
+// `UPDATE users SET currlevel = currlevel + 1 WHERE users.id = 1`
 
 //CLIENT/SERVER INTERACTIONS
 
