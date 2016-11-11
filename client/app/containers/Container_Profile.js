@@ -8,10 +8,15 @@ import { initializeStore } from '../actions'
 //Make User info dynamic to received data
 
 class Profile extends React.Component {
-  
+
   componentWillMount(){
+    this.props.data.savedgames = [];
     this.props.initializeStore();
-    console.log(this);
+  }
+
+   componentDidMount(){
+    this.props.initializeStore();
+    console.log('DID MT ',this);
   }
 
   render() {
@@ -28,6 +33,7 @@ class Profile extends React.Component {
   				</div>
   				<div className="col-sm-8">
   					<h1> Your Saved Games! </h1>
+            {this.props.data.savedgames.map((title) => <div id="gameCard"><h3 className="gameTitle"> {title.title} </h3></div>)}
   					<div id="gameCard"> <h3 className="gameTitle"> Cute Panda Sushi Killer </h3> </div>
   					<div id="gameCard"> <h3 className="gameTitle"> Cats in Space </h3> </div>
   					<div id="gameCard"> <h3 className="gameTitle"> Meteor Destroyer - Work in Progress </h3> </div>
