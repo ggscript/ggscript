@@ -9,10 +9,10 @@ import { bindActionCreators } from 'redux';
 class App extends React.Component {
   componentWillMount(){
     this.props.initializeStore();
-    this.setState({navTitle: ''})
+    this.setState({navTitle: ''});
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.data.username);
+    console.log(nextProps);
     var navTitle= '';
     if(nextProps.data.username) {
       navTitle = "Welcome, "+ nextProps.data.username;
