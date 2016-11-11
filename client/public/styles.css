@@ -2,10 +2,52 @@
 .active {
   color: green;
 }
+.homepage {
+	font-family: 'video'
+}
 
+a {
+	color: #333333 !important;
+}
 
 body {
 	background-color: white;
+	text-decoration: none !important;
+}
+#makeVideo {
+	font-family: 'video'
+}
+#sandboxCode {
+	padding: 5px;
+}
+
+/*Behavior for Homepage Icon*/
+#trophy {
+	height: 35%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("http://i.imgur.com/0jUvIEe.png?1");
+}
+#trophy:hover {
+	background-image: url("http://i.imgur.com/rbLEhOD.png?1");
+}
+#arcade {
+	height: 38%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("http://i.imgur.com/18mVifw.png?1");
+}
+#arcade:hover {
+	background-image: url("http://i.imgur.com/b97yqeG.png");
+}
+#explore {
+	height: 38%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("http://i.imgur.com/YVKOWMg.png");
+}
+#explore:hover {
+	background-image: url("http://i.imgur.com/Tljiomv.png");
 }
 
 .navbar {
@@ -73,6 +115,7 @@ html {
 }
 
 /************************profile page styles*************************/
+
 #gameCard {
 	color: white;
 	background-color: #212121;
