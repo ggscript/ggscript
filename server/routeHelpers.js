@@ -12,13 +12,27 @@ module.exports = {
   sendDummyLevelData: function(req, res) {
     res.send(dummy.levelData);
   },
+
   // Returns all user data including name, picture, games titles, game code, etc
-  sendUserData: function(req, res) {
-    db.query(`SELECT * FROM users, titlepoints, games WHERE users.id = 1 AND titlepoints.points = users.points`)
+  sendUserData: function(req, res){
+    db.query(`SELECT * FROM users WHERE id = 1`)
       .on('end', (result) => {
-      res.send(result.rows);
-    });
+        db.query(`SELECT title, id FROM games WHERE games.userid = ${result.rows[0].id} `)
+        .on('end', (result2) => {
+          result.rows[0].savedgames = [];
+          for(var i = 0; i < result2.rows.length; i ++){
+            result.rows[0].savedgames.push(result2.rows[i]);
+          }  
+          db.query(`SELECT title FROM titlepoints WHERE points <= ${result.rows[0].points}`) 
+            .on('end', (result3) => {
+              result.rows[0].title = result3.rows[result3.rows.length-1].title;
+              res.send(result.rows[0]);
+            })
+        });
+      }
+    );
   },
+
   // Returns all level 1 data which is availale to anyone visting our site otherwise access is restricted
   sendLevelData: function(req, res) {
     // Users not logged in can access level 1 (req.user.session?)
@@ -28,8 +42,9 @@ module.exports = {
           res.send(result.rows);
         });
     // Only logged in users can access their current level
-    } else {
-      db.query(`SELECT * from leveldata, users WHERE users.currlevel = leveldata.id`)
+    // } else {
+    //   db.query(`SELECT * from leveldata, users WHERE users.currlevel = leveldata.id`)
+      db.query(`SELECT * from leveldata`)
         .on('end', (result) => {
           res.send(result.rows);
         });
