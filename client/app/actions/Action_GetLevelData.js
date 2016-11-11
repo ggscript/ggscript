@@ -1,10 +1,10 @@
 function loadLevelDataUponResponse(data) {
-  return {type: 'LOAD_LEVEL_DATA', level: data.level, level_name: data.level_name, prompt: data.prompt, description: data.description, hint_1: data.hint_1, hint_2: data.hint_2, hint_3: data.hint_3, heroic_level_code: data.heroic_level_code, mythic_level_code: data.mythic_level_code, novice_level_code: data.novice_level_code}
+  return {type: 'LOAD_LEVEL_DATA', id: data.id, levelname: data.levelname, prompt: data.prompt, description: data.description, hint1: data.hint1, hint2: data.hint2, hint3: data.hint3, heroiclevelcode: data.heroiclevelcode, mythiclevelcode: data.mythiclevelcode, novicelevelcode: data.novicelevelcode}
 };
 
 function getLevelData(text) {
   return function(dispatch) {
-    fetch('http://localhost:3000/api/dummydata/levels', {
+    fetch('api/leveldata', {
       method: 'get'
     })
     .then(response => {
@@ -18,9 +18,9 @@ function getLevelData(text) {
     ).catch(err => {
         console.log(err);
     });
-  // what you return here gets returned by the dispatch function that used   
+  // what you return here gets returned by the dispatch function that used
   // this action creator
-  return null; 
+  return null;
   };
 }
 

@@ -22,8 +22,8 @@ module.exports = {
           result.rows[0].savedgames = [];
           for(var i = 0; i < result2.rows.length; i ++){
             result.rows[0].savedgames.push(result2.rows[i]);
-          }  
-          db.query(`SELECT title FROM titlepoints WHERE points <= ${result.rows[0].points}`) 
+          }
+          db.query(`SELECT title FROM titlepoints WHERE points <= ${result.rows[0].points}`)
             .on('end', (result3) => {
               result.rows[0].title = result3.rows[result3.rows.length-1].title;
               res.send(result.rows[0]);
@@ -39,14 +39,14 @@ module.exports = {
     if(!true){
       db.query(`SELECT * from leveldata WHERE leveldata.id = 1`)
         .on('end', (result) => {
-          res.send(result.rows);
+          res.send(result.rows[0]);
         });
     // Only logged in users can access their current level
-    // } else {
-    //   db.query(`SELECT * from leveldata, users WHERE users.currlevel = leveldata.id`)
+    } else {
+      db.query(`SELECT * from leveldata, users WHERE users.currlevel = leveldata.id`)
       db.query(`SELECT * from leveldata`)
         .on('end', (result) => {
-          res.send(result.rows);
+          res.send(result.rows[0]);
         });
     }
   }

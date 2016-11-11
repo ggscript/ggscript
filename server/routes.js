@@ -6,7 +6,7 @@ module.exports.router = function(app) {
 
   app.get('/api/dummydata/levels', helpers.sendDummyLevelData);
 
-  app.get('/api/getuserdata', helpers.sendUserData);
+  app.get('/api/userdata', helpers.sendUserData);
 
-  app.get('/api/getleveldata', helpers.sendLevelData);
+  app.get('/api/leveldata', helpers.sendLevelData);
 };

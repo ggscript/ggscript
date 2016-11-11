@@ -33,17 +33,18 @@ function initializeStoreUponResponse(data) {
 //this is a thunk function that called initializeStoreUponResponse when a response is recieved
 function initializeStore(text) {
   return function(dispatch) {
-    fetch('http://localhost:3000/api/dummydata/users', {
+    fetch('/api/userdata', {
       method: 'get'
     }).then(response => {
       //parse the response and then called the action creator via promise
         response.json().then(res => dispatch(initializeStoreUponResponse(res))).catch(err => {console.log(err)})
+
     }).catch(err => {
         console.log(err);
     });
-  // what you return here gets returned by the dispatch function that used   
+  // what you return here gets returned by the dispatch function that used
   // this action creator
-  return null; 
+  return null;
   }
 }
 
