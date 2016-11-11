@@ -21,6 +21,7 @@
     "pg": "^6.1.0",
     "phaser": "^2.6.2",
     "react": "^15.2.1",
+    "react-bootstrap": "^0.30.6",
     "react-codemirror": "^0.2.6",
     "react-dom": "^15.2.1",
     "react-modal": "^1.5.2",
