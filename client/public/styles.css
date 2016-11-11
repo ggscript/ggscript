@@ -50,29 +50,71 @@ body {
 	background-image: url("http://i.imgur.com/Tljiomv.png");
 }
 
-#gamebox {
-  display: inline-block !important;
+.navbar {
   margin: 0px !important;
-  padding: 0px !important;
+}
+
+html {
+  font-family: 'video';
+}
+
+/********************************learn page styles***********************/
+#gamebox {
+  padding: 0px 0px 10px 0px !important;
+}
+#learnrightside {
+  display: inline-block;
+  margin: 0px !important;
+  padding: 0px 10px 0px 10px;
+  vertical-align: top;
+  height: 80%;
 }
 
 #prompt {
   font-weight: bolder;
-  padding: 10px;
+  margin: 10px;
+  padding: 20px;
   font-size: 1.5em;
+  border-radius: 1px;
+  border: 10px;
+  background-color: #f2f2f2;
 }
 
-html {
-	font-family: 'video';
+#hintandcontrols {
+  display: inline-block;
+
 }
+
+#hints {
+  text-align: center;
+}
+
+.hinthearts {
+  height: 60px;
+  width: 60px;
+  padding: 5px;
+  text-align: center;
+}
+
+#learnbuttons {
+  text-align: center;
+}
+
+.padded {
+  margin: 5px;
+}
+
 
 .ReactCodeMirror{
   display: inline-block;
-  height:  450px;
-  width: -webkit-calc(100% - 600px);
-  width:    -moz-calc(100% - 600px);
-  width:         calc(100% - 600px);
+  height:  80%;
+  width: -webkit-calc(100% - 630px);
+  width:    -moz-calc(100% - 630px);
+  width:         calc(100% - 630px);
+  padding-left: 10px;
 }
+
+/************************profile page styles*************************/
 
 #gameCard {
 	color: white;
@@ -111,6 +153,9 @@ html {
 	src: url('slkscr.ttf');
 }
 
+#learnbox {
+  display: block;
+}
 
 
 /*beginning of codemirror css*/
