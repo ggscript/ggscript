@@ -83,6 +83,7 @@ html {
   width: -webkit-calc(100% - 630px);
   width:    -moz-calc(100% - 630px);
   width:         calc(100% - 630px);
+  margin-bottom: 30px;
 }
 
 #gameCard {
