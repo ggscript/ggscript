@@ -123,7 +123,7 @@ class Learn extends React.Component {
       theme: 'pastel-on-dark',
     };
     return (
-      <div>
+      <div id="learnbox">
         {/*pop up modal for giving level description before start*/}
         <Modal
           isOpen={this.state.modalIsOpen}
@@ -138,6 +138,7 @@ class Learn extends React.Component {
           <div>{this.props.description}</div>
           <br></br>
           <h3>What difficulty level would you like to complete {this.props.level_name} at?</h3>
+        {/*button for choosing difficulty level*/}
           <button onClick={this.startLevel.bind(this, 'novice_level_code', 'Novice')}>Novice</button>
           <button onClick={this.startLevel.bind(this, 'heroic_level_code', 'Heroic')}>Heroic</button>
           <button onClick={this.startLevel.bind(this, 'mythic_level_code', 'Mythic')}>Mythic</button>
@@ -145,9 +146,25 @@ class Learn extends React.Component {
         <div id="prompt">{`Level: ${this.props.level_name} | Difficulty: ${this.state.difficultyLevel} | Mission: ${this.props.prompt}`}
         </div>
         <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
-        <div id="gamebox"></div>
-        <div id="gameCode"></div>
+        <div id="learnrightside">
+          <div id="gamebox">
+          </div>
+          <div className="text-center">
+            <div id="learnbuttons">
+              <button className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
+              <button className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Next Level </button>
+              <button className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Reset Level </button>
+            </div>
+            <div id="hints">
+              <img className="hinthearts" src="./assets/heart.png"></img>
+              <img className="hinthearts" src="./assets/heart.png"></img>
+              <img className="hinthearts" src="./assets/heart.png"></img>
+            </div>
+            Use A Hint?
+          </div>
+        </div>
         <button onClick={this.loadCode.bind(this)}> Load Data </button>
+        <div id="gameCode"></div>
       </div>
       )
   }
