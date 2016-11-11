@@ -17,10 +17,10 @@ class App extends React.Component {
     if(nextProps.data.username) {
       navTitle = "Welcome, "+ nextProps.data.username;
       $('#logged').hide();
-    }
-    if(!nextProps.data.username) {
-      $('#logout').hide();
-      $('#profile').hide();
+      if(!nextProps.data.username) {
+        $('#logout').hide();
+        $('#profile').hide();
+      }
     }
     this.setState({navTitle: navTitle});
   }

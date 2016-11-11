@@ -44,7 +44,6 @@ class Sandbox extends React.Component {
     document.getElementById('gameScript').remove();
     document.getElementsByTagName('canvas')[0].remove();
   }
-  //comment
 
   render() {
     const options = {
@@ -60,10 +59,27 @@ class Sandbox extends React.Component {
     return (
       <div>
         <h1 id='makeVideo'> Phaser Sandbox</h1>
-        <Codemirror id="sandboxCode" value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
-        <div id="gamebox"></div>
-        <div id="gameCode"></div>
-        <button onClick={this.loadCode.bind(this)}> Load Data </button>
+        <div id="moveright">
+        <Codemirror value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
+        <div id='sandboxrightside'>
+          <div id="gamebox"></div>
+        <div className="col-md-6 col-md-offset-3">
+        <button className="btn btn-default" onClick={this.loadCode.bind(this)}> Load Data </button>
+        <div id='dropdown' className="dropdown">
+          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Choose a Template
+          </button>
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+           <a className="dropdown-item" href="#">Space Game</a>
+           <a className="dropdown-item" href="#">Side Scroller</a>
+           <a className="dropdown-item" href="#">Adventure Game</a>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div id="gameCode">
+        </div>
+        </div>
       </div>
       )
   }

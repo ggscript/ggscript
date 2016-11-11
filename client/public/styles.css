@@ -6,9 +6,9 @@
 	font-family: 'video'
 }
 
-a {
+/*a {
 	color: #333333 !important;
-}
+}*/
 
 body {
 	background-color: white;
@@ -16,9 +16,6 @@ body {
 }
 #makeVideo {
 	font-family: 'video'
-}
-#sandboxCode {
-	padding: 5px;
 }
 
 /*Behavior for Homepage Icon*/
@@ -50,6 +47,23 @@ body {
 	background-image: url("http://i.imgur.com/Tljiomv.png");
 }
 
+
+/*SANDBOX STYLING*/
+
+#moveright {
+  margin-left: 10px !important;
+}
+
+#sandboxrightside {
+	display: inline-block;
+	margin: 0px !important;
+	padding: 0px 10px 0px 10px;
+	vertical-align: top;
+}
+#dropdown {
+	display: inline-block !important;
+	margin-left: 5px;
+}
 .navbar {
   margin: 0px !important;
 }
@@ -62,6 +76,7 @@ html {
 #gamebox {
   padding: 0px 0px 10px 0px !important;
 }
+
 #learnrightside {
   display: inline-block;
   margin: 0px !important;
@@ -111,6 +126,7 @@ html {
   width: -webkit-calc(100% - 630px);
   width:    -moz-calc(100% - 630px);
   width:         calc(100% - 630px);
+  margin-bottom: 30px;
   padding-left: 10px;
 }
 
@@ -158,7 +174,7 @@ html {
 }
 
 
-/*beginning of codemirror css*/
+/*beginning of codemirror css
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
