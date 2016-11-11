@@ -63,9 +63,22 @@ class Sandbox extends React.Component {
         <Codemirror value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
         <div id='sandboxrightside'>
           <div id="gamebox"></div>
+        <div className="col-md-6 col-md-offset-3">
+        <button className="btn btn-default" onClick={this.loadCode.bind(this)}> Load Data </button>
+        <div id='dropdown' className="dropdown">
+          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Choose a Template
+          </button>
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+           <a className="dropdown-item" href="#">Space Game</a>
+           <a className="dropdown-item" href="#">Side Scroller</a>
+           <a className="dropdown-item" href="#">Adventure Game</a>
         </div>
-        <button onClick={this.loadCode.bind(this)}> Load Data </button>
-        <div id="gameCode"></div>
+        </div>
+        </div>
+        </div>
+        <div id="gameCode">
+        </div>
         </div>
       </div>
       )
