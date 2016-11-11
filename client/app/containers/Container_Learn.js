@@ -146,9 +146,25 @@ class Learn extends React.Component {
         <div id="prompt">{`Level: ${this.props.level_name} | Difficulty: ${this.state.difficultyLevel} | Mission: ${this.props.prompt}`}
         </div>
         <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
-        <div id="gamebox"></div>
-        <div id="gameCode"></div>
+        <div id="learnrightside">
+          <div id="gamebox">
+          </div>
+          <div className="text-center">
+            <div id="learnbuttons">
+              <button className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
+              <button className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Next Level </button>
+              <button className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Reset Level </button>
+            </div>
+            <div id="hints">
+              <img className="hinthearts" src="./assets/heart.png"></img>
+              <img className="hinthearts" src="./assets/heart.png"></img>
+              <img className="hinthearts" src="./assets/heart.png"></img>
+            </div>
+            Use A Hint?
+          </div>
+        </div>
         <button onClick={this.loadCode.bind(this)}> Load Data </button>
+        <div id="gameCode"></div>
       </div>
       )
   }
