@@ -16,7 +16,7 @@ body {
   padding-bottom: 30px;
   margin-top: 10px;
   text-align: center;
-  color: black; 
+  color: black;
   font-family: "Courier";
   white-space: nowrap;
   overflow: hidden;
@@ -139,6 +139,19 @@ html {
   border-radius: 1px;
   border: 10px;
   background-color: #f2f2f2;
+}
+
+#errorconsole {
+  background: black;
+  width: 600px;
+  height: 450px;
+  color: red;
+  font-family: monospace;
+  font-size: 1em;
+  padding: 5px;
+  display: inline-block;
+  height: 400px;
+  width: 600px;
 }
 
 #hintandcontrols {

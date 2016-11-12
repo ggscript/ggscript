@@ -45,7 +45,8 @@ class Learn extends React.Component {
     super(props);
     this.state = {
       code: "var game = new Phaser.Game(600, 450, Phaser.CANVAS, 'gamebox', { preload: preload, create: create }); \nfunction preload() {\n} \nfunction create() {\n}",
-      modalIsOpen: false
+      modalIsOpen: false,
+      showError: false
     }
   }
 
@@ -63,6 +64,16 @@ class Learn extends React.Component {
   }
 
   componentWillMount(){
+    const component = this;
+    window.onerror = (messageOrEvent, source, lineno, colno, error) => {
+      component.setState({
+        error_message: messageOrEvent,
+        error_source: source,
+        error_lineno: lineno,
+        error_colno: colno,
+        error: error
+      });
+    }
     this.props.getLevelData();
   }
   updateCode(newCode) {
@@ -97,6 +108,12 @@ class Learn extends React.Component {
     script.text = this.state.code;
     script.id = 'gameScript';
     document.getElementById('gameCode').appendChild(script);
+
+    if(!document.getElementsByTagName('canvas').length) {
+      this.setState({showError: true});
+    } else {
+      this.setState({showError: false});
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -161,6 +178,12 @@ class Learn extends React.Component {
         <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
         <div id="learnrightside">
           <div id="gamebox">
+            {this.state.showError ? <div id="errorconsole">
+            Oops, you have an error!<br></br>
+            {`${this.state.error_message}`}<br></br>
+            {`Error Line Number: ${this.state.error_lineno}`}<br></br>
+            {`Error Column Number: ${this.state.error_colno}`}<br></br>
+            </div> : null}
           </div>
           <div className="text-center">
             <div id="learnbuttons">
