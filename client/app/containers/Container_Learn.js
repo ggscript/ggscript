@@ -179,7 +179,7 @@ class Learn extends React.Component {
         <div id="learnrightside">
           <div id="gamebox">
             {this.state.showError ? <div id="errorconsole">
-            Oops! You have an error!<br></br>
+            Oops, you have an error!<br></br>
             {`${this.state.error_message}`}<br></br>
             {`Error Line Number: ${this.state.error_lineno}`}<br></br>
             {`Error Column Number: ${this.state.error_colno}`}<br></br>

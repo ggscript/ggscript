@@ -146,6 +146,12 @@ html {
   width: 600px;
   height: 450px;
   color: red;
+  font-family: monospace;
+  font-size: 1em;
+  padding: 5px;
+  display: inline-block;
+  height: 400px;
+  width: 600px;
 }
 
 #hintandcontrols {
