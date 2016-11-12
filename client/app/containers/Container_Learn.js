@@ -84,14 +84,14 @@ class Learn extends React.Component {
   }
 
    stop() {
-    if(window.game) {
+    if(window.game.input.keyboard) {
       window.game.input.keyboard.enabled = false;
       console.log(window.game.input.keyboard.enabled);
     }
   }
 
   go() {
-    if(window.game) {
+    if(window.game.input.keyboard) {
       window.game.input.keyboard.enabled = true;
       console.log(window.game.input.keyboard.enabled);
     }
