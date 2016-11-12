@@ -83,6 +83,20 @@ class Learn extends React.Component {
     });
   }
 
+   stop() {
+    if(window.game) {
+      window.game.input.keyboard.enabled = false;
+      console.log(window.game.input.keyboard.enabled);
+    }
+  }
+
+  go() {
+    if(window.game) {
+      window.game.input.keyboard.enabled = true;
+      console.log(window.game.input.keyboard.enabled);
+    }
+  }
+
   startLevel(code, level) {
     var selectedCode = this.props[code];
     //load the code base based on the user's selected difficulty level;
@@ -175,8 +189,10 @@ class Learn extends React.Component {
         </Modal>
         <div id="prompt">{`Level: ${this.props.levelname} | Difficulty: ${this.state.difficultyLevel} | Mission: ${this.props.prompt}`}
         </div>
+        <span onClick={this.stop}>
         <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
-        <div id="learnrightside">
+        </span>
+        <div id="learnrightside" onClick={this.go}>
           <div id="gamebox">
             {this.state.showError ? <div id="errorconsole">
             Oops, you have an error!<br></br>
