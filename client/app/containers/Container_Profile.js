@@ -30,6 +30,7 @@ class Profile extends React.Component {
   					<h2 id="username" className="text-center">{this.props.data.username}</h2>
   					<h4 className="text-center">{this.props.data.title}</h4>
   					<h4 className="text-center">{this.props.data.points} Points</h4>
+            <h4 className="text-center">Saved Games</h4>
   				</div>
   				<div className="col-sm-8">
   					<h1> Your Saved Games! </h1>
