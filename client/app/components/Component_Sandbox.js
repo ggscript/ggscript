@@ -23,8 +23,11 @@ class Sandbox extends React.Component {
   }
 
   loadCode() {
-  
-    document.getElementsByTagName('canvas')[0].remove();
+    if(window.game) {
+      if(window.game.destroy && window.game.state){
+        window.game.destroy();
+      }
+    }
     document.getElementById('gameScript').remove();
     const script = document.createElement("script");
     script.text = this.state.code;
@@ -42,7 +45,11 @@ class Sandbox extends React.Component {
 
   componentWillUnmount() {
     document.getElementById('gameScript').remove();
-    document.getElementsByTagName('canvas')[0].remove();
+    if(window.game) {
+      if(window.game.destroy && window.game.state){
+        window.game.destroy();
+      }
+    }
   }
 
   render() {

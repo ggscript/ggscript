@@ -85,7 +85,11 @@ class Learn extends React.Component {
   }
 
   loadCode() {
-    document.getElementsByTagName('canvas')[0].remove();
+    if(window.game) {
+      if(window.game.destroy && window.game.state){
+        window.game.destroy();
+      }
+    }
     document.getElementById('gameScript').remove();
     const script = document.createElement("script");
     script.text = this.state.code;
@@ -109,8 +113,12 @@ class Learn extends React.Component {
   }
 
   componentWillUnmount() {
+    if(window.game) {
+      if(window.game.destroy && window.game.state) {
+        window.game.destroy();
+      }
+    }
     document.getElementById('gameScript').remove();
-    document.getElementsByTagName('canvas')[0].remove();
   }
   //comment
 

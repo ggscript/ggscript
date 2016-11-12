@@ -1,4 +1,3 @@
-var dummy = require('../db/testData');
 var db = require('../db/db');
 
 module.exports = {
