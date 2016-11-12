@@ -4,6 +4,8 @@ import { getLevelData } from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
+import Hint from '../components/Component_Hint.js'
+
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
 require('../../../node_modules/codemirror/addon/edit/matchbrackets.js');
 require('../../../node_modules/codemirror/addon/edit/closebrackets.js');
@@ -183,14 +185,13 @@ class Learn extends React.Component {
               <button className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Reset Level </button>
             </div>
             <div id="hints">
-              <img className="hinthearts" src="./assets/heart.png"></img>
-              <img className="hinthearts" src="./assets/heart.png"></img>
-              <img className="hinthearts" src="./assets/heart.png"></img>
+              <Hint hint={this.props.hint1}/>
+              <Hint hint={this.props.hint2}/>
+              <Hint hint={this.props.hint3}/>
             </div>
             Use A Hint?
           </div>
         </div>
-        <button onClick={this.loadCode.bind(this)}> Load Data </button>
         <div id="gameCode"></div>
       </div>
       )
