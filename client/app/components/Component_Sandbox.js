@@ -21,9 +21,7 @@ class Sandbox extends React.Component {
   }
 
   updateCode(newCode) {
-    if(window.game) {
-      window.game.input.keyboard.enabled = false;
-    }
+    console.log(this, 'this')
     this.setState({
       code: newCode
     });
@@ -45,20 +43,6 @@ class Sandbox extends React.Component {
       this.setState({showError: true});
     } else {
       this.setState({showError: false});
-    }
-  }
-
-  stop() {
-    if(window.game.input.keyboard) {
-      window.game.input.keyboard.enabled = false;
-      console.log(window.game.input.keyboard.enabled);
-    }
-  }
-
-  go() {
-    if(window.game.input.keyboard) {
-      window.game.input.keyboard.enabled = true;
-      console.log(window.game.input.keyboard.enabled);
     }
   }
 
@@ -88,11 +72,6 @@ class Sandbox extends React.Component {
     }
   }
 
-  activity(){
-    if(window.game) {
-      window.game.input.enabled = false;
-    }
-  }
 
   render() {
     const options = {
@@ -101,34 +80,26 @@ class Sandbox extends React.Component {
       tabSize: 2,
       lineWrapping: true,
       matchBrackets: true,
-      cursorActivity: this.activity,
       // autoCloseBrackets: true,
       // styleActiveLine: true,
       theme: 'pastel-on-dark',
     };
     return (
       <div>
-        <h1  id='makeVideo'> Phaser Sandbox</h1>
+        <h1 id='makeVideo'> Phaser Sandbox</h1>
         <div id="moveright">
-        <span onClick={this.stop}>
-        <Codemirror onClick={this.go} value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
-        </span>
+        <Codemirror value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
         <div id='sandboxrightside'>
-        <div onClick={this.go} id="gamebox">
-          {this.state.showError ? <div id="errorconsole">
+          <div id="gamebox">
+            {this.state.showError ? <div id="errorconsole">
             Oops, you have an error!<br></br>
             {`${this.state.error_message}`}<br></br>
             {`Error Line Number: ${this.state.error_lineno}`}<br></br>
             {`Error Column Number: ${this.state.error_colno}`}<br></br>
             </div> : null}
-        </div>
-        <div className="form-group col-md-8 col-md-offset-2">
-          <input type="text" className="form-control" placeholder="Game Title" id="usr" />
-        </div>
-        <div className="col-md-8 col-md-offset-2">
+          </div>
         <div className="col-md-6 col-md-offset-3">
         <button className="btn btn-default" onClick={this.loadCode.bind(this)}> Load Data </button>
-        <button className="btn btn-default" onClick={this.loadCode.bind(this)}> Save Game </button>
         <div id='dropdown' className="dropdown">
           <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Choose a Template
