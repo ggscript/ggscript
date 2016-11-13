@@ -211,10 +211,11 @@ class Learn extends React.Component {
           </div>
           <div className="text-center">
             <div id="learnbuttons">
-              <button className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
-              <button className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Next Level </button>
-              <button className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Reset Level </button>
+              <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
+              <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Next Level </button>
+              <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Reset Level </button>
             </div>
+            <br></br>
             <div id="hints">
               <Hint hint={this.props.hint1}/>
               <Hint hint={this.props.hint2}/>
