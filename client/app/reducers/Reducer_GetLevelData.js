@@ -1,4 +1,4 @@
-const initializeStore = (state = {}, action) => {
+const getLevelData = (state = {}, action) => {
   switch (action.type) {
     case 'LOAD_LEVEL_DATA':
       console.log(action, 'action from reducer');
@@ -15,4 +15,4 @@ const initializeStore = (state = {}, action) => {
   }
 }
 
-export default initializeStore
+export default getLevelData
