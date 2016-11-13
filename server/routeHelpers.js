@@ -12,6 +12,15 @@ module.exports = {
     res.send(dummy.levelData);
   },
 
+
+  sendLevelList: function(req,res, callback) {
+    db.query(`SELECT id, levelname, shortdesc From leveldata`)
+      .on('end', (result) => {
+        callback(result.rows);
+      });
+  },
+
+
   // Returns all user data including name, picture, games titles, game code, etc
   sendUserData: function(req, res){
     db.query(`SELECT * FROM users WHERE id = 1`)
@@ -25,7 +34,11 @@ module.exports = {
           db.query(`SELECT title FROM titlepoints WHERE points <= ${result.rows[0].points}`)
             .on('end', (result3) => {
               result.rows[0].title = result3.rows[result3.rows.length-1].title;
-              res.send(result.rows[0]);
+              module.exports.sendLevelList(req, res, function(levelList){
+                result.rows[0].levels = levelList;
+                res.send(result.rows[0]);
+              })
+              // res.send(result.rows[0]);
             })
         });
       }
@@ -49,8 +62,4 @@ module.exports = {
         });
     }
   }
-
-  // sendNextLevelData: function(req, res) {
-
-  // }
 }

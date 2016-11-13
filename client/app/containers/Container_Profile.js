@@ -11,6 +11,7 @@ class Profile extends React.Component {
 
   componentWillMount(){
     this.props.data.savedgames = [];
+    this.props.data.levels = [];
     this.props.initializeStore();
   }
 
@@ -30,13 +31,15 @@ class Profile extends React.Component {
   					<h2 id="username" className="text-center">{this.props.data.username}</h2>
   					<h4 className="text-center">{this.props.data.title}</h4>
   					<h4 className="text-center">{this.props.data.points} Points</h4>
+            <h4 className="text-center">Current Level: {this.props.data.currlevel}</h4>
+
   				</div>
   				<div className="col-sm-8">
   					<h1> Your Saved Games! </h1>
             {this.props.data.savedgames.map((title) => <div id="gameCard"><h3 className="gameTitle"> {title.title} </h3></div>)}
-  					<div id="gameCard"> <h3 className="gameTitle"> Cute Panda Sushi Killer </h3> </div>
-  					<div id="gameCard"> <h3 className="gameTitle"> Cats in Space </h3> </div>
-  					<div id="gameCard"> <h3 className="gameTitle"> Meteor Destroyer - Work in Progress </h3> </div>
+            <h1> Levels </h1>
+            {this.props.data.levels.filter(level => level.id <= this.props.data.currlevel).map(level => <div id="gameCard"><h3 className="gameTitle">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
+            {this.props.data.levels.filter(level => level.id > this.props.data.currlevel).map(level => <div id="gameCardIncomp"><h3 className="gameTitleIncomp">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
   				</div>
   			</div>
   		</div>
