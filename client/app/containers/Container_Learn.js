@@ -138,6 +138,7 @@ class Learn extends React.Component {
     this.setState({
       modalIsOpen: true
     })
+    let descript = this.props.description;
     console.log(this, 'learn this')
     const script = document.createElement("script");
     script.id = 'gameScript';
@@ -175,20 +176,27 @@ class Learn extends React.Component {
           onRequestClose={this.closeModal}
           style={customStyles}
           contentLabel="Example Modal">
-
+          <div id='makeVideo'>
           <h1 ref="subtitle">Welcome to Level {this.props.id}!</h1>
           <h2>{this.props.levelname}</h2>
           <h2>Description:</h2>
-          <div>{this.props.description}</div>
+          <h3>{this.props.description_subone}</h3>
+          <p>{this.props.description_descone}</p>
+          <h3>{this.props.description_subtwo}</h3>
+          <p>{this.props.description_desctwo}</p>
+          <h3>{this.props.description_subthree}</h3>
+          <p>{this.props.description_descthree}</p>
           <br></br>
           <h3>What difficulty level would you like to complete {this.props.levelname} at?</h3>
         {/*button for choosing difficulty level*/}
-          <button onClick={this.startLevel.bind(this, 'novicelevelcode', 'Novice')}>Novice</button>
-          <button onClick={this.startLevel.bind(this, 'heroiclevelcode', 'Heroic')}>Heroic</button>
-          <button onClick={this.startLevel.bind(this, 'mythiclevelcode', 'Mythic')}>Mythic</button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', 'Novice')}>Novice</button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', 'Heroic')}>Heroic</button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', 'Mythic')}>Mythic</button>
+          </div>
         </Modal>
-        <div id="prompt">{`Level: ${this.props.levelname} | Difficulty: ${this.state.difficultyLevel} | Mission: ${this.props.prompt}`}
-        </div>
+        <div id="prompt">Level:<span id="promptwords"> {this.props.levelname}</span></div>
+        <div id="prompt">Difficulty:<span id="promptwords"> {this.state.difficultyLevel}</span></div>
+        <div id="prompt">Your Mission:<span id="promptwords"> {this.props.prompt}</span></div>
         <span onClick={this.stop}>
         <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
         </span>
@@ -212,7 +220,7 @@ class Learn extends React.Component {
               <Hint hint={this.props.hint2}/>
               <Hint hint={this.props.hint3}/>
             </div>
-            Use A Hint?
+            <span id="makeVideo"> Use A Hint? </span>
           </div>
         </div>
         <div id="gameCode"></div>
@@ -226,7 +234,12 @@ function mapStateToProps(state){
     id: state.getLevelData.id,
     levelname: state.getLevelData.levelname,
     prompt: state.getLevelData.prompt,
-    description: state.getLevelData.description,
+    description_subone:state.getLevelData.description_subone, 
+    description_descone:state.getLevelData.description_descone, 
+    description_subtwo:state.getLevelData.description_subtwo, 
+    description_desctwo:state.getLevelData.description_desctwo, 
+    description_subthree:state.getLevelData.description_subthree, 
+    description_descthree:state.getLevelData.description_descthree,
     hint1: state.getLevelData.hint1,
     hint2: state.getLevelData.hint2,
     hint3: state.getLevelData.hint3,

@@ -14,10 +14,10 @@ const customStyles = {
   },
   content : {
     position                   : 'absolute',
-    top                        : '10%',
-    left                       : '10%',
-    right                      : '10%',
-    bottom                     : '10%',
+    top                        : '20%',
+    left                       : '20%',
+    right                      : '20%',
+    bottom                     : '20%',
     border                     : '3px solid #ccc',
     backgroundColor            : 'rgba(255, 255, 255, 1)',
     overflow                   : 'auto',
@@ -65,13 +65,15 @@ class Hint extends React.Component {
           style={customStyles}
           contentLabel="Example Modal">
 
-          <h1 ref="subtitle">Everybody needs a hint sometimes!</h1>
-          <h2>We hope this helps:</h2>
-          <h2>{this.props.hint}</h2>
+          <h1 ref="subtitle" id="makeVideo"> Here's Your Cheat Code! </h1>
+          <h2 id="makeVideo">We hope this helps:</h2>
+          <h2 id="makeVideo">{this.props.hint}</h2>
         {/*button for choosing difficulty level*/}
-          <button onClick={this.closeModal.bind(this)}>Ok! Get me back to the code already!</button>
+          <br></br>
+          <br></br>
+          <button id="makeVideo" className="btn btn-default" onClick={this.closeModal.bind(this)}>Ok! Get me back to the code already!</button>
         </Modal>
-        </span>
+      </span>
       )
   }
 }
