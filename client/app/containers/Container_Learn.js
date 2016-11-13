@@ -138,7 +138,6 @@ class Learn extends React.Component {
     this.setState({
       modalIsOpen: true
     })
-    let descript = this.props.description;
     console.log(this, 'learn this')
     const script = document.createElement("script");
     script.id = 'gameScript';
