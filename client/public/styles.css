@@ -158,12 +158,17 @@ html {
   width: 600px;
   height: 450px;
   color: red;
-  font-family: monospace;
+  font-family: "Courier";
   font-size: 1em;
   padding: 5px;
   display: inline-block;
   height: 400px;
   width: 600px;
+}
+
+#errorconsole span {
+  color: white;
+  font-size: 1.3em;
 }
 
 #hintandcontrols {

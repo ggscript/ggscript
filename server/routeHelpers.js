@@ -2,15 +2,6 @@ var db = require('../db/db');
 
 module.exports = {
 
-  //send the dummy user data back
-  sendDummyUserData: function(req, res) {
-    res.send(dummy.userData);
-  },
-
-  // send the dummy level data back
-  sendDummyLevelData: function(req, res) {
-    res.send(dummy.levelData);
-  },
 
 
   sendLevelList: function(req,res, callback) {
@@ -45,6 +36,12 @@ module.exports = {
     );
   },
 
+  //advances the users level
+  advanceLevel: function(req, res) {
+    console.log(req.body, 'request recieved for advance level')
+    db.query(`UPDATE users SET currlevel = ${req.body.level} WHERE id = ${req.body.id}`).then(result => res.sendStatus(200)).catch(err=>res.send(err));
+  },
+
   // Returns all level 1 data which is availale to anyone visting our site otherwise access is restricted
   sendLevelData: function(req, res) {
     // Users not logged in can access level 1 (req.user.session?)
@@ -55,9 +52,10 @@ module.exports = {
         });
     // Only logged in users can access their current level
     } else {
-      db.query(`SELECT * from leveldata, users WHERE users.currlevel = leveldata.id`)
-      db.query(`SELECT * from leveldata`)
+      console.log('yayayayayayaya')
+      db.query(`SELECT leveldata.id, leveldata.levelname, leveldata.prompt, leveldata.description_subone, leveldata.description_subtwo, leveldata.description_desctwo, leveldata.description_subthree, leveldata.description_descthree, leveldata.tldr, leveldata.shortdesc, leveldata.hint1, leveldata.hint2, leveldata.hint3, leveldata.heroiclevelcode, leveldata.mythiclevelcode, leveldata.novicelevelcode from leveldata, users WHERE leveldata.id = users.currlevel AND users.id = ${req.query.id}`)
         .on('end', (result) => {
+          console.log('database redulsts', result.rows)
           res.send(result.rows[0]);
         });
     }

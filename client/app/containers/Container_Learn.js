@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getLevelData } from '../actions'
+import { getLevelData, advanceLevel } from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
 import Hint from '../components/Component_Hint.js'
+import { Router } from 'react-router'
 
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
 require('../../../node_modules/codemirror/addon/edit/matchbrackets.js');
@@ -74,7 +75,7 @@ class Learn extends React.Component {
         error: error
       });
     }
-    this.props.getLevelData();
+    this.props.getLevelData(1);
   }
   updateCode(newCode) {
     console.log(this, 'this')
@@ -110,7 +111,9 @@ class Learn extends React.Component {
     this.closeModal();
     this.loadCode();
   }
-
+  refresh() {
+    location.reload();
+  }
   loadCode() {
     if(window.game) {
       if(window.game.destroy && window.game.state){
@@ -132,12 +135,12 @@ class Learn extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     console.log('COMP WILL REC PROPS ', nextProps);
-  }
-
-  componentDidMount() {
     this.setState({
       modalIsOpen: true
     })
+  }
+
+  componentDidMount() {
     console.log(this, 'learn this')
     const script = document.createElement("script");
     script.id = 'gameScript';
@@ -202,7 +205,10 @@ class Learn extends React.Component {
         <div id="learnrightside" onClick={this.go}>
           <div id="gamebox">
             {this.state.showError ? <div id="errorconsole">
-            Oops, you have an error!<br></br>
+            <span>UH OH! <br></br><br></br>
+              It looks like there is a slight error in your code :( 
+              But don't worry!  We're here to help you solve it.  Usually it's something very simple, such as a missing open or close parenthesis or bracket.  Luckily, while writing code in Javascript with Phaser, we have access to error messages that give hints as to what and where the error is.  Try looking over the error message below and try to fix it!  If you're unable to get it, don't fret!  Just restart the level and we'll get you coding and gaming again in no time.<br></br>
+            </span><br></br>
             {`${this.state.error_message}`}<br></br>
             {`Error Line Number: ${this.state.error_lineno}`}<br></br>
             {`Error Column Number: ${this.state.error_colno}`}<br></br>
@@ -211,8 +217,8 @@ class Learn extends React.Component {
           <div className="text-center">
             <div id="learnbuttons">
               <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
-              <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Next Level </button>
-              <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Reset Level </button>
+              <button id="makeVideo" className="btn btn-default padded" onClick={this.props.advanceLevel.bind(this, this.props.id)}> Next Level </button>
+              <button id="makeVideo" className="btn btn-default padded" onClick={this.refresh.bind(this)}> Reset Level </button>
             </div>
             <br></br>
             <div id="hints">
@@ -252,10 +258,13 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    getLevelData: () => {
-      dispatch(getLevelData())
+    getLevelData: (userid) => {
+      dispatch(getLevelData(userid))
     },
-    dispatch: dispatch
+    dispatch: dispatch,
+    advanceLevel: (currlevel) => {
+      dispatch(advanceLevel(currlevel))
+    }
   }
 }
 
