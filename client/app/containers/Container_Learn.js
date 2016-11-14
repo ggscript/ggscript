@@ -196,9 +196,7 @@ class Learn extends React.Component {
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', 'Mythic')}>Mythic</button>
           </div>
         </Modal>
-        <div id="prompt">Level:<span id="promptwords"> {this.props.levelname}</span></div>
-        <div id="prompt">Difficulty:<span id="promptwords"> {this.state.difficultyLevel}</span></div>
-        <div id="prompt">Your Mission:<span id="promptwords"> {this.props.prompt}</span></div>
+        <div id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.prompt}</span></div>
         <span onClick={this.stop}>
         <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
         </span>
@@ -215,6 +213,10 @@ class Learn extends React.Component {
             </div> : null}
           </div>
           <div className="text-center">
+            <div>
+              <span id="prompt">Level:<span id="promptwords"> {this.props.levelname}</span></span>
+             <span id="prompt">Difficulty:<span id="promptwords"> {this.state.difficultyLevel}</span></span>
+            </div>
             <div id="learnbuttons">
               <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
               <button id="makeVideo" className="btn btn-default padded" onClick={this.props.advanceLevel.bind(this, this.props.id)}> Next Level </button>
