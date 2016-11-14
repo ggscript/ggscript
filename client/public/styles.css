@@ -50,6 +50,8 @@ body {
   font-size: 2em;
   width: 0%;
   position: relative;
+  left: -15px;
+  top: -10px;
   display: inline-block;
   padding-left: 0em;
   top: 0px;
