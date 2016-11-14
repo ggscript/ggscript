@@ -27,6 +27,7 @@ module.exports = {
               result.rows[0].title = result3.rows[result3.rows.length-1].title;
               module.exports.sendLevelList(req, res, function(levelList){
                 result.rows[0].levels = levelList;
+                result.rows[0].levels.sort(function(a,b) {return a.id-b.id});
                 res.send(result.rows[0]);
               })
               // res.send(result.rows[0]);
