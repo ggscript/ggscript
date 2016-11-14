@@ -181,14 +181,12 @@ class Learn extends React.Component {
           <div id='makeVideo'>
           <h1 ref="subtitle">Welcome to Level {this.props.id}!</h1>
           <h2>{this.props.levelname}</h2>
-          <h2>Description:</h2>
           <h3>{this.props.description_subone}</h3>
-          <p>{this.props.description_descone}</p>
+          <p id="missionpromptwords2">{this.props.description_descone}</p>
           <h3>{this.props.description_subtwo}</h3>
-          <p>{this.props.description_desctwo}</p>
+          <p id="missionpromptwords2">{this.props.description_desctwo}</p>
           <h3>{this.props.description_subthree}</h3>
-          <p>{this.props.description_descthree}</p>
-          <br></br>
+          <p id="missionpromptwords2">{this.props.description_descthree}</p>
           <h3>What difficulty level would you like to complete {this.props.levelname} at?</h3>
         {/*button for choosing difficulty level*/}
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', 'Novice')}>Novice</button>
@@ -201,6 +199,7 @@ class Learn extends React.Component {
         <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
         </span>
         <div id="learnrightside" onClick={this.go}>
+
           <div id="gamebox">
             {this.state.showError ? <div id="errorconsole">
             <span>UH OH! <br></br><br></br>
