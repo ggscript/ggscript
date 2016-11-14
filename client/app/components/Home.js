@@ -4,7 +4,7 @@ class Home extends React.Component{
   constructor(props) {
     super(props)
     this.state={
-      ggscriptheadlines: ['learn', 'explore', 'brag'],
+      ggscriptheadlines: [' learn', ' explore', ' brag'],
       currentHeadline: 0
     }
   }
@@ -17,7 +17,7 @@ class Home extends React.Component{
   }
 
   componentDidMount() {
-    this.timer = setInterval(this.tick.bind(this), 3000);
+    this.timer = setInterval(this.tick.bind(this), 2800);
   }
   componentWillUnmount() {
     clearInterval(this.timer);
@@ -27,7 +27,15 @@ class Home extends React.Component{
       <div className="container">
       <div className="row ggscript">
         <p className="title">./ggscript<span className="blinker">_</span></p>
-        <p className="subtitle">press ENTER to<span id="ggscriptheadlines">{this.state.ggscriptheadlines[this.state.currentHeadline]}</span></p>
+        <div className="col-md-7 pressenter">
+        press ENTER to
+        </div>
+        {this.state.currentHeadline === 0 ? <div className="col-md-5" id="ggscriptheadlines">{this.state.ggscriptheadlines[this.state.currentHeadline]}
+        </div> : null }
+        {this.state.currentHeadline === 1 ? <div className="col-md-5" id="ggscriptheadlines">{this.state.ggscriptheadlines[this.state.currentHeadline]}
+        </div> : null }
+        {this.state.currentHeadline === 2 ? <div className="col-md-5" id="ggscriptheadlines">{this.state.ggscriptheadlines[this.state.currentHeadline]}
+        </div> : null }
       </div>
       <div className="row homepage">
         <a href='/#/learn'> 

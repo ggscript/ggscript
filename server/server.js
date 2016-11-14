@@ -5,6 +5,7 @@ var webpackConfig = require('../config/webpack.dev.config.js');
 var app = express();
 var path = require('path');
 var routes = require('./routes');
+var bodyParser = require('body-parser')
 
 var compiler = webpack(webpackConfig);
 
@@ -35,6 +36,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 ///serve up the static files
 app.use(express.static(path.join(__dirname, '../client/public')));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 //set up the router
 routes.router(app);

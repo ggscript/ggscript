@@ -2,21 +2,21 @@ const connection = require('./db');
 // const gamecode = require('');
 
 // Step 1: Drop old data
-// connection.query('DROP TABLE users', (err) => {
-//   if (err) {
-//     console.error('users has already been dropped', err);
-//   } else {
-//     console.log('users dropped');
-//   }
-// });
+connection.query('DROP TABLE users CASCADE', (err) => {
+  if (err) {
+    console.error('users has already been dropped', err);
+  } else {
+    console.log('users dropped');
+  }
+});
 
-// connection.query('DROP TABLE leveldata', (err) => {
-//   if (err) {
-//     console.error('leveldata has already been dropped');
-//   } else {
-//     console.log('leveldata dropped');
-//   }
-// });
+connection.query('DROP TABLE leveldata', (err) => {
+  if (err) {
+    console.error('leveldata has already been dropped');
+  } else {
+    console.log('leveldata dropped');
+  }
+});
 
 connection.query(
   `CREATE TABLE IF NOT EXISTS "leveldata" (
@@ -64,11 +64,13 @@ connection.query(
   `CREATE TABLE IF NOT EXISTS "users" (
     "id" SERIAL PRIMARY KEY,
     "currlevel" INTEGER NOT NULL,
+    "maxlevel" INTEGER NOT NULL,
     "username" VARCHAR(50) DEFAULT NULL,
     "displayname" VARCHAR(1000) DEFAULT NULL,
     "points" INTEGER NOT NULL,
     "picture" TEXT,
-    FOREIGN KEY (currlevel) REFERENCES leveldata(id)
+    FOREIGN KEY (currlevel) REFERENCES leveldata(id),
+    FOREIGN KEY (maxlevel) REFERENCES leveldata(id)
   )`,
   (err) => {
     if (err) {
@@ -125,39 +127,39 @@ connection.query(
 
 
 
-connection.query(
-  `INSERT INTO "titlepoints"
-  (points, title)
-  VALUES (0, 'noob'),
-  (10, 'genin'),
-  (20, 'chuunin'),
-  (30, 'jounin'),
-  (40, 'special jounin'),
-  (50, 'kage'),
-  (60, 'ANBU'),
-  (70, 'Hokage')`,
-  (err) => {
-    if(err) {
-      console.error(err);
-    } else {
-      console.log('inserted into titlepoints');
-    }
-});
+// connection.query(
+//   `INSERT INTO "titlepoints"
+//   (points, title)
+//   VALUES (0, 'noob'),
+//   (10, 'genin'),
+//   (20, 'chuunin'),
+//   (30, 'jounin'),
+//   (40, 'special jounin'),
+//   (50, 'kage'),
+//   (60, 'ANBU'),
+//   (70, 'Hokage')`,
+//   (err) => {
+//     if(err) {
+//       console.error(err);
+//     } else {
+//       console.log('inserted into titlepoints');
+//     }
+// });
 
 
 
-connection.query(`INSERT INTO difflevelpoints
-  (difflevel, points) VALUES
-  ('novice', 10),
-  ('mythic', 20),
-  ('heroic', 30)`,
-  (err) => {
-    if(err) {
-      console.error(err);
-    } else {
-      console.log('Data added to difflevelpts');
-    }
-});
+// connection.query(`INSERT INTO difflevelpoints
+//   (difflevel, points) VALUES
+//   ('novice', 10),
+//   ('mythic', 20),
+//   ('heroic', 30)`,
+//   (err) => {
+//     if(err) {
+//       console.error(err);
+//     } else {
+//       console.log('Data added to difflevelpts');
+//     }
+// });
 
 // Gets user status title based upon points they currently have
 // Title will not change every time points change so need to set up logic
