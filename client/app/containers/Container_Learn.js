@@ -181,14 +181,12 @@ class Learn extends React.Component {
           <div id='makeVideo'>
           <h1 ref="subtitle">Welcome to Level {this.props.id}!</h1>
           <h2>{this.props.levelname}</h2>
-          <h2>Description:</h2>
           <h3>{this.props.description_subone}</h3>
-          <p>{this.props.description_descone}</p>
+          <p id="missionpromptwords2">{this.props.description_descone}</p>
           <h3>{this.props.description_subtwo}</h3>
-          <p>{this.props.description_desctwo}</p>
+          <p id="missionpromptwords2">{this.props.description_desctwo}</p>
           <h3>{this.props.description_subthree}</h3>
-          <p>{this.props.description_descthree}</p>
-          <br></br>
+          <p id="missionpromptwords2">{this.props.description_descthree}</p>
           <h3>What difficulty level would you like to complete {this.props.levelname} at?</h3>
         {/*button for choosing difficulty level*/}
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', 'Novice')}>Novice</button>
@@ -196,13 +194,12 @@ class Learn extends React.Component {
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', 'Mythic')}>Mythic</button>
           </div>
         </Modal>
-        <div id="prompt">Level:<span id="promptwords"> {this.props.levelname}</span></div>
-        <div id="prompt">Difficulty:<span id="promptwords"> {this.state.difficultyLevel}</span></div>
-        <div id="prompt">Your Mission:<span id="promptwords"> {this.props.prompt}</span></div>
+        <div id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.prompt}</span></div>
         <span onClick={this.stop}>
         <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
         </span>
         <div id="learnrightside" onClick={this.go}>
+
           <div id="gamebox">
             {this.state.showError ? <div id="errorconsole">
             <span>UH OH! <br></br><br></br>
@@ -215,6 +212,10 @@ class Learn extends React.Component {
             </div> : null}
           </div>
           <div className="text-center">
+            <div>
+              <span id="prompt">Level:<span id="promptwords"> {this.props.levelname}</span></span>
+             <span id="prompt">Difficulty:<span id="promptwords"> {this.state.difficultyLevel}</span></span>
+            </div>
             <div id="learnbuttons">
               <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
               <button id="makeVideo" className="btn btn-default padded" onClick={this.props.advanceLevel.bind(this, this.props.id)}> Next Level </button>

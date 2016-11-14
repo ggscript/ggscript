@@ -153,17 +153,18 @@ html {
 
 #prompt {
 /*  font-weight: bolder;*/
-  font-family: 'video';
+  font-family: 'Leto';
+  font-weight: 600;
   margin: 4px 10px 4px 2px;
   padding: 4px 2px 4px 20px;
-  font-size: 1.5em;
+  font-size: 1em;
   border-radius: 1px;
   border: 10px;
   background-color: #f2f2f2;
 }
 #promptwords {
 /*  font-weight: bolder;*/
-  font-family: 'video';
+  font-family: 'Leto';
   color: #5a5b5b;
   margin: 4px 10px 4px 2px;
   padding: 4px 20px 4px 2px;
@@ -172,6 +173,41 @@ html {
   border: 10px;
   background-color: #f2f2f2;
 }
+#missionprompt {
+/*  font-weight: bolder;*/
+  font-family: 'Leto';
+  font-weight: 600;
+  margin: 4px 10px 4px 2px;
+  padding: 4px 2px 4px 20px;
+  font-size: 1.3em;
+  border-radius: 1px;
+  border: 10px;
+  background-color: #f2f2f2;
+}
+#missionpromptwords {
+/*  font-weight: bolder;*/
+  font-family: 'Leto';
+  color: #5a5b5b;
+  margin: 4px 10px 4px 2px;
+  padding: 4px 20px 4px 2px;
+  font-size: 1em;
+  border-radius: 1px;
+  border: 10px;
+  background-color: #f2f2f2;
+}
+
+#missionpromptwords2 {
+/*  font-weight: bolder;*/
+  font-family: 'Leto';
+  color: #5a5b5b;
+  margin: 4px 10px 4px 2px;
+  padding: 4px 20px 4px 2px;
+  font-size: 1.2em;
+  border-radius: 1px;
+  border: 10px;
+  background-color: #f2f2f2;
+}
+
 
 #errorconsole {
   background: black;
@@ -278,6 +314,14 @@ html {
 @font-face {
   font-family: 'video';
   src: url('slkscr.ttf');
+}
+@font-face {
+	font-family: 'proxima';
+	src: url('ProximaNova-Reg.otf');
+}
+@font-face {
+	font-family: 'Leto';
+	src: url('Nauman-Regular.otf');
 }
 
 #learnbox {

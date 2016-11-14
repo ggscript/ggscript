@@ -54,7 +54,7 @@ module.exports = {
     // Only logged in users can access their current level
     } else {
       console.log('yayayayayayaya')
-      db.query(`SELECT leveldata.id, leveldata.levelname, leveldata.prompt, leveldata.description_subone, leveldata.description_subtwo, leveldata.description_desctwo, leveldata.description_subthree, leveldata.description_descthree, leveldata.tldr, leveldata.shortdesc, leveldata.hint1, leveldata.hint2, leveldata.hint3, leveldata.heroiclevelcode, leveldata.mythiclevelcode, leveldata.novicelevelcode from leveldata, users WHERE leveldata.id = users.currlevel AND users.id = ${req.query.id}`)
+      db.query(`SELECT leveldata.id, leveldata.levelname, leveldata.prompt, leveldata.description_subone, leveldata.description_descone, leveldata.description_subtwo, leveldata.description_desctwo, leveldata.description_subthree, leveldata.description_descthree, leveldata.tldr, leveldata.shortdesc, leveldata.hint1, leveldata.hint2, leveldata.hint3, leveldata.heroiclevelcode, leveldata.mythiclevelcode, leveldata.novicelevelcode from leveldata, users WHERE leveldata.id = users.currlevel AND users.id = ${req.query.id}`)
         .on('end', (result) => {
           console.log('database redulsts', result.rows)
           res.send(result.rows[0]);
