@@ -6,14 +6,14 @@ const config = require('../config/auth');
 
 module.exports = function(passport) {
 	passport.serializeUser(function(user, done) {
-		done(null, user.id);
+		done(null, user);
 	});
 
 	passport.deserializeUser(function(id, done){
 		// db.query(`SELECT * FROM users WHERE googleid = ${id}`, function(err, result){
 		// 	done(err, result.rows[0]);
 		// })
-		done(null, id);
+		done(null, user);
 	});
 
 	passport.use(new GoogleStrategy({

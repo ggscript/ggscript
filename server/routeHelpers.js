@@ -14,7 +14,7 @@ module.exports = {
 
   // Returns all user data including name, picture, games titles, game code, etc
   sendUserData: function(req, res){
-    console.log(req.session, 'session');
+    console.log(req.scope, 'response');
     db.query(`SELECT * FROM users WHERE id = 1`)
       .on('end', (result) => {
         db.query(`SELECT title, id FROM games WHERE games.userid = ${result.rows[0].id} `)
@@ -63,6 +63,12 @@ module.exports = {
         });
     }
   },
+
+  logout: function(req,res) {
+    console.log('good bye');
+    req.logout();
+    res.redirect('/');
+  },
   //Route middleware to make sure the user is logged in.
   isLoggedInHome: function(req, res, next) {
     if(req.isAuthenticated()){
@@ -72,7 +78,7 @@ module.exports = {
 
   },
 
-  isLoggedInLevel: function() {
+  isLoggedInLevel: function(req, res, next) {
     if(req.isAuthenticated()){
       return next();
     }

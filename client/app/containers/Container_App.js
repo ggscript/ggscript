@@ -12,7 +12,7 @@ class App extends React.Component {
     this.setState({navTitle: ''});
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps, 'these are the next');
+    // console.log(nextProps, 'these are the next');
     var navTitle= '';
     if(nextProps.data.username) {
       navTitle = "Welcome, "+ nextProps.data.username;

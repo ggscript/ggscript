@@ -9,10 +9,7 @@ module.exports.router = function(app, passport) {
 
   app.post('/api/advancelevel', helpers.isLoggedIn, helpers.advanceLevel); 
 
-  app.get('/api/logout', function(req, res){
-  	req.logout();
-  	res.redirect('/');
-  });
+  app.get('/api/logout', helpers.logout);
 
   //Sends to Google for Authentication
   app.get('/auth/google', passport.authenticate('google', {scope : ['profile', 'email']}))

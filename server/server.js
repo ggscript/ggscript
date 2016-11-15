@@ -47,7 +47,10 @@ app.use(session({
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: true,
-  cookie: {maxAge: 600000 * 3} })); //30 mins
+  cookie: {
+  secure: false,  
+  maxAge: 600000 * 3
+  } })); //30 mins
 app.use(passport.initialize());
 app.use(passport.session());
 ///serve up the static files

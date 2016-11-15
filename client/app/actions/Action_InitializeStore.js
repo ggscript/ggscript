@@ -11,7 +11,7 @@ function initializeStore(text) {
       // console.log('initialized', response)
       //parse the response and then called the action creator via promise
         response.json().then(res => {
-        console.log('initialize store', res);
+        // console.log('initialize store', res);
         dispatch(initializeStoreUponResponse(res))}).catch(err => {console.log(err)})
 
     }).catch(err => {
