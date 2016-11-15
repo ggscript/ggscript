@@ -8,7 +8,7 @@ function initializeStore(text) {
     fetch('/api/userdata', {
       method: 'get'
     }).then(response => {
-      // console.log('initialized', response)
+      //console.log('initialized', response)
       //parse the response and then called the action creator via promise
         response.json().then(res => {
         // console.log('initialize store', res);

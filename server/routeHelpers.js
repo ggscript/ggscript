@@ -14,7 +14,7 @@ module.exports = {
 
   // Returns all user data including name, picture, games titles, game code, etc
   sendUserData: function(req, res){
-    console.log(req.scope, 'response');
+    console.log(req.session, 'session');
     db.query(`SELECT * FROM users WHERE id = 1`)
       .on('end', (result) => {
         db.query(`SELECT title, id FROM games WHERE games.userid = ${result.rows[0].id} `)
@@ -87,7 +87,7 @@ module.exports = {
 
   isLoggedIn: function(req, res, next){
     if(req.isAuthenticated()){
-      return next();
+      next();
     }
     else {
       res.sendStatus(404);

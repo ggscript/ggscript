@@ -2,18 +2,16 @@ var express = require('express');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpack = require('webpack');
 var webpackConfig = require('../config/webpack.dev.config.js');
-var app = express();
+var session = require('express-session');
 var passport = require('passport');
-var google = require('./passport')(passport);
+var google = require('./passport');
 var path = require('path');
 var routes = require('./routes');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
-
-var bodyParser = require('body-parser')
-
+// var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var compiler = webpack(webpackConfig);
 
+var app = express();
 
 //use the webpackdevmiddleware if NODE_ENV is not production
 //alllow CORS on all requests in development mode, so
@@ -31,7 +29,7 @@ if (process.env.NODE_ENV !== 'production') {
   }));
   // allow CORS on all traffic for development purposes
   app.use(function(req, res, next) {
-      console.log('option request received');
+      // console.log('option request received');
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
       res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
@@ -40,27 +38,45 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ///use session
 app.use(express.static(path.join(__dirname, '../client/public')));
-app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ 
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: true,
-  cookie: {
-  secure: false,  
+  cookie: {  
   maxAge: 600000 * 3
-  } })); //30 mins
+  }})); //30 mins
 app.use(passport.initialize());
 app.use(passport.session());
+passport.serializeUser((user, done) => {
+    console.log(user, "user");
+    done(null, user);
+});
+
+// passport.deserializeUser(function(user, done){
+//     // db.query(`SELECT * FROM users WHERE googleid = ${id}`, function(err, result){
+//     //  done(err, result.rows[0]);
+//     // })
+//     // console.log('bye');
+//     done(null, user);
+// });
 ///serve up the static files
 // parse application/x-www-form-urlencoded
 
 // parse application/json
 
 //set up the router
-routes.router(app, passport);
+google();
 
+app.get('/auth/google', passport.authenticate('google', {scope : ['profile', 'email']}));
+app.get('/auth/google/callback', 
+    passport.authenticate('google', {failureRedirect : '/'}), (req,res) => {
+    // console.log(req.session, 'request session');
+    res.redirect('/#/profile');
+    })
+
+routes.router(app);
 
 var server = app.listen(process.env.PORT || 3000, function() {
   var host = server.address().address;
