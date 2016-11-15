@@ -60,5 +60,14 @@ module.exports = {
           res.send(result.rows[0]);
         });
     }
+  },
+  //Route middleware to make sure the user is logged in.
+  isLoggedIn: function(req, res, next){
+    if(req.isAuthenticated()){
+      return next();
+    }
+    else {
+      res.redirect('/');
+    }
   }
 }

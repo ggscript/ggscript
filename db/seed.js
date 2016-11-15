@@ -63,12 +63,15 @@ connection.query(
 connection.query(
   `CREATE TABLE IF NOT EXISTS "users" (
     "id" SERIAL PRIMARY KEY,
-    "currlevel" INTEGER NOT NULL,
-    "maxlevel" INTEGER NOT NULL,
+    "currlevel" INTEGER DEFAULT 1,
+    "maxlevel" INTEGER DEFAULT 1,
     "username" VARCHAR(50) DEFAULT NULL,
     "displayname" VARCHAR(1000) DEFAULT NULL,
-    "points" INTEGER NOT NULL,
-    "picture" TEXT,
+    "points" INTEGER NOT NULL DEFAULT 0,
+    "picture" TEXT DEFAULT 'http://i.imgur.com/s9BlPRc.jpg',
+    "googleid" INTEGER NOT NULL,
+    "token" TEXT,
+    "googleemail" VARCHAR(100),
     FOREIGN KEY (currlevel) REFERENCES leveldata(id),
     FOREIGN KEY (maxlevel) REFERENCES leveldata(id)
   )`,

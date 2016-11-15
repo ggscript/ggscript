@@ -3,6 +3,7 @@ var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpack = require('webpack');
 var webpackConfig = require('../config/webpack.dev.config.js');
 var app = express();
+var passport = require('passport-google-oauth');
 var path = require('path');
 var routes = require('./routes');
 var bodyParser = require('body-parser')
