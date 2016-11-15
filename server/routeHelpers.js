@@ -14,6 +14,7 @@ module.exports = {
 
   // Returns all user data including name, picture, games titles, game code, etc
   sendUserData: function(req, res){
+    console.log(req.session, 'session');
     db.query(`SELECT * FROM users WHERE id = 1`)
       .on('end', (result) => {
         db.query(`SELECT title, id FROM games WHERE games.userid = ${result.rows[0].id} `)
@@ -28,7 +29,8 @@ module.exports = {
               module.exports.sendLevelList(req, res, function(levelList){
                 result.rows[0].levels = levelList;
                 result.rows[0].levels.sort(function(a,b) {return a.id-b.id});
-                res.send(result.rows[0]);
+                res.setHeader('content-type', 'application/json');
+                res.json(result.rows[0]);
               })
               // res.send(result.rows[0]);
             })
@@ -62,12 +64,27 @@ module.exports = {
     }
   },
   //Route middleware to make sure the user is logged in.
+  isLoggedInHome: function(req, res, next) {
+    if(req.isAuthenticated()){
+      return next();
+    }
+    return next();
+
+  },
+
+  isLoggedInLevel: function() {
+    if(req.isAuthenticated()){
+      return next();
+    }
+    return next();
+  },
+
   isLoggedIn: function(req, res, next){
     if(req.isAuthenticated()){
       return next();
     }
     else {
-      res.redirect('/');
+      res.sendStatus(404);
     }
   }
 }

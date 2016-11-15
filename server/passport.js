@@ -1,8 +1,8 @@
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 
-const db = require('../db');
+const db = require('../db/db');
 
-const configAuth = require('../config/auth');
+const config = require('../config/auth');
 
 module.exports = function(passport) {
 	passport.serializeUser(function(user, done) {
@@ -10,9 +10,10 @@ module.exports = function(passport) {
 	});
 
 	passport.deserializeUser(function(id, done){
-		db.query(`SELECT * FROM users WHERE googleid = ${id}`, function(err, result){
-			done(err, result.rows[0]);
-		})
+		// db.query(`SELECT * FROM users WHERE googleid = ${id}`, function(err, result){
+		// 	done(err, result.rows[0]);
+		// })
+		done(null, id);
 	});
 
 	passport.use(new GoogleStrategy({
@@ -29,8 +30,9 @@ module.exports = function(passport) {
 				if(result.rows[0]) {
 					return done(null, result.rows[0])
 				} else {
-					dq.query(`INSERT INTO users (googleid, googletoken, displayname, googleemail)
-					 VALUES (${profile.id}, ${token}, ${profile.displayName}, ${profile.emails[0].value})`, function(err, result) {
+					console.log('profile', profile, 'token', token);
+					db.query(`INSERT INTO users (googleid, token, displayname, googleemail)
+					 VALUES ('${profile.id}', '${token}', '${profile.name.givenName}', '${profile.emails[0].value}')`, function(err, result) {
 					 	if(err) {
 					 		throw err;
 					 	}

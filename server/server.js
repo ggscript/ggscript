@@ -3,9 +3,13 @@ var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpack = require('webpack');
 var webpackConfig = require('../config/webpack.dev.config.js');
 var app = express();
-var passport = require('passport-google-oauth');
+var passport = require('passport');
+var google = require('./passport')(passport);
 var path = require('path');
 var routes = require('./routes');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+
 var bodyParser = require('body-parser')
 
 var compiler = webpack(webpackConfig);
@@ -34,17 +38,25 @@ if (process.env.NODE_ENV !== 'production') {
       next();
   });
 }
-
-///serve up the static files
+///use session
 app.use(express.static(path.join(__dirname, '../client/public')));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({ 
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {maxAge: 600000 * 3} })); //30 mins
+app.use(passport.initialize());
+app.use(passport.session());
+///serve up the static files
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
-app.use(bodyParser.json())
 
 //set up the router
-routes.router(app);
+routes.router(app, passport);
 
 
 var server = app.listen(process.env.PORT || 3000, function() {

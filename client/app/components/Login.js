@@ -2,7 +2,7 @@ import React from 'react'
 
 const Login = () => (
   <div>
-  Login
+  	<a href='/auth/google'> Log In</a>
   </div>
 )
 

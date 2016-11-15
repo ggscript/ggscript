@@ -69,7 +69,7 @@ connection.query(
     "displayname" VARCHAR(1000) DEFAULT NULL,
     "points" INTEGER NOT NULL DEFAULT 0,
     "picture" TEXT DEFAULT 'http://i.imgur.com/s9BlPRc.jpg',
-    "googleid" INTEGER NOT NULL,
+    "googleid" NUMERIC NOT NULL,
     "token" TEXT,
     "googleemail" VARCHAR(100),
     FOREIGN KEY (currlevel) REFERENCES leveldata(id),

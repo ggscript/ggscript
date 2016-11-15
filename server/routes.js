@@ -1,11 +1,11 @@
 var helpers = require('./routeHelpers');
 
 
-module.exports.router = function(app) {
+module.exports.router = function(app, passport) {
 
-  app.get('/api/userdata', helpers.isLoggedIn, helpers.sendUserData);
+  app.get('/api/userdata', helpers.isLoggedInHome, helpers.sendUserData);
 
-  app.get('/api/leveldata', helpers.isLoggedIn, helpers.sendLevelData);
+  app.get('/api/leveldata', helpers.isLoggedInLevel, helpers.sendLevelData);
 
   app.post('/api/advancelevel', helpers.isLoggedIn, helpers.advanceLevel); 
 
@@ -17,9 +17,9 @@ module.exports.router = function(app) {
   //Sends to Google for Authentication
   app.get('/auth/google', passport.authenticate('google', {scope : ['profile', 'email']}))
 
-  app.get('auth/google/callback', 
+  app.get('/auth/google/callback', 
   	passport.authenticate('google', {
-  		successRedirect : '/profile',
+  		successRedirect : '/#/profile',
   		failureRedirect : '/'
   	}));
 };
