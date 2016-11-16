@@ -87,6 +87,7 @@ class Learn extends React.Component {
         error_colno: colno,
         error: error
       });
+      //if the window receives any error, stop game and display error
       component.destroyGame();
       component.displayError();
     }
@@ -145,6 +146,19 @@ class Learn extends React.Component {
 
   runGame(code) {
   }
+
+  generateAndAppendScript() {
+    // remove current game script if there is one
+    if(document.getElementById('gameScript')){
+      document.getElementById('gameScript').remove();
+    }
+    //add the new code to the newly created script tag
+    const script = document.createElement("script");
+    script.text = this.state.code;
+    script.id = 'gameScript';
+    //run the new script by appending it to DOM
+    document.getElementById('gameCode').appendChild(script);
+  }
   loadCode() {
     //remove any previous error if there is one
     if(this.state.showError) {
@@ -153,15 +167,9 @@ class Learn extends React.Component {
     //stop the current game code from running
     this.destroyGame();
 
-    // // remove current game script
-    // document.getElementById('gameScript').remove();
-    // //add the new code to the newly created script tag
-    // const script = document.createElement("script");
-    // script.text = this.state.code;
-    // script.id = 'gameScript';
-    // //run the new script by appending it to DOM
-    // document.getElementById('gameCode').appendChild(script);
-    eval(this.state.code)
+    //generate and append new script
+    this.generateAndAppendScript();
+
     //if there is no canvas, display the error page (even if no error has been caught)
     if(!document.getElementsByTagName('canvas').length) {
       this.displayError();
@@ -169,18 +177,13 @@ class Learn extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('COMP WILL REC PROPS ', nextProps);
     this.setState({
       modalIsOpen: true
     })
   }
 
   componentDidMount() {
-    console.log(this, 'learn this')
-    const script = document.createElement("script");
-    script.id = 'gameScript';
-    script.text = this.state.code;
-    document.getElementById('gameCode').appendChild(script);
+    this.generateAndAppendScript();
   }
 
   componentWillUnmount() {
