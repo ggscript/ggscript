@@ -47,7 +47,7 @@ class Profile extends React.Component {
 }
 
 function mapStateToProps(state){
-  return {data: state.getProfileData};
+  return {data: state.userData.data};
 }
 
 function mapDispatchToProps(dispatch){

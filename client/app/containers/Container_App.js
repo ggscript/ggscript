@@ -12,9 +12,9 @@ class App extends React.Component {
     this.props.getDisplayName();
   }
   componentWillReceiveProps(nextProps) {
-    // console.log(nextProps, 'these are the next');
+    console.log(nextProps, 'these are the next');
     var navTitle= '';
-    if(nextProps.data.displayname) {
+    if(nextProps.data && nextProps.data.displayname) {
       navTitle = "Welcome, "+ nextProps.data.displayname;
       $('#logged').hide();
       if(!nextProps.data.displayname) {
@@ -50,7 +50,8 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state){
-  return {data: state.getDisplayName};
+  console.log(state, 'map state to props container app')
+  return {data: state.userData.data};
 }
 
 function mapDispatchToProps(dispatch){
