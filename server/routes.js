@@ -30,4 +30,8 @@ module.exports.router = function(app, passport) {
   	passport.authenticate('google', {failureRedirect : '/#/', successRedirect: '/#/profile'}), (req,res) => {
 		console.log(req.session, 'request session jjjjjjj');
   	});
+
+  app.get('/api/templatedata', helpers.sendTemplateData);
+
+  app.post('/api/updateUserLevel', helpers.updateUserLevel);
 };

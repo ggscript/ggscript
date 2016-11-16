@@ -7,8 +7,8 @@ var passport = require('passport');
 var google = require('./passport');
 var path = require('path');
 var routes = require('./routes');
-// var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var compiler = webpack(webpackConfig);
 
 var app = express();
