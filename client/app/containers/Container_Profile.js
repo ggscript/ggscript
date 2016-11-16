@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import NavLink from '../components/NavLink'
-import { initializeStore } from '../actions'
+import { getProfileData } from '../actions'
 
 //TODO
 //Make User info dynamic to received data
@@ -12,6 +12,7 @@ class Profile extends React.Component {
   componentWillMount(){
     this.props.data.savedgames = [];
     this.props.data.levels = [];
+    // this.props.getProfileData();
   }
 
    componentDidMount(){
@@ -46,13 +47,13 @@ class Profile extends React.Component {
 }
 
 function mapStateToProps(state){
-  return {data: state.initializeStore};
+  return {data: state.getProfileData};
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    initializeStore: () => {
-      dispatch(initializeStore())
+    getProfileData: () => {
+      dispatch(getProfileData())
     }
   }
 }

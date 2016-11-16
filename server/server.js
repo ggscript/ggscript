@@ -38,7 +38,6 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 ///use session
-app.use(express.static(path.join(__dirname, '../client/public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ 
@@ -65,6 +64,7 @@ google(passport);
 
 
 routes.router(app, passport);
+app.use(express.static(path.join(__dirname, '../client/public')));
 
 var server = app.listen(process.env.PORT || 3000, function() {
   var host = server.address().address;

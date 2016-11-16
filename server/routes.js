@@ -18,9 +18,7 @@ module.exports.router = function(app, passport) {
   });
 
   app.get('/auth/google/callback', 
-  	passport.authenticate('google', {failureRedirect : '/whatever'}), (req,res) => {
+  	passport.authenticate('google', {failureRedirect : '/#/', successRedirect: '/#/profile'}), (req,res) => {
 		console.log(req.session, 'request session jjjjjjj');
-
-		res.redirect('/#/profile');
   	});
 };

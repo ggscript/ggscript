@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import initializeStore from './Reducer_InitializeStore'
+import userData from './Reducer_UserData'
 import getLevelData from './Reducer_GetLevelData'
 
 const ggscript = combineReducers({
-  initializeStore,
+  userData,
   getLevelData
 })
 

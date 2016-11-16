@@ -1,9 +1,10 @@
 import {getLevelData} from './Action_GetLevelData'
-import initializeStore from './Action_InitializeStore'
+import { getProfileData, getDisplayName } from './Action_UserData'
 import advanceLevel from './Action_AdvanceLevel'
 
 export {
-  initializeStore,
+  getProfileData,
   getLevelData,
+  getDisplayName,
   advanceLevel
 }

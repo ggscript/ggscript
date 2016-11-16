@@ -2,14 +2,14 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import NavLink from '../components/NavLink'
-import { initializeStore } from '../actions'
+import { getDisplayName } from '../actions'
 import { bindActionCreators } from 'redux';
 //makes sure action flows thru reducers
 
 class App extends React.Component {
   componentWillMount(){
-    this.props.initializeStore();
     this.setState({navTitle: ''});
+    this.props.getDisplayName();
   }
   componentWillReceiveProps(nextProps) {
     // console.log(nextProps, 'these are the next');
@@ -23,10 +23,6 @@ class App extends React.Component {
       }
     }
     this.setState({navTitle: navTitle});
-  }
-
-  getUserData(){
-    this.props.initializeStore();
   }
 
   render() {
@@ -46,7 +42,7 @@ class App extends React.Component {
             </ul>
           </div>
         </nav>
-        <button onClick={this.props.initializeStore.bind(this)}>Initialize Store</button>
+        <button onClick={this.props.getDisplayName.bind(this)}>Get Display Name</button>
         {this.props.children}
       </div>
     )
@@ -54,13 +50,13 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state){
-  return {data: state.initializeStore};
+  return {data: state.getDisplayName};
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    initializeStore: () => {
-      dispatch(initializeStore())
+    getDisplayName: () => {
+      dispatch(getDisplayName())
     }
   }
 }
