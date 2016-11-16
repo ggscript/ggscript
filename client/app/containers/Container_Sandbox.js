@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Codemirror from 'react-codemirror';
-import { selectTemplate } from '../actions'
+import { getTemplateData } from '../actions'
 import { bindActionCreators } from 'redux';
 
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
@@ -62,6 +62,11 @@ class Sandbox extends React.Component {
     }
   }
 
+  componentWillMount() {
+    this.props.getTemplateData();
+    console.log('BEFORE SANDBOX MT: ', this);
+  }
+
   componentDidMount() {
     console.log(this, 'learn this')
     const script = document.createElement("script");
@@ -89,9 +94,9 @@ class Sandbox extends React.Component {
   }
 
   updateTemplate() {
-    console.log(this.props.template,' updateTemplate');
+    console.log(this.props.template.template[0],' updateTemplate');
     this.setState({
-      code: this.props.template
+      code: this.props.template.template[0].templatecode
     })
   }
 
@@ -127,11 +132,10 @@ class Sandbox extends React.Component {
           Choose a Template
           </button>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-           <a className="dropdown-item" onClick={() => this.props.selectTemplate(1)}>Space Game</a>
-           <a className="dropdown-item">Side Scroller</a>
-           <a className="dropdown-item">Adventure Game</a>
+           <a className="dropdown-item" onClick={this.updateTemplate.bind(this)}>Space Game</a>
+           <a className="dropdown-item" onClick={this.updateTemplate.bind(this)}>Side Scroller</a>
+           <a className="dropdown-item" onClick={this.updateTemplate.bind(this)}>Adventure Game</a>
         </div>
-        <button onClick={this.updateTemplate.bind(this)}>Update Template</button>
         </div>
         </div>
         </div>
@@ -151,9 +155,9 @@ function mapStateToProps(state){
 }
 
 function matchDispatchToProps(dispatch){
-  return { selectTemplate: (template) => {
+  return { getTemplateData: () => {
     // The only way to update the store is by dispatching the action (must dispatch an object not a fn)
-    dispatch(selectTemplate(template))
+    dispatch(getTemplateData())
   }};
 }
 

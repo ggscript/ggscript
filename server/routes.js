@@ -8,7 +8,7 @@ module.exports.router = function(app) {
 
   app.post('/api/advancelevel', helpers.advanceLevel);
 
-  // app.get('/api/nextleveldata', helpers.sendNextLevelData);
+  app.get('/api/templatedata', helpers.sendTemplateData);
 
   app.post('/api/updateUserLevel', helpers.updateUserLevel);
 };
