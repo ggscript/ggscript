@@ -1,4 +1,5 @@
 var db = require('../db/db');
+var user = require('./server');
 
 module.exports = {
 
@@ -14,7 +15,7 @@ module.exports = {
 
   // Returns all user data including name, picture, games titles, game code, etc
   sendUserData: function(req, res){
-    console.log(req.session, 'session');
+    console.log(req.session, 'LOOK AT ME');
     db.query(`SELECT * FROM users WHERE id = 1`)
       .on('end', (result) => {
         db.query(`SELECT title, id FROM games WHERE games.userid = ${result.rows[0].id} `)
@@ -48,6 +49,7 @@ module.exports = {
   // Returns all level 1 data which is availale to anyone visting our site otherwise access is restricted
   sendLevelData: function(req, res) {
     // Users not logged in can access level 1 (req.user.session?)
+    // console.log(req.session, 'level request');
     if(!true){
       db.query(`SELECT * from leveldata WHERE leveldata.id = 1`)
         .on('end', (result) => {
@@ -72,8 +74,10 @@ module.exports = {
   //Route middleware to make sure the user is logged in.
   isLoggedInHome: function(req, res, next) {
     if(req.isAuthenticated()){
+      console.log(req.isAuthenticated(), 'authentication status');
       return next();
     }
+    console.log(req.isAuthenticated(), 'authentication status');
     return next();
 
   },

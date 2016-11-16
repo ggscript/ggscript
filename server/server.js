@@ -42,39 +42,33 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ 
   secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true,
+  resave: false,
+  saveUninitialized: false,
   cookie: {  
   maxAge: 600000 * 3
   }})); //30 mins
 app.use(passport.initialize());
 app.use(passport.session());
-passport.serializeUser((user, done) => {
-    console.log(user, "user");
-    done(null, user);
-});
 
-// passport.deserializeUser(function(user, done){
-//     // db.query(`SELECT * FROM users WHERE googleid = ${id}`, function(err, result){
-//     //  done(err, result.rows[0]);
-//     // })
-//     // console.log('bye');
-//     done(null, user);
-// });
 ///serve up the static files
 // parse application/x-www-form-urlencoded
 
 // parse application/json
 
 //set up the router
-google();
+google(passport);
 
 app.get('/auth/google', passport.authenticate('google', {scope : ['profile', 'email']}));
 app.get('/auth/google/callback', 
     passport.authenticate('google', {failureRedirect : '/'}), (req,res) => {
-    // console.log(req.session, 'request session');
+    //At this point both of the values are what we want it to be
     res.redirect('/#/profile');
-    })
+    req.session.newpassport = req.session.passport;
+    console.log(req.session, 'request session');
+});
+
+
+
 
 routes.router(app);
 

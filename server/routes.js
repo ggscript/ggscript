@@ -1,7 +1,7 @@
 var helpers = require('./routeHelpers');
 
 
-module.exports.router = function(app) {
+module.exports.router = function(app, user) {
 
   app.get('/api/userdata', helpers.isLoggedInHome, helpers.sendUserData);
 
