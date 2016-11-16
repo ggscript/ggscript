@@ -5,7 +5,7 @@ var webpackConfig = require('../config/webpack.dev.config.js');
 var app = express();
 var path = require('path');
 var routes = require('./routes');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 
 var compiler = webpack(webpackConfig);
 

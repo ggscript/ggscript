@@ -60,5 +60,23 @@ module.exports = {
           res.send(result.rows[0]);
         });
     }
+
+  },
+
+  updateUserLevel: function(req, res) {
+    console.log('LVL REQ ', req.id);
+    db.query(`UPDATE users SET currlevel = ${req.currlevel+1} WHERE id = ${req.id}`)
+      .on('end', (result) => {
+        console.log('LVL RESULT: ', result);
+        res.send(result.rows);
+      });
+  },
+
+  sendTemplateData: function(req, res) {
+    db.query(`SELECT * FROM templates`)
+      .on('end', (result) => {
+        console.log('TEMPLATES: ',result.rows);
+        res.send(result.rows);
+      });
   }
 }

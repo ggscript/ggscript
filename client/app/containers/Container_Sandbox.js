@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import Codemirror from 'react-codemirror';
+import { getTemplateData } from '../actions'
+import { bindActionCreators } from 'redux';
 
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
 require('../../../node_modules/codemirror/addon/edit/matchbrackets.js');
@@ -12,7 +15,6 @@ class Sandbox extends React.Component {
     super(props);
     this.state = {
       code: "var game = new Phaser.Game(600, 450, Phaser.CANVAS, 'gamebox', { preload: preload, create: create }); \nfunction preload() {\n} \nfunction create() {\n}",
-      modalIsOpen: false,
       showError: false,
       error_message: null,
       error_lineno: null,
@@ -25,6 +27,20 @@ class Sandbox extends React.Component {
     this.setState({
       code: newCode
     });
+  }
+
+  stop() {
+  if(window.game.input.keyboard) {
+    window.game.input.keyboard.enabled = false;
+    console.log(window.game.input.keyboard.enabled);
+  }
+}
+
+  go() {
+    if(window.game.input.keyboard) {
+      window.game.input.keyboard.enabled = true;
+      console.log(window.game.input.keyboard.enabled);
+    }
   }
 
   loadCode() {
@@ -44,6 +60,11 @@ class Sandbox extends React.Component {
     } else {
       this.setState({showError: false});
     }
+  }
+
+  componentWillMount() {
+    this.props.getTemplateData();
+    console.log('BEFORE SANDBOX MT: ', this);
   }
 
   componentDidMount() {
@@ -72,6 +93,12 @@ class Sandbox extends React.Component {
     }
   }
 
+  updateTemplate(id) {
+    console.log('UPDATED TEMP: ', this.props.template.template[id]);
+    this.setState({
+      code: this.props.template.template[id].templatecode
+    })
+  }
 
   render() {
     const options = {
@@ -105,9 +132,9 @@ class Sandbox extends React.Component {
           Choose a Template
           </button>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-           <a className="dropdown-item" href="#">Space Game</a>
-           <a className="dropdown-item" href="#">Side Scroller</a>
-           <a className="dropdown-item" href="#">Adventure Game</a>
+           <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 0)}>Space Game</a>
+           <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 1)}>Side Scroller</a>
+           <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 2)}>Adventure Game</a>
         </div>
         </div>
         </div>
@@ -120,4 +147,18 @@ class Sandbox extends React.Component {
   }
 }
 
-export default Sandbox
+function mapStateToProps(state){
+  console.log('SANDBOX STATE: ', state.getTemplateData)
+  return {
+    template: state.getTemplateData
+  }
+}
+
+function matchDispatchToProps(dispatch){
+  return { getTemplateData: () => {
+    // The only way to update the store is by dispatching the action (must dispatch an object not a fn)
+    dispatch(getTemplateData())
+  }};
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Sandbox);
