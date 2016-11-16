@@ -1,3 +1,4 @@
+'use strict'
 import React from 'react'
 import { connect } from 'react-redux'
 import { getLevelData, advanceLevel } from '../actions'
@@ -66,15 +67,7 @@ class Learn extends React.Component {
 
   componentWillMount(){
     const component = this;
-    window.onerror = (messageOrEvent, source, lineno, colno, error) => {
-      component.setState({
-        error_message: messageOrEvent,
-        error_source: source,
-        error_lineno: lineno,
-        error_colno: colno,
-        error: error
-      });
-    }
+    this.handleError();
     this.props.getLevelData(1);
   }
   updateCode(newCode) {
@@ -84,17 +77,45 @@ class Learn extends React.Component {
     });
   }
 
-   stop() {
-    if(window.game.input.keyboard) {
-      window.game.input.keyboard.enabled = false;
-      console.log(window.game.input.keyboard.enabled);
+  handleError() {
+    const component = this;
+    window.onerror = (messageOrEvent, source, lineno, colno, error) => {
+      component.setState({
+        error_message: messageOrEvent,
+        error_source: source,
+        error_lineno: lineno,
+        error_colno: colno,
+        error: error
+      });
+      //if the window receives any error, stop game and display error
+      component.destroyGame();
+      component.displayError();
+    }
+  }
+
+  displayError() {
+    if(document.getElementsByTagName('canvas').length) {
+      document.getElementsByTagName('canvas')[0].remove();
+    }
+    this.setState({showError: true});
+ 
+  }
+
+  stop() {
+    if(window.game.input){
+      if(window.game.input.keyboard) {
+        window.game.input.keyboard.enabled = false;
+        console.log(window.game.input.keyboard.enabled);
+      }
     }
   }
 
   go() {
-    if(window.game.input.keyboard) {
-      window.game.input.keyboard.enabled = true;
-      console.log(window.game.input.keyboard.enabled);
+    if(window.game.input){
+      if(window.game.input.keyboard) {
+        window.game.input.keyboard.enabled = true;
+        console.log(window.game.input.keyboard.enabled);
+      }  
     }
   }
 
@@ -114,38 +135,55 @@ class Learn extends React.Component {
   refresh() {
     location.reload();
   }
-  loadCode() {
+
+  destroyGame() {
     if(window.game) {
       if(window.game.destroy && window.game.state){
         window.game.destroy();
       }
+    } 
+  }
+
+  runGame(code) {
+  }
+
+  generateAndAppendScript() {
+    // remove current game script if there is one
+    if(document.getElementById('gameScript')){
+      document.getElementById('gameScript').remove();
     }
-    document.getElementById('gameScript').remove();
+    //add the new code to the newly created script tag
     const script = document.createElement("script");
     script.text = this.state.code;
     script.id = 'gameScript';
+    //run the new script by appending it to DOM
     document.getElementById('gameCode').appendChild(script);
+  }
+  loadCode() {
+    //remove any previous error if there is one
+    if(this.state.showError) {
+      this.setState({showError: false})
+    }
+    //stop the current game code from running
+    this.destroyGame();
 
+    //generate and append new script
+    this.generateAndAppendScript();
+
+    //if there is no canvas, display the error page (even if no error has been caught)
     if(!document.getElementsByTagName('canvas').length) {
-      this.setState({showError: true});
-    } else {
-      this.setState({showError: false});
+      this.displayError();
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('COMP WILL REC PROPS ', nextProps);
     this.setState({
       modalIsOpen: true
     })
   }
 
   componentDidMount() {
-    console.log(this, 'learn this')
-    const script = document.createElement("script");
-    script.id = 'gameScript';
-    script.text = this.state.code;
-    document.getElementById('gameCode').appendChild(script);
+    this.generateAndAppendScript();
   }
 
   componentWillUnmount() {
