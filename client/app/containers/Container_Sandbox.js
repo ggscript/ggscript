@@ -88,6 +88,13 @@ class Sandbox extends React.Component {
     }
   }
 
+  updateTemplate() {
+    console.log(this.props.template,' updateTemplate');
+    this.setState({
+      code: this.props.template
+    })
+  }
+
   render() {
     const options = {
       lineNumbers: true,
@@ -120,10 +127,11 @@ class Sandbox extends React.Component {
           Choose a Template
           </button>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-           <a className="dropdown-item" onClick={() => this.props.selectTemplate(template)}>Space Game</a>
+           <a className="dropdown-item" onClick={() => this.props.selectTemplate(1)}>Space Game</a>
            <a className="dropdown-item">Side Scroller</a>
            <a className="dropdown-item">Adventure Game</a>
         </div>
+        <button onClick={this.updateTemplate.bind(this)}>Update Template</button>
         </div>
         </div>
         </div>
@@ -136,13 +144,17 @@ class Sandbox extends React.Component {
 }
 
 function mapStateToProps(state){
+  console.log('SANDBOX STATE: ', state.getTemplateData)
   return {
-    template: state.template
+    template: state.getTemplateData
   }
 }
 
 function matchDispatchToProps(dispatch){
-  return bindActionCreators({ selectTemplate: selectTemplate}, dispatch);
+  return { selectTemplate: (template) => {
+    // The only way to update the store is by dispatching the action (must dispatch an object not a fn)
+    dispatch(selectTemplate(template))
+  }};
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Sandbox);

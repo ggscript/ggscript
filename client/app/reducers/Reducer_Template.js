@@ -1,9 +1,14 @@
-export default function(state = {}, action) {
+const reducerTemplate = (state = {}, action) => {
   switch (action.type) {
     case 'LOAD_TEMPLATE_DATA':
     console.log('TEMPL REDUCER');
-      return action.data;
-      break;
+      return { template: action.data };
+  // This is what updates the store's state
+    default:
+    return state;
+    // must be pure fn, cannot change params or cannot do async for outside data
+    // what it returns must solely be provided by inputs
   }
-  return state;
 }
+
+export default reducerTemplate
