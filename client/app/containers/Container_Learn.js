@@ -14,7 +14,7 @@ require('../../../node_modules/codemirror/addon/edit/closebrackets.js');
 require('../../../node_modules/codemirror/addon/hint/javascript-hint.js');
 require('../../../node_modules/codemirror/addon/hint/show-hint.js');
 
-//styling for modal
+// Styling for modal
 const customStyles = {
   overlay: {
     position          : 'fixed',
@@ -98,7 +98,7 @@ class Learn extends React.Component {
       document.getElementsByTagName('canvas')[0].remove();
     }
     this.setState({showError: true});
- 
+
   }
 
   stop() {
@@ -115,7 +115,7 @@ class Learn extends React.Component {
       if(window.game.input.keyboard) {
         window.game.input.keyboard.enabled = true;
         console.log(window.game.input.keyboard.enabled);
-      }  
+      }
     }
   }
 
@@ -141,7 +141,7 @@ class Learn extends React.Component {
       if(window.game.destroy && window.game.state){
         window.game.destroy();
       }
-    } 
+    }
   }
 
   runGame(code) {
@@ -194,7 +194,6 @@ class Learn extends React.Component {
     }
     document.getElementById('gameScript').remove();
   }
-  //comment
 
   render() {
     const options = {
@@ -241,7 +240,7 @@ class Learn extends React.Component {
           <div id="gamebox">
             {this.state.showError ? <div id="errorconsole">
             <span>UH OH! <br></br><br></br>
-              It looks like there is a slight error in your code :( 
+              It looks like there is a slight error in your code :(
               But don't worry!  We're here to help you solve it.  Usually it's something very simple, such as a missing open or close parenthesis or bracket.  Luckily, while writing code in Javascript with Phaser, we have access to error messages that give hints as to what and where the error is.  Try looking over the error message below and try to fix it!  If you're unable to get it, don't fret!  Just restart the level and we'll get you coding and gaming again in no time.<br></br>
             </span><br></br>
             {`${this.state.error_message}`}<br></br>
@@ -279,11 +278,11 @@ function mapStateToProps(state){
     id: state.getLevelData.id,
     levelname: state.getLevelData.levelname,
     prompt: state.getLevelData.prompt,
-    description_subone:state.getLevelData.description_subone, 
-    description_descone:state.getLevelData.description_descone, 
-    description_subtwo:state.getLevelData.description_subtwo, 
-    description_desctwo:state.getLevelData.description_desctwo, 
-    description_subthree:state.getLevelData.description_subthree, 
+    description_subone:state.getLevelData.description_subone,
+    description_descone:state.getLevelData.description_descone,
+    description_subtwo:state.getLevelData.description_subtwo,
+    description_desctwo:state.getLevelData.description_desctwo,
+    description_subthree:state.getLevelData.description_subthree,
     description_descthree:state.getLevelData.description_descthree,
     hint1: state.getLevelData.hint1,
     hint2: state.getLevelData.hint2,
