@@ -93,10 +93,10 @@ class Sandbox extends React.Component {
     }
   }
 
-  updateTemplate() {
-    console.log(this.props.template.template[0],' updateTemplate');
+  updateTemplate(id) {
+    console.log('UPDATED TEMP: ', this.props.template.template[id]);
     this.setState({
-      code: this.props.template.template[0].templatecode
+      code: this.props.template.template[id].templatecode
     })
   }
 
@@ -132,9 +132,9 @@ class Sandbox extends React.Component {
           Choose a Template
           </button>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-           <a className="dropdown-item" onClick={this.updateTemplate.bind(this)}>Space Game</a>
-           <a className="dropdown-item" onClick={this.updateTemplate.bind(this)}>Side Scroller</a>
-           <a className="dropdown-item" onClick={this.updateTemplate.bind(this)}>Adventure Game</a>
+           <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 0)}>Space Game</a>
+           <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 1)}>Side Scroller</a>
+           <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 2)}>Adventure Game</a>
         </div>
         </div>
         </div>
