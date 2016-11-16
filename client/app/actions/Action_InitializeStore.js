@@ -6,12 +6,13 @@ function initializeStoreUponResponse(data) {
 function initializeStore(text) {
   return function(dispatch) {
     fetch('/api/userdata', {
-      method: 'get'
+      method: 'get',
+      credentials: "include"
     }).then(response => {
-      //console.log('initialized', response)
+      console.log('initialized', response)
       //parse the response and then called the action creator via promise
         response.json().then(res => {
-        // console.log('initialize store', res);
+        console.log('initialize store', res);
         dispatch(initializeStoreUponResponse(res))}).catch(err => {console.log(err)})
 
     }).catch(err => {

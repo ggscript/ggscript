@@ -12,11 +12,9 @@ class Profile extends React.Component {
   componentWillMount(){
     this.props.data.savedgames = [];
     this.props.data.levels = [];
-    this.props.initializeStore();
   }
 
    componentDidMount(){
-    this.props.initializeStore();
     console.log('DID MT ',this);
   }
 

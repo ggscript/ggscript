@@ -30,6 +30,7 @@ if (process.env.NODE_ENV !== 'production') {
   // allow CORS on all traffic for development purposes
   app.use(function(req, res, next) {
       // console.log('option request received');
+      res.header('Access-Control-Allow-Credentials', true);
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
       res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
@@ -42,11 +43,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ 
   secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
   cookie: {  
-  maxAge: 600000 * 3
-  }})); //30 mins
+    maxAge: 600000 * 3, //30 min
+    secure: false
+    }
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -58,19 +62,9 @@ app.use(passport.session());
 //set up the router
 google(passport);
 
-app.get('/auth/google', passport.authenticate('google', {scope : ['profile', 'email']}));
-app.get('/auth/google/callback', 
-    passport.authenticate('google', {failureRedirect : '/'}), (req,res) => {
-    //At this point both of the values are what we want it to be
-    res.redirect('/#/profile');
-    req.session.newpassport = req.session.passport;
-    console.log(req.session, 'request session');
-});
 
 
-
-
-routes.router(app);
+routes.router(app, passport);
 
 var server = app.listen(process.env.PORT || 3000, function() {
   var host = server.address().address;

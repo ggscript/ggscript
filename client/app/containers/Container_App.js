@@ -8,7 +8,6 @@ import { bindActionCreators } from 'redux';
 
 class App extends React.Component {
   componentWillMount(){
-    this.props.initializeStore();
     this.setState({navTitle: ''});
   }
   componentWillReceiveProps(nextProps) {
@@ -23,6 +22,10 @@ class App extends React.Component {
       }
     }
     this.setState({navTitle: navTitle});
+  }
+
+  getUserData(){
+    this.props.initializeStore();
   }
 
   render() {
@@ -42,6 +45,7 @@ class App extends React.Component {
             </ul>
           </div>
         </nav>
+        <button onClick={this.props.initializeStore.bind(this)}>Initialize Store</button>
         {this.props.children}
       </div>
     )

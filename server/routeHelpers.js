@@ -60,7 +60,6 @@ module.exports = {
       console.log('yayayayayayaya')
       db.query(`SELECT leveldata.id, leveldata.levelname, leveldata.prompt, leveldata.description_subone, leveldata.description_descone, leveldata.description_subtwo, leveldata.description_desctwo, leveldata.description_subthree, leveldata.description_descthree, leveldata.tldr, leveldata.shortdesc, leveldata.hint1, leveldata.hint2, leveldata.hint3, leveldata.heroiclevelcode, leveldata.mythiclevelcode, leveldata.novicelevelcode from leveldata, users WHERE leveldata.id = users.currlevel AND users.id = ${req.query.id}`)
         .on('end', (result) => {
-          console.log('database redulsts', result.rows)
           res.send(result.rows[0]);
         });
     }
@@ -68,16 +67,19 @@ module.exports = {
 
   logout: function(req,res) {
     console.log('good bye');
+    console.log(req.session, 'logout request');
+    req.session.destroy();
     req.logout();
     res.redirect('/');
   },
   //Route middleware to make sure the user is logged in.
   isLoggedInHome: function(req, res, next) {
+    console.log(req.session, 'req.session of isloggedinhome')
     if(req.isAuthenticated()){
-      console.log(req.isAuthenticated(), 'authentication status');
+      console.log(req.isAuthenticated(), 'authenticated');
       return next();
     }
-    console.log(req.isAuthenticated(), 'authentication status');
+    console.log(req.isAuthenticated(), 'not authenticated ');
     return next();
 
   },

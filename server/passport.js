@@ -18,16 +18,18 @@ module.exports = function(passport) {
 	// });
 
 	passport.serializeUser((user, done) => {
-    	console.log(user, "user");
-    	return done(null, user);
+		console.log(user, 'serializeUser')
+    	done(null, user);
+    	console.log(user, 'after serializeUser')
 	});
 
 	passport.deserializeUser(function(user, done){
-    // db.query(`SELECT * FROM users WHERE googleid = ${id}`, function(err, result){
-    //  done(err, result.rows[0]);
+		console.log(user, 'deserializeUser')
+    // db.query(`SELECT * FROM users WHERE googleid = ${user.id}`, function(err, result){
+    //  done(err, user);
     // })
-    // console.log('bye');
-    	done(null, user);
+    done(null, user);
+    console.log('after deserialize')
 	});
 
 	passport.use(new GoogleStrategy({
@@ -37,16 +39,19 @@ module.exports = function(passport) {
 	},
 	function(token, refreshToken, profile, done) {
 		process.nextTick(function(){
-			console.log('profile', profile.id, 'token', token);
-			db.query(`SELECT * FROM users WHERE googleid = ${profile.id}`, function(err, result){
+			console.log('1st thing - passport.use')
+			//look for user
+			db.query(`SELECT * FROM users WHERE googleemail = '${profile.emails[0].value}'`, function(err, result){
 				if(err) {
 					done(err);
 				}
-				if(result.rows[0]) {
+				//if the user exists, call the done callback on the user
+				if(result) {
 					return done(null, result.rows[0]);
 				} else {
-					db.query(`INSERT INTO users (googleid, token, displayname, googleemail)
-					 VALUES ('${profile.id}', '${token}', '${profile.name.givenName}', '${profile.emails[0].value}')`, function(err, result) {
+					//if the user doesn't exist, add the user to the database
+					db.query(`INSERT INTO users (displayname, googleemail)
+					 VALUES ('${profile.name.givenName}', '${profile.emails[0].value}')`, function(err, result) {
 					 	if(err) {
 					 		throw err;
 					 	}
