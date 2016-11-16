@@ -70,5 +70,13 @@ module.exports = {
         console.log('LVL RESULT: ', result);
         res.send(result.rows);
       });
+  },
+
+  sendTemplateData: function(req, res) {
+    db.query(`SELECT * FROM templates`)
+      .on('end', (result) => {
+        console.log('TEMPLATES: ',result.rows);
+        res.send(result.rows);
+      });
   }
 }
