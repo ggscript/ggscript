@@ -16,7 +16,7 @@ module.exports.router = function(app, passport) {
     if(req.session.passport){
       res.send({displayname: req.session.passport.user.displayname})
     } else {
-      res.sendStatus(200);
+      res.send({displayname: undefined});
     }
   })
 

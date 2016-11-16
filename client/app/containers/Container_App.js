@@ -8,21 +8,10 @@ import { bindActionCreators } from 'redux';
 
 class App extends React.Component {
   componentWillMount(){
-    this.setState({navTitle: ''});
     this.props.getDisplayName();
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps, 'these are the next');
-    var navTitle= '';
-    if(nextProps.data && nextProps.data.displayname) {
-      navTitle = "Welcome, "+ nextProps.data.displayname;
-      $('#logged').hide();
-      if(!nextProps.data.displayname) {
-        $('#logout').hide();
-        $('#profile').hide();
-      }
-    }
-    this.setState({navTitle: navTitle});
+  
   }
 
   render() {
@@ -35,11 +24,21 @@ class App extends React.Component {
               <li><NavLink to="/learn">Learn Phaser</NavLink></li>
               <li><NavLink to="/sandbox">Sandbox</NavLink></li>
             </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li><NavLink id="logged" to="/login">Log In</NavLink></li>
-              <li><NavLink id="profile" to="/profile">{this.state.navTitle}</NavLink></li>
-              <li><NavLink id="logout" to="/logout">Log Out</NavLink></li>
-            </ul>
+            {/*right side of nav bar displays username if it exits, or login if it doesn't*/}
+            {this.props.displayname ? 
+              <ul className="nav navbar-nav navbar-right">
+                <li>
+                  <NavLink id="profile" to="/profile">Welcome, {this.props.displayname} </NavLink>
+                </li> 
+                <li>
+                  <NavLink id="logout" to="/logout">Log Out</NavLink>
+                </li> 
+              </ul> : 
+              <ul className="nav navbar-nav navbar-right"> 
+                <li>
+                  <NavLink id="logged" to="/login">Log In</NavLink>
+                </li>
+              </ul>}
           </div>
         </nav>
         <button onClick={this.props.getDisplayName.bind(this)}>Get Display Name</button>
@@ -51,7 +50,7 @@ class App extends React.Component {
 
 function mapStateToProps(state){
   console.log(state, 'map state to props container app')
-  return {data: state.userData.data};
+  return {displayname: state.userData.displayname};
 }
 
 function mapDispatchToProps(dispatch){

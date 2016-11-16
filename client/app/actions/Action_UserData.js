@@ -36,6 +36,7 @@ function getDisplayName(text) {
     }).then(response => {
       console.log('displayname initialized', response)
       response.json().then(res => {
+        console.log(res, 'getdisplayname action response after json');
         dispatch(initializeDisplayNameUponResponse(res))}).catch(err => {console.log(err)})
     }).catch(err => {
       console.log(err);
