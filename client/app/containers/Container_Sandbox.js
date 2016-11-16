@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import Codemirror from 'react-codemirror';
+import { selectTemplate } from '../actions'
+import { bindActionCreators } from 'redux';
 
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
 require('../../../node_modules/codemirror/addon/edit/matchbrackets.js');
@@ -12,7 +15,6 @@ class Sandbox extends React.Component {
     super(props);
     this.state = {
       code: "var game = new Phaser.Game(600, 450, Phaser.CANVAS, 'gamebox', { preload: preload, create: create }); \nfunction preload() {\n} \nfunction create() {\n}",
-      modalIsOpen: false,
       showError: false,
       error_message: null,
       error_lineno: null,
@@ -25,6 +27,20 @@ class Sandbox extends React.Component {
     this.setState({
       code: newCode
     });
+  }
+
+  stop() {
+  if(window.game.input.keyboard) {
+    window.game.input.keyboard.enabled = false;
+    console.log(window.game.input.keyboard.enabled);
+  }
+}
+
+  go() {
+    if(window.game.input.keyboard) {
+      window.game.input.keyboard.enabled = true;
+      console.log(window.game.input.keyboard.enabled);
+    }
   }
 
   loadCode() {
@@ -72,7 +88,6 @@ class Sandbox extends React.Component {
     }
   }
 
-
   render() {
     const options = {
       lineNumbers: true,
@@ -105,9 +120,9 @@ class Sandbox extends React.Component {
           Choose a Template
           </button>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-           <a className="dropdown-item" href="#">Space Game</a>
-           <a className="dropdown-item" href="#">Side Scroller</a>
-           <a className="dropdown-item" href="#">Adventure Game</a>
+           <a className="dropdown-item" onClick={() => this.props.selectTemplate(template)}>Space Game</a>
+           <a className="dropdown-item">Side Scroller</a>
+           <a className="dropdown-item">Adventure Game</a>
         </div>
         </div>
         </div>
@@ -120,4 +135,14 @@ class Sandbox extends React.Component {
   }
 }
 
-export default Sandbox
+function mapStateToProps(state){
+  return {
+    template: state.template
+  }
+}
+
+function matchDispatchToProps(dispatch){
+  return bindActionCreators({ selectTemplate: selectTemplate}, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Sandbox);

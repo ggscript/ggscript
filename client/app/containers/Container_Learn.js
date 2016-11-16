@@ -14,7 +14,7 @@ require('../../../node_modules/codemirror/addon/edit/closebrackets.js');
 require('../../../node_modules/codemirror/addon/hint/javascript-hint.js');
 require('../../../node_modules/codemirror/addon/hint/show-hint.js');
 
-//styling for modal
+// Styling for modal
 const customStyles = {
   overlay: {
     position          : 'fixed',

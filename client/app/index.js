@@ -7,14 +7,13 @@ import App from './containers/Container_App'
 import { Router, Route, hashHistory } from 'react-router'
 import Login from './components/Login'
 import Logout from './components/Logout'
-import Sandbox from './components/Component_Sandbox'
 import Home from './components/Home'
+import Sandbox from './containers/Container_Sandbox'
 import Learn from './containers/Container_Learn'
 import Profile from './containers/Container_Profile'
 import thunk from 'redux-thunk'
 
 let store =  applyMiddleware(thunk)(createStore)(ggscript);
-
 
 render(
   <Provider store={store}>
