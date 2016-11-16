@@ -297,12 +297,12 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    getLevelData: (userid) => {
-      dispatch(getLevelData(userid))
+    getLevelData: () => {
+      dispatch(getLevelData())
     },
     dispatch: dispatch,
-    advanceLevel: (currlevel) => {
-      dispatch(advanceLevel(currlevel))
+    advanceLevel: () => {
+      dispatch(advanceLevel())
     }
   }
 }

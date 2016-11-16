@@ -16,7 +16,7 @@ module.exports = {
   // Returns all user data including name, picture, games titles, game code, etc
   sendUserData: function(req, res){
     console.log(req.session, 'LOOK AT ME');
-    db.query(`SELECT * FROM users WHERE id = 1`)
+    db.query(`SELECT * FROM users WHERE id = ${req.session.passport.user.id}`)
       .on('end', (result) => {
         db.query(`SELECT title, id FROM games WHERE games.userid = ${result.rows[0].id} `)
         .on('end', (result2) => {
@@ -50,7 +50,7 @@ module.exports = {
   sendLevelData: function(req, res) {
     // Users not logged in can access level 1 (req.user.session?)
     // console.log(req.session, 'level request');
-    if(!true){
+    if(!req.passport){
       db.query(`SELECT * from leveldata WHERE leveldata.id = 1`)
         .on('end', (result) => {
           res.send(result.rows[0]);
@@ -58,7 +58,7 @@ module.exports = {
     // Only logged in users can access their current level
     } else {
       console.log('yayayayayayaya')
-      db.query(`SELECT leveldata.id, leveldata.levelname, leveldata.prompt, leveldata.description_subone, leveldata.description_descone, leveldata.description_subtwo, leveldata.description_desctwo, leveldata.description_subthree, leveldata.description_descthree, leveldata.tldr, leveldata.shortdesc, leveldata.hint1, leveldata.hint2, leveldata.hint3, leveldata.heroiclevelcode, leveldata.mythiclevelcode, leveldata.novicelevelcode from leveldata, users WHERE leveldata.id = users.currlevel AND users.id = ${req.query.id}`)
+      db.query(`SELECT leveldata.id, leveldata.levelname, leveldata.prompt, leveldata.description_subone, leveldata.description_descone, leveldata.description_subtwo, leveldata.description_desctwo, leveldata.description_subthree, leveldata.description_descthree, leveldata.tldr, leveldata.shortdesc, leveldata.hint1, leveldata.hint2, leveldata.hint3, leveldata.heroiclevelcode, leveldata.mythiclevelcode, leveldata.novicelevelcode from leveldata, users WHERE leveldata.id = users.currlevel AND users.id = ${req.passport.session.user.id}`)
         .on('end', (result) => {
           res.send(result.rows[0]);
         });
@@ -74,13 +74,10 @@ module.exports = {
   },
   //Route middleware to make sure the user is logged in.
   isLoggedInHome: function(req, res, next) {
-    console.log(req.session, 'req.session of isloggedinhome')
     if(req.isAuthenticated()){
-      console.log(req.isAuthenticated(), 'authenticated');
       return next();
     }
-    console.log(req.isAuthenticated(), 'not authenticated ');
-    return next();
+    res.sendStatus(200);
 
   },
 

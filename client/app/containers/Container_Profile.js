@@ -26,7 +26,7 @@ class Profile extends React.Component {
   					<div className="profile-userpic">
   					<img className="img-responsive text-center" src="http://www.tigerfdn.com/wp-content/uploads/2015/05/ever-wonderred-what-do-tigers-eat.jpg"/>
   					</div>
-  					<h2 id="username" className="text-center">{this.props.data.username}</h2>
+  					<h2 id="username" className="text-center">{this.props.data.displayname}</h2>
   					<h4 className="text-center">{this.props.data.title}</h4>
   					<h4 className="text-center">{this.props.data.points} Points</h4>
             <h4 className="text-center">Current Level: {this.props.data.currlevel}</h4>

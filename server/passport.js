@@ -3,7 +3,10 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const db = require('../db/db');
 
-const configAuth = require('../config/auth');
+if(process.env.NODE_ENV !== 'production'){
+	var configAuth = require('../config/auth');
+}
+
 
 module.exports = function(passport) {
 	// passport.serializeUser(function(user, done) {

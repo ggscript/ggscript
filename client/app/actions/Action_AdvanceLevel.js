@@ -9,7 +9,8 @@ function advanceLevel(currlevel) {
         'Content-Type': 'application/json'
       },
       method: 'POST',
-      body: JSON.stringify({id: 1, level: currlevel+1})
+      body: JSON.stringify({level: currlevel+1}),
+      credentials: "include"
     }).then(response => {
       //parse the response and then called the action creator via promise
         dispatch(getLevelData(1));

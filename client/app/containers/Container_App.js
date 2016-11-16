@@ -8,13 +8,14 @@ import { bindActionCreators } from 'redux';
 
 class App extends React.Component {
   componentWillMount(){
+    this.props.initializeStore();
     this.setState({navTitle: ''});
   }
   componentWillReceiveProps(nextProps) {
     // console.log(nextProps, 'these are the next');
     var navTitle= '';
     if(nextProps.data.username) {
-      navTitle = "Welcome, "+ nextProps.data.username;
+      navTitle = "Welcome, "+ nextProps.data.displayname;
       $('#logged').hide();
       if(!nextProps.data.username) {
         $('#logout').hide();
