@@ -14,10 +14,10 @@ class App extends React.Component {
   componentWillReceiveProps(nextProps) {
     // console.log(nextProps, 'these are the next');
     var navTitle= '';
-    if(nextProps.data.username) {
+    if(nextProps.data.displayname) {
       navTitle = "Welcome, "+ nextProps.data.displayname;
       $('#logged').hide();
-      if(!nextProps.data.username) {
+      if(!nextProps.data.displayname) {
         $('#logout').hide();
         $('#profile').hide();
       }

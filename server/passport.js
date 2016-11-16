@@ -49,9 +49,10 @@ module.exports = function(passport) {
 					done(err);
 				}
 				//if the user exists, call the done callback on the user
-				if(result) {
+				if(result.rows.length) {
 					return done(null, result.rows[0]);
 				} else {
+					console.log('I got in');
 					//if the user doesn't exist, add the user to the database
 					db.query(`INSERT INTO users (displayname, googleemail)
 					 VALUES ('${profile.name.givenName}', '${profile.emails[0].value}')`, function(err, result) {
