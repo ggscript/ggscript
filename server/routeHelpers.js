@@ -95,7 +95,6 @@ module.exports = {
     else {
       res.sendStatus(404);
     }
-
   },
 
   updateUserLevel: function(req, res) {
