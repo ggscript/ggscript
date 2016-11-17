@@ -72,14 +72,7 @@ module.exports = {
     req.logout();
     res.redirect('/');
   },
-  //Route middleware to make sure the user is logged in.
-  isLoggedInHome: function(req, res, next) {
-    if(req.isAuthenticated()){
-      return next();
-    }
-    res.sendStatus(200);
 
-  },
 
   isLoggedInLevel: function(req, res, next) {
     if(req.isAuthenticated()){
@@ -93,7 +86,7 @@ module.exports = {
       next();
     }
     else {
-      res.sendStatus(404);
+      res.redirect('/auth/google');
     }
   },
 

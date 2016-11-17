@@ -9,36 +9,19 @@ if(process.env.NODE_ENV !== 'production'){
 
 
 module.exports = function(passport) {
-	// passport.serializeUser(function(user, done) {
-	// 	done(null, user);
-	// });
-
-	// passport.deserializeUser(function(id, done){
-	// 	// db.query(`SELECT * FROM users WHERE googleid = ${id}`, function(err, result){
-	// 	// 	done(err, result.rows[0]);
-	// 	// })
-	// 	done(null, user);
-	// });
 
 	passport.serializeUser((user, done) => {
-		console.log(user, 'serializeUser')
     	done(null, user);
-    	console.log(user, 'after serializeUser')
 	});
 
 	passport.deserializeUser(function(user, done){
-		console.log(user, 'deserializeUser')
-    // db.query(`SELECT * FROM users WHERE googleid = ${user.id}`, function(err, result){
-    //  done(err, user);
-    // })
     done(null, user);
-    console.log('after deserialize')
 	});
 
 	passport.use(new GoogleStrategy({
-		clientID: configAuth.googleAuth.clientID,
-		clientSecret: configAuth.googleAuth.clientSecret,
-		callbackURL: configAuth.googleAuth.callbackURL
+		clientID: process.env.clientID || configAuth.googleAuth.clientID,
+		clientSecret: process.env.clientSecret || configAuth.googleAuth.clientSecret,
+		callbackURL: process.env.callbackURL || configAuth.googleAuth.callbackURL
 	},
 	function(token, refreshToken, profile, done) {
 		process.nextTick(function(){
