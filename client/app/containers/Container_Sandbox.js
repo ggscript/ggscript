@@ -60,6 +60,7 @@ class Sandbox extends React.Component {
     } else {
       this.setState({showError: false});
     }
+    console.log("loadcode");
   }
 
   componentWillMount() {
@@ -95,9 +96,21 @@ class Sandbox extends React.Component {
 
   updateTemplate(id) {
     console.log('UPDATED TEMP: ', this.props.template.template[id]);
+    const templates = {};
+    for(let obj of this.props.template.template) {
+      templates[obj.id] = obj.templatecode;
+    }
     this.setState({
-      code: this.props.template.template[id].templatecode
-    })
+      code: templates[id]
+    });
+  }
+
+  changeTemplate(id) {
+    this.updateTemplate(id);
+    console.log(this.state.code, "in changeTemplate")
+    console.log("before loadcode");
+    this.loadCode();
+    console.log("after loadcode");
   }
 
   render() {
@@ -132,9 +145,9 @@ class Sandbox extends React.Component {
           Choose a Template
           </button>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-           <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 0)}>Space Game</a>
-           <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 1)}>Side Scroller</a>
-           <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 2)}>Adventure Game</a>
+           <a className="dropdown-item" onClick={this.changeTemplate.bind(this, 1)}>Space Game</a>
+           <a className="dropdown-item" onClick={this.changeTemplate.bind(this, 2)}>Side Scroller</a>
+           <a className="dropdown-item" onClick={this.changeTemplate.bind(this, 3)}>Adventure Game</a>
         </div>
         </div>
         </div>
