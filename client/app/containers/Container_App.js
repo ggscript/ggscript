@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import NavLink from '../components/NavLink'
-import { getDisplayName } from '../actions'
+import { getDisplayName, getProfileData } from '../actions'
 import { bindActionCreators } from 'redux';
 //makes sure action flows thru reducers
 
@@ -42,6 +42,7 @@ class App extends React.Component {
           </div>
         </nav>
         <button onClick={this.props.getDisplayName.bind(this)}>Get Display Name</button>
+        <button onClick={this.props.getProfileData.bind(this)}>Get Profile Data</button>
         {this.props.children}
       </div>
     )
@@ -57,6 +58,9 @@ function mapDispatchToProps(dispatch){
   return {
     getDisplayName: () => {
       dispatch(getDisplayName())
+    },
+    getProfileData: () => {
+      dispatch(getProfileData())
     }
   }
 }

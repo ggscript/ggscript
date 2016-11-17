@@ -3,7 +3,7 @@ var helpers = require('./routeHelpers');
 
 module.exports.router = function(app, passport) {
 
-  app.get('/api/userdata', helpers.isLoggedInHome, helpers.sendUserData);
+  app.get('/api/userdata', helpers.isLoggedIn, helpers.sendUserData);
 
   app.get('/api/leveldata', helpers.isLoggedInLevel, helpers.sendLevelData);
 
@@ -27,7 +27,7 @@ module.exports.router = function(app, passport) {
   });
 
   app.get('/auth/google/callback', 
-  	passport.authenticate('google', {failureRedirect : '/#/', successRedirect: '/#/profile'}), (req,res) => {
+  	passport.authenticate('google', {failureRedirect : '/#/login', successRedirect: '/#/profile'}), (req,res) => {
 		console.log(req.session, 'request session jjjjjjj');
   	});
 

@@ -1,3 +1,5 @@
+import { hashHistory } from 'react-router'
+
 //this action creator is called from redux-thunk function (intializeStore)
 function initializeProfileDataUponResponse(data) {
   return { type: 'INITIALIZE_PROFILE', data };
@@ -15,9 +17,13 @@ function getProfileData(text) {
     }).then(response => {
       console.log('initialized', response)
       //parse the response and then called the action creator via promise
-        response.json().then(res => {
-        console.log('initialize store', res);
-        dispatch(initializeProfileDataUponResponse(res))}).catch(err => {console.log(err)})
+        if(response.status === 401) {
+          hashHistory.push('login');
+        } else {
+          response.json().then(res => {
+          console.log('initialize store', res);
+          dispatch(initializeProfileDataUponResponse(res))}).catch(err => {console.log(err)})  
+        }
 
     }).catch(err => {
         console.log(err);

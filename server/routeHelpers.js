@@ -43,7 +43,7 @@ module.exports = {
   //advances the users level
   advanceLevel: function(req, res) {
     console.log(req.body, 'request recieved for advance level')
-    db.query(`UPDATE users SET currlevel = ${req.body.level} WHERE id = ${req.body.id}`).then(result => res.sendStatus(200)).catch(err=>res.send(err));
+    db.query(`UPDATE users SET currlevel = ${req.body.level} WHERE id = ${req.session.passport.user.id}`).then(result => res.sendStatus(200)).catch(err=>res.send(err));
   },
 
   // Returns all level 1 data which is availale to anyone visting our site otherwise access is restricted
@@ -72,14 +72,7 @@ module.exports = {
     req.logout();
     res.redirect('/');
   },
-  //Route middleware to make sure the user is logged in.
-  isLoggedInHome: function(req, res, next) {
-    if(req.isAuthenticated()){
-      return next();
-    }
-    res.sendStatus(200);
 
-  },
 
   isLoggedInLevel: function(req, res, next) {
     if(req.isAuthenticated()){
@@ -93,7 +86,7 @@ module.exports = {
       next();
     }
     else {
-      res.sendStatus(404);
+      res.sendStatus(401);
     }
   },
 
