@@ -86,7 +86,7 @@ module.exports = {
       next();
     }
     else {
-      res.redirect('/auth/google');
+      res.sendStatus(401);
     }
   },
 
