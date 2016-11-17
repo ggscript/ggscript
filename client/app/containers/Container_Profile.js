@@ -12,7 +12,7 @@ class Profile extends React.Component {
   componentWillMount(){
     this.props.data.savedgames = [];
     this.props.data.levels = [];
-    // this.props.getProfileData();
+    this.props.getProfileData();
   }
 
    componentDidMount(){
@@ -47,7 +47,7 @@ class Profile extends React.Component {
 }
 
 function mapStateToProps(state){
-  return {data: state.userData.data};
+  return {data: state.userData};
 }
 
 function mapDispatchToProps(dispatch){
