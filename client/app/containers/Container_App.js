@@ -41,8 +41,6 @@ class App extends React.Component {
               </ul>}
           </div>
         </nav>
-        <button onClick={this.props.getDisplayName.bind(this)}>Get Display Name</button>
-        <button onClick={this.props.getProfileData.bind(this)}>Get Profile Data</button>
         {this.props.children}
       </div>
     )
