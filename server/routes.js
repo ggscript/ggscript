@@ -9,6 +9,8 @@ module.exports.router = function(app, passport) {
 
   app.post('/api/advancelevel', helpers.isLoggedIn, helpers.advanceLevel); 
 
+  app.get('/api/saveleveldata', helpers.saveLevelData);
+
   app.get('/api/logout', helpers.logout);
 
   app.get('/api/displayname', function(req, res) {

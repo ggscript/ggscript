@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Codemirror from 'react-codemirror';
-import { getTemplateData } from '../actions'
+import { getTemplateData, saveLevelData } from '../actions'
 import { bindActionCreators } from 'redux';
 
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
@@ -100,6 +100,15 @@ class Sandbox extends React.Component {
     })
   }
 
+  saveData(code) {
+    this.setState({
+      gameCode: this.state.code,
+      title: "Test"
+    })
+    this.props.saveLevelData();
+    console.log(this.props, 'props after save');
+  }
+
   render() {
     const options = {
       lineNumbers: true,
@@ -136,6 +145,7 @@ class Sandbox extends React.Component {
            <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 1)}>Side Scroller</a>
            <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 2)}>Adventure Game</a>
         </div>
+        <button onClick={this.saveData.bind(this)}> Save </button>
         </div>
         </div>
         </div>
@@ -150,7 +160,10 @@ class Sandbox extends React.Component {
 function mapStateToProps(state){
   console.log('SANDBOX STATE: ', state.getTemplateData)
   return {
-    template: state.getTemplateData
+    template: state.getTemplateData,
+    title: state.saveLevelData.title,
+    gameCode: state.saveLevelData.gameCode,
+    id: state.saveLevelData.id
   }
 }
 
@@ -158,7 +171,11 @@ function matchDispatchToProps(dispatch){
   return { getTemplateData: () => {
     // The only way to update the store is by dispatching the action (must dispatch an object not a fn)
     dispatch(getTemplateData())
-  }};
+  },
+  saveLevelData: () => {
+    dispatch(saveLevelData())
+  }
+};
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Sandbox);
