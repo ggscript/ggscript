@@ -1,22 +1,25 @@
 import {getLevelData} from './Action_GetLevelData'//this action creator is called from redux-thunk function (intializeStore)
 import { hashHistory } from 'react-router'
 //this is a thunk function that called initializeStoreUponResponse when a response is recieved
-function advanceLevel(currlevel) {
+function updateLevel(advanceBoolean, currlevel) {
   return function(dispatch) {
-    fetch('/api/advancelevel', {
+    fetch('/api/updatelevel', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       method: 'POST',
-      body: JSON.stringify({level: currlevel+1}),
+      body: JSON.stringify({
+        advance: advanceBoolean,
+        currlevel: currlevel
+      }),
       credentials: "include"
     }).then(response => {
       //parse the response and then called the action creator via promise
         if(response.status === 401) {
           hashHistory.push('login');
         } else {
-          dispatch(getLevelData(1));
+          dispatch(getLevelData());
         }
     }).catch(err => {
         console.log(err);
@@ -27,4 +30,4 @@ function advanceLevel(currlevel) {
   }
 }
 
-export default advanceLevel
+export default updateLevel

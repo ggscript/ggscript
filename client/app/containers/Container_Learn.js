@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import { connect } from 'react-redux'
-import { getLevelData, advanceLevel } from '../actions'
+import { getLevelData, updateLevel } from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
@@ -255,7 +255,7 @@ class Learn extends React.Component {
             </div>
             <div id="learnbuttons">
               <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
-              <button id="makeVideo" className="btn btn-default padded" onClick={this.props.advanceLevel.bind(this, this.props.id)}> Next Level </button>
+              <button id="makeVideo" className="btn btn-default padded" onClick={this.props.updateLevel.bind(this, true, this.props.id)}> Next Level </button>
               <button id="makeVideo" className="btn btn-default padded" onClick={this.refresh.bind(this)}> Reset Level </button>
             </div>
             <br></br>
@@ -300,8 +300,8 @@ function mapDispatchToProps(dispatch){
       dispatch(getLevelData())
     },
     dispatch: dispatch,
-    advanceLevel: () => {
-      dispatch(advanceLevel())
+    updateLevel: (advanceBoolean, currlevel) => {
+      dispatch(updateLevel(advanceBoolean, currlevel));
     }
   }
 }
