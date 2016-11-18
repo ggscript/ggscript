@@ -2,27 +2,16 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import NavLink from '../components/NavLink'
-import { initializeStore } from '../actions'
+import { getDisplayName, getProfileData } from '../actions'
 import { bindActionCreators } from 'redux';
 //makes sure action flows thru reducers
 
 class App extends React.Component {
   componentWillMount(){
-    this.props.initializeStore();
-    this.setState({navTitle: ''});
+    this.props.getDisplayName();
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    var navTitle= '';
-    if(nextProps.data.username) {
-      navTitle = "Welcome, "+ nextProps.data.username;
-      $('#logged').hide();
-      if(!nextProps.data.username) {
-        $('#logout').hide();
-        $('#profile').hide();
-      }
-    }
-    this.setState({navTitle: navTitle});
+  
   }
 
   render() {
@@ -35,11 +24,21 @@ class App extends React.Component {
               <li><NavLink to="/learn">Learn Phaser</NavLink></li>
               <li><NavLink to="/sandbox">Sandbox</NavLink></li>
             </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li><NavLink id="logged" to="/login">Log In</NavLink></li>
-              <li><NavLink id="profile" to="/profile">{this.state.navTitle}</NavLink></li>
-              <li><NavLink id="logout" to="/logout">Log Out</NavLink></li>
-            </ul>
+            {/*right side of nav bar displays username if it exits, or login if it doesn't*/}
+            {this.props.displayname ? 
+              <ul className="nav navbar-nav navbar-right">
+                <li>
+                  <NavLink id="profile" to="/profile">Welcome, {this.props.displayname} </NavLink>
+                </li> 
+                <li>
+                  <NavLink id="logout" to="/logout">Log Out</NavLink>
+                </li> 
+              </ul> : 
+              <ul className="nav navbar-nav navbar-right"> 
+                <li>
+                  <NavLink id="logged" to="/login">Log In</NavLink>
+                </li>
+              </ul>}
           </div>
         </nav>
         {this.props.children}
@@ -49,13 +48,17 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state){
-  return {data: state.initializeStore};
+  console.log(state, 'map state to props container app')
+  return {displayname: state.userData.displayname};
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    initializeStore: () => {
-      dispatch(initializeStore())
+    getDisplayName: () => {
+      dispatch(getDisplayName())
+    },
+    getProfileData: () => {
+      dispatch(getProfileData())
     }
   }
 }

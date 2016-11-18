@@ -19,7 +19,11 @@
     "babel-preset-react": "6.11.1",
     "body-parser": "^1.15.2",
     "codemirror": "^5.20.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0",
     "pg": "^6.1.0",
     "phaser": "^2.6.2",
     "react": "^15.2.1",
@@ -32,6 +36,7 @@
     "react-router": "^3.0.0",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
+    "session": "^0.1.0",
     "webpack": "^1.13.3",
     "webpack-dev-middleware": "^1.8.4"
   },
@@ -41,7 +46,7 @@
     "start-dev": "webpack-dev-server --inline --content-base client/public --config config/webpack.dev.config.js",
     "build": "webpack --config config/webpack.config.js",
     "heroku-postbuild": "webpack --config config/webpack.config.js",
-    "test": "NODE_ENV=production node spec/jasmine-runner.js"
+    "test": "NODE_ENV=production clientID=1 clientSecret=1 callbackURL=1 node spec/jasmine-runner.js"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"
