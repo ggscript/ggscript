@@ -66,13 +66,15 @@ module.exports = {
   },
 
   saveLevelData: function(req, res) {
-    console.log(req, 'made it to helper function');
+    console.log('made it to helper function');
     // if(db.query(`SELECT exists (SELECT 1 FROM games WHERE title = games.title)`)) {
     //   db.query(`UPDATE games SET games.gamecode = ${req.gamecode} WHERE games.title = ${req.title}`)
     // } else {
     //   db.query(`INSERT INTO games (userid, title, gamecode)
-    //     VALUES (${req.id}, ${req.title}, ${req.gamecode}`)
+    //     VALUES (${req.session.passport.user.id}, ${req.title}, ${req.gamecode}`)
     // }
+    db.query(`INSERT INTO games (userid, title, gamecode)
+      VALUES(${req.session.passport.user.id}, 'test23', 'test23')`)
   },
 
   logout: function(req,res) {
