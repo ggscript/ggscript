@@ -11,6 +11,7 @@ const getLevelData = (state = {}, action) => {
       return action
 
     case 'LOAD_LEVEL_POINTS':
+      console.log('in reducer get level data', action.data)
       return action.data  
 
     default:

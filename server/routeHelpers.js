@@ -140,8 +140,16 @@ module.exports = {
         res.send(result.rows);
       });
   },
-
+//select difflevel, users.currlevel from users, pointevents 
+//where users.id = 7 and pointevents.levelid = users.currlevel
   sendLevelPointsData: function(req, res){
-    db.query(``)
+    db.query(`SELECT difflevel FROM users, pointevents WHERE users.id = 7 and pointevents.levelid = users.currlevel`)
+      .on('end', (result) => {
+        var clientResponse = {1: false, 2: false, 3: false}
+        result.rows.forEach(entry => {
+          clientResponse[entry.difflevel] = true; 
+        })
+        res.send(clientResponse);
+      });
   }
 }

@@ -69,7 +69,7 @@ class Learn extends React.Component {
     const component = this;
     this.handleError();
     this.props.getLevelData();
-    this.props.getLevelPoints();
+    // this.props.getLevelPoints();
   }
   updateCode(newCode) {
     console.log(this, 'this')
@@ -266,6 +266,7 @@ class Learn extends React.Component {
               <Hint hint={this.props.hint3}/>
             </div>
             <span id="makeVideo"> Use A Hint? </span>
+            <span>{this.props.novicecomplete}</span>
           </div>
         </div>
         <div id="gameCode"></div>
@@ -292,6 +293,9 @@ function mapStateToProps(state){
     mythiclevelcode: state.getLevelData.mythiclevelcode,
     novicelevelcode: state.getLevelData.novicelevelcode,
     difficultyLevel: state.getLevelData.difficultyLevel
+    // novicecomplete: state.getLevelData["1"],
+    // heroiccomplete: state.getLevelData["2"],
+    // mythiccomplete: state.getLevelData["3"]
   }
 }
 
