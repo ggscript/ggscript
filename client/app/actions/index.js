@@ -1,5 +1,5 @@
 import getLevelData from './Action_GetLevelData'
-import saveGameCode from './Action_SaveGameCode'
+import saveGame from './Action_SaveGame'
 import { getProfileData, getDisplayName } from './Action_UserData'
 import updateLevel from './Action_UpdateLevel'
 import getTemplateData from './Action_GetTemplate'
@@ -9,7 +9,7 @@ import updateSandboxCode from './Action_UpdateSandboxCode'
 export {
   getProfileData,
   getLevelData,
-  saveGameCode,
+  saveGame,
   getDisplayName,
   updateLevel,
   getTemplateData,

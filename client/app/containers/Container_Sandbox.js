@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Codemirror from 'react-codemirror';
-import { getTemplateData, saveLevelData, updateSandboxCode } from '../actions'
+import { getTemplateData, saveGame, updateSandboxCode } from '../actions'
 import { bindActionCreators } from 'redux';
 
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
@@ -14,15 +14,44 @@ class Sandbox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: 'hello',
       showError: false,
-      error_message: null,
-      error_lineno: null,
-      error_colno: null,
       gameCode: null,
       title: 'example game'
     }
   }
+
+  handleError() {
+    const component = this;
+    window.onerror = (messageOrEvent, source, lineno, colno, error) => {
+      component.setState({
+        error_message: messageOrEvent,
+        error_source: source,
+        error_lineno: lineno,
+        error_colno: colno,
+        error: error
+      });
+      //if the window receives any error, stop game and display error
+      component.destroyGame();
+      component.displayError();
+    }
+  }
+
+  displayError() {
+    if(document.getElementsByTagName('canvas').length) {
+      document.getElementsByTagName('canvas')[0].remove();
+    }
+    this.setState({showError: true});
+
+  }
+
+  destroyGame() {
+    if(window.game) {
+      if(window.game.destroy && window.game.state){
+        window.game.destroy();
+      }
+    }
+  }
+
 
 
   updateTitle(newTitle) {
@@ -30,12 +59,6 @@ class Sandbox extends React.Component {
       title: document.getElementById('title').value
     })
     console.log(this.state.title);
-  }
-
-  updateCode(code) {
-    console.log(this.props, 'this props')
-    var newCode = this.props.code;
-    this.props.dispatch({type: 'UPDATE_SANDBOX_CODE', code: newCode})
   }
 
   stop() {
@@ -53,29 +76,39 @@ class Sandbox extends React.Component {
   }
 
   loadCode() {
-    if(window.game) {
-      if(window.game.destroy && window.game.state){
-        window.game.destroy();
-      }
+    //remove any previous error if there is one
+    if(this.state.showError) {
+      this.setState({showError: false})
     }
-    document.getElementById('gameScript').remove();
-    const script = document.createElement("script");
-    script.text = this.state.code;
-    script.id = 'gameScript';
-    document.getElementById('gameCode').appendChild(script);
+    //stop the current game code from running
+    this.destroyGame();
 
+    //generate and append new script
+    this.generateAndAppendScript();
+
+    //if there is no canvas, display the error page (even if no error has been caught)
     if(!document.getElementsByTagName('canvas').length) {
-      this.setState({showError: true});
-    } else {
-      this.setState({showError: false});
+      this.displayError();
     }
-    console.log("loadcode");
+  }
+
+  generateAndAppendScript() {
+    // remove current game script if there is one
+    if(document.getElementById('gameScript')){
+      document.getElementById('gameScript').remove();
+    }
+    //add the new code to the newly created script tag
+    const script = document.createElement("script");
+    script.text = this.props.code;
+    script.id = 'gameScript';
+    //run the new script by appending it to DOM
+    document.getElementById('gameCode').appendChild(script);
   }
 
   componentWillMount() {
     this.props.getTemplateData();
+    this.handleError();
     console.log('BEFORE SANDBOX MT: ', this);
-    this.updateCode('what')
   }
 
   componentDidMount() {
@@ -97,11 +130,7 @@ class Sandbox extends React.Component {
 
   componentWillUnmount() {
     document.getElementById('gameScript').remove();
-    if(window.game) {
-      if(window.game.destroy && window.game.state){
-        window.game.destroy();
-      }
-    }
+    this.destroyGame();
   }
 
 
@@ -112,16 +141,13 @@ class Sandbox extends React.Component {
     for(let obj of this.props.template.template) {
       templates[obj.id] = obj.templatecode;
     }
-    this.setState({
-      code: templates[id]
-    });
+    this.props.updateCode(templates[id]);
   }
 
   changeTemplate(id) {
     this.updateTemplate(id);
     console.log(this.state.code, "in changeTemplate")
     console.log("before loadcode");
-    this.loadCode();
     console.log("after loadcode");
   }
 
@@ -140,7 +166,7 @@ class Sandbox extends React.Component {
       <div>
         <h1 id='makeVideo'> Phaser Sandbox</h1>
         <div id="moveright">
-        <Codemirror value={this.props.code} onChange={this.updateCode.bind(this)} options={options} />
+        <Codemirror value={this.props.code} onChange={this.props.updateCode.bind(this)} options={options} />
         <div id='sandboxrightside'>
           <div id="gamebox">
             {this.state.showError ? <div id="errorconsole">
@@ -156,9 +182,9 @@ class Sandbox extends React.Component {
         </div>
         <div className="col-md-10 col-md-offset-1">
         <button id='load' className="btn btn-default" onClick={this.loadCode.bind(this)}> 
-          Load Data &nbsp;  
+          Run Game &nbsp;  
           <span className=" glyphicon glyphicon-play-circle" aria-hidden="true"></span></button>
-        <button className="btn btn-default" onClick={this.props.saveLevelData.bind(this, this.state.code, this.state.title)}> Save &nbsp;  
+        <button className="btn btn-default" onClick={this.props.saveGame.bind(this, this.props.code, this.state.title)}> Save &nbsp;  
           <span className=" glyphicon glyphicon-save" aria-hidden="true"></span></button>
         <div id='dropdown' className="dropdown">
           <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -184,7 +210,7 @@ function mapStateToProps(state){
   console.log('SANDBOX STATE: ', state)
   return {
     template: state.getTemplateData,
-    code: state.updateSandboxCode.code
+    code: state.updateSandboxCode.sandboxGameCode
   }
 }
 
@@ -193,10 +219,12 @@ function matchDispatchToProps(dispatch){
     // The only way to update the store is by dispatching the action (must dispatch an object not a fn)
     dispatch(getTemplateData())
   },
-  saveLevelData: (gamecode, title) => {
-    dispatch(saveLevelData(gamecode, title))
+  saveGame: (gamecode, title) => {
+    dispatch(saveGame(gamecode, title))
   },
-  dispatch: dispatch
+  updateCode: (code) => {
+    dispatch({type: 'UPDATE_SANDBOX_CODE', code: code});
+  }
 };
 }
 

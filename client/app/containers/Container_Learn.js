@@ -188,11 +188,7 @@ class Learn extends React.Component {
   }
 
   componentWillUnmount() {
-    if(window.game) {
-      if(window.game.destroy && window.game.state) {
-        window.game.destroy();
-      }
-    }
+    this.destroyGame();
     document.getElementById('gameScript').remove();
   }
 
