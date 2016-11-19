@@ -9,7 +9,7 @@ module.exports.router = function(app, passport) {
 
   app.post('/api/updatelevel', helpers.isLoggedIn, helpers.updateLevel); 
 
-  app.post('/api/saveleveldata', helpers.saveLevelData);
+  app.post('/api/saveleveldata', helpers.isLoggedIn, helpers.saveLevelData);
 
   app.get('/api/logout', helpers.logout);
 
