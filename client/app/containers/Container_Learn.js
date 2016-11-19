@@ -6,6 +6,7 @@ import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
 import Hint from '../components/Component_Hint.js'
+import DiffLevel from '../components/Component_DiffLevel.js'
 import { Router } from 'react-router'
 
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
@@ -230,6 +231,9 @@ class Learn extends React.Component {
           <p id="missionpromptwords2">{this.props.levelData.description_descthree}</p>
           <h3>What difficulty level would you like to complete {this.props.levelData.levelname} at?</h3>
         {/*button for choosing difficulty level*/}
+          <DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/>
+          <DiffLevel level='Heroic' completed={this.props.levelData.heroicComplete} points={this.props.levelData.heroicpoints}/>
+          <DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/>
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', 'Novice')}>Novice</button>
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', 'Heroic')}>Heroic</button>
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', 'Mythic')}>Mythic</button>

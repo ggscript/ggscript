@@ -75,8 +75,16 @@ module.exports = {
     // Users not logged in can access level 1 (req.user.session?)
     if(!req.session.passport){
       db.query(`SELECT * from leveldata WHERE leveldata.id = 1`)
-        .on('end', (result) => {
-          res.send(result.rows[0]);
+        .then(result => {
+          result.rows[0].noviceComplete = false;
+          result.rows[0].heroicComplete = false;
+          result.rows[0].mythicComplete = false;
+          db.query('SELECT * from difflevelpoints').then(result3 => {
+            for(let item of result3.rows){
+              result.rows[0][`${item.difflevel}points`] = item.points;
+            }
+            res.send(result.rows[0]);
+          })
         });
     // Only logged in users can access their current level
     } else {
@@ -89,16 +97,21 @@ module.exports = {
           result.rows[0].mythicComplete = false;
           result2.rows.forEach(entry => {
             if(entry.difflevel === 1){
-              result[noviceComplete] = true;
+              result.rows[0].noviceComplete = true;
             }
             if(entry.difflevel === 2){
-              result[heroicComplete] = true;
+              result.rows[0].heroicComplete = true;
             }
             if(entry.difflevel === 3){
-              result[mythicComplete] = true;
+              result.rows[0].mythicComplete = true;
+            }
+          })
+          db.query('SELECT * from difflevelpoints').then(result3 => {
+            for(let item of result3.rows){
+              result.rows[0][`${item.difflevel}points`] = item.points;
             }
             res.send(result.rows[0]);
-          })
+          })  
         });
       });
     }
@@ -160,6 +173,6 @@ module.exports = {
 //select difflevel, users.currlevel from users, pointevents 
 //where users.id = 7 and pointevents.levelid = users.currlevel
   getLevelPointsData: function(req, res){
-    return db.query(`SELECT difflevel FROM users, pointevents WHERE users.id = 7 and pointevents.levelid = users.currlevel`)
+    return db.query(`select pointevents.difflevel, users.id from users INNER JOIN pointevents ON users.id = pointevents.userid WHERE pointevents.levelid = users.currlevel AND users.id = ${req.session.passport.user.id}`);
   }
 }
