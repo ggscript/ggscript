@@ -38,6 +38,12 @@ class Hint extends React.Component {
       unusedHint: true
     }
   }
+  componentWillReceiveProps() {
+    //everytime component hint receive new props from container learn, unusedHint state gets reset to true;
+    this.setState({
+      unusedHint: true
+    });
+  }
   openModal() {
     this.setState({
       modalIsOpen: true,

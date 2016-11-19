@@ -1,8 +1,12 @@
 var db = require('../db/db');
 var user = require('./server');
+var highestLevel;
 
 module.exports = {
 
+  getLastLevel: function(req, res){
+    return db.query(`SELECT max(id) from leveldata`);
+  },
 
 
   sendLevelList: function(req,res, callback) {
@@ -15,7 +19,6 @@ module.exports = {
 
   // Returns all user data including name, picture, games titles, game code, etc
   sendUserData: function(req, res){
-    console.log(req.session, 'LOOK AT ME');
     db.query(`SELECT * FROM users WHERE id = ${req.session.passport.user.id}`)
       .on('end', (result) => {
         db.query(`SELECT title, id FROM games WHERE games.userid = ${result.rows[0].id} `)
@@ -41,24 +44,43 @@ module.exports = {
   },
 
   //advances the users level
-  advanceLevel: function(req, res) {
-    console.log(req.body, 'request recieved for advance level')
-    db.query(`UPDATE users SET currlevel = ${req.body.level} WHERE id = ${req.session.passport.user.id}`).then(result => res.sendStatus(200)).catch(err=>res.send(err));
+  updateLevel: function(req, res) {
+    //set curr level to curr level + one if request is for advance level (from next button on client learn page)
+    //set curr level to currlevel if request is for select level (from level select on client profile page)
+    var level = req.body.advance ? req.body.currlevel + 1 : req.body.currlevel;
+
+    module.exports.getLastLevel().then(result=>{
+      lastLevel = result.rows[0].max;
+      //if level is above max level (user has completed all levels), reset level to max level to avoid foreign key error
+      if(level > lastLevel) {
+        level--;
+      }
+      //update the users level
+      db.query(`UPDATE users SET currlevel = ${level} WHERE id = ${req.session.passport.user.id}`).on('end', result => {
+        res.sendStatus(200)
+      }).catch(err=>res.send(err));
+
+      //after sending response, update the user's maxlevel if needed
+      db.query(`UPDATE users SET maxlevel = CASE WHEN maxlevel < ${level} THEN ${level} ELSE maxlevel END WHERE id = ${req.session.passport.user.id}`).catch(err => console.log(err));
+
+
+    })
+    
+
+
   },
 
   // Returns all level 1 data which is availale to anyone visting our site otherwise access is restricted
   sendLevelData: function(req, res) {
     // Users not logged in can access level 1 (req.user.session?)
-    // console.log(req.session, 'level request');
-    if(!req.passport){
+    if(!req.session.passport){
       db.query(`SELECT * from leveldata WHERE leveldata.id = 1`)
         .on('end', (result) => {
           res.send(result.rows[0]);
         });
     // Only logged in users can access their current level
     } else {
-      console.log('yayayayayayaya')
-      db.query(`SELECT leveldata.id, leveldata.levelname, leveldata.prompt, leveldata.description_subone, leveldata.description_descone, leveldata.description_subtwo, leveldata.description_desctwo, leveldata.description_subthree, leveldata.description_descthree, leveldata.tldr, leveldata.shortdesc, leveldata.hint1, leveldata.hint2, leveldata.hint3, leveldata.heroiclevelcode, leveldata.mythiclevelcode, leveldata.novicelevelcode from leveldata, users WHERE leveldata.id = users.currlevel AND users.id = ${req.passport.session.user.id}`)
+      db.query(`SELECT leveldata.id, leveldata.levelname, leveldata.prompt, leveldata.description_subone, leveldata.description_descone, leveldata.description_subtwo, leveldata.description_desctwo, leveldata.description_subthree, leveldata.description_descthree, leveldata.tldr, leveldata.shortdesc, leveldata.hint1, leveldata.hint2, leveldata.hint3, leveldata.heroiclevelcode, leveldata.mythiclevelcode, leveldata.novicelevelcode from leveldata, users WHERE leveldata.id = users.currlevel AND users.id = ${req.session.passport.user.id}`)
         .on('end', (result) => {
           res.send(result.rows[0]);
         });
@@ -95,8 +117,6 @@ module.exports = {
   },
 
   logout: function(req,res) {
-    console.log('good bye');
-    console.log(req.session, 'logout request');
     req.session.destroy();
     req.logout();
     res.redirect('/');
@@ -119,19 +139,10 @@ module.exports = {
     }
   },
 
-  updateUserLevel: function(req, res) {
-    console.log('LVL REQ ', req.id);
-    db.query(`UPDATE users SET currlevel = ${req.currlevel+1} WHERE id = ${req.id}`)
-      .on('end', (result) => {
-        console.log('LVL RESULT: ', result);
-        res.send(result.rows);
-      });
-  },
 
   sendTemplateData: function(req, res) {
     db.query(`SELECT * FROM templates`)
       .on('end', (result) => {
-        console.log('TEMPLATES: ',result.rows);
         res.send(result.rows);
       });
   }

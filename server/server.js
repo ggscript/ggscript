@@ -29,7 +29,6 @@ if (process.env.NODE_ENV !== 'production') {
   }));
   // allow CORS on all traffic for development purposes
   app.use(function(req, res, next) {
-      // console.log('option request received');
       res.header('Access-Control-Allow-Credentials', true);
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');

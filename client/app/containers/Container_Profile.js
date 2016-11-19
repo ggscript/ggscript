@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link, hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import NavLink from '../components/NavLink'
-import { getProfileData } from '../actions'
+import { getProfileData, updateLevel } from '../actions'
 
 //TODO
 //Make User info dynamic to received data
@@ -37,8 +37,8 @@ class Profile extends React.Component {
   					<h1> Your Saved Games! </h1>
             {this.props.data.savedgames.map((title) => <div id="gameCard"><h3 className="gameTitle"> {title.title} </h3></div>)}
             <h1> Levels </h1>
-            {this.props.data.levels.filter(level => level.id <= this.props.data.currlevel).map(level => <div id="gameCard"><h3 className="gameTitle">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
-            {this.props.data.levels.filter(level => level.id > this.props.data.currlevel).map(level => <div id="gameCardIncomp"><h3 className="gameTitleIncomp">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
+            {this.props.data.levels.filter(level => level.id <= this.props.data.maxlevel).map(level => <div onClick={this.props.updateLevel.bind(this, false, level.id)}id="gameCard"><h3 className="gameTitle">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
+            {this.props.data.levels.filter(level => level.id > this.props.data.maxlevel).map(level => <div id="gameCardIncomp"><h3 className="gameTitleIncomp">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
   				</div>
   			</div>
   		</div>
@@ -53,7 +53,11 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return {
     getProfileData: () => {
-      dispatch(getProfileData())
+      dispatch(getProfileData());
+    },
+    updateLevel(advanceBoolean, currlevel) {
+      dispatch(updateLevel(advanceBoolean, currlevel));
+      hashHistory.push('learn');
     }
   }
 }
