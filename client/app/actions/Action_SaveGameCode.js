@@ -1,5 +1,5 @@
 
-function saveLevelData(gameCode, title) {
+function saveGameCode(gameCode, title) {
   return function(dispatch) {
     fetch(`api/saveleveldata`, {
       headers: {
@@ -31,4 +31,4 @@ function saveLevelData(gameCode, title) {
   };
 }
 
-export { saveLevelData }
+export default saveGameCode

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Codemirror from 'react-codemirror';
-import { getTemplateData, saveLevelData } from '../actions'
+import { getTemplateData, saveLevelData, updateSandboxCode } from '../actions'
 import { bindActionCreators } from 'redux';
 
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
@@ -14,7 +14,7 @@ class Sandbox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: 'var game = new Phaser.Game(600, 450, Phaser.CANVAS, "gamebox", { preload: preload, create: create }); \nfunction preload() {\n} \nfunction create() {\n}',
+      code: 'hello',
       showError: false,
       error_message: null,
       error_lineno: null,
@@ -24,20 +24,18 @@ class Sandbox extends React.Component {
     }
   }
 
-  updateCode(newCode) {
-    console.log(this, 'this')
-    this.setState({
-      code: newCode,
-      gameCode: newCode
-      // title: 'updated title'
-    });
-  }
 
   updateTitle(newTitle) {
     this.setState({
       title: document.getElementById('title').value
     })
     console.log(this.state.title);
+  }
+
+  updateCode(code) {
+    console.log(this.props, 'this props')
+    var newCode = this.props.code;
+    this.props.dispatch({type: 'UPDATE_SANDBOX_CODE', code: newCode})
   }
 
   stop() {
@@ -77,6 +75,7 @@ class Sandbox extends React.Component {
   componentWillMount() {
     this.props.getTemplateData();
     console.log('BEFORE SANDBOX MT: ', this);
+    this.updateCode('what')
   }
 
   componentDidMount() {
@@ -104,6 +103,8 @@ class Sandbox extends React.Component {
       }
     }
   }
+
+
 
   updateTemplate(id) {
     console.log('UPDATED TEMP: ', this.props.template.template[id]);
@@ -139,7 +140,7 @@ class Sandbox extends React.Component {
       <div>
         <h1 id='makeVideo'> Phaser Sandbox</h1>
         <div id="moveright">
-        <Codemirror value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
+        <Codemirror value={this.props.code} onChange={this.updateCode.bind(this)} options={options} />
         <div id='sandboxrightside'>
           <div id="gamebox">
             {this.state.showError ? <div id="errorconsole">
@@ -180,11 +181,10 @@ class Sandbox extends React.Component {
 }
 
 function mapStateToProps(state){
-  console.log('SANDBOX STATE: ', state.getTemplateData)
+  console.log('SANDBOX STATE: ', state)
   return {
     template: state.getTemplateData,
-    title: state.saveLevelData.title,
-    gameCode: state.saveLevelData.gameCode,
+    code: state.updateSandboxCode.code
   }
 }
 
@@ -195,7 +195,8 @@ function matchDispatchToProps(dispatch){
   },
   saveLevelData: (gamecode, title) => {
     dispatch(saveLevelData(gamecode, title))
-  }
+  },
+  dispatch: dispatch
 };
 }
 
