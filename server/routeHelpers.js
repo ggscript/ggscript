@@ -94,9 +94,10 @@ module.exports = {
     db.query(`SELECT exists (SELECT 1 FROM games WHERE title = '${req.body.title}' AND userid = ${req.session.passport.user.id})`)
       .on('end', (result) => {
         if(result.rows[0].exists){
-          console.log('this exists');
+          req.body.gameCode = req.body.gameCode.replace(/'/g, "''"); 
           db.query(`UPDATE games SET gamecode = '${req.body.gameCode}' WHERE title = '${req.body.title}'`)
         } else {
+        req.body.gameCode = req.body.gameCode.replace(/'/g, "''"); 
         db.query(`INSERT INTO games (userid, title, gamecode)
            VALUES (${req.session.passport.user.id}, '${req.body.title}', '${req.body.gameCode}')`, function(err) {
             if(err) {
