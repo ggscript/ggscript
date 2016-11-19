@@ -87,9 +87,11 @@ class Sandbox extends React.Component {
     this.generateAndAppendScript();
 
     //if there is no canvas, display the error page (even if no error has been caught)
-    if(!document.getElementsByTagName('canvas').length) {
-      this.displayError();
-    }
+    setTimeout(function() {
+      if(!document.getElementsByTagName('canvas').length) {
+        this.displayError();
+      } 
+    }, 500)
   }
 
   generateAndAppendScript() {
