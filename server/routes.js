@@ -30,7 +30,5 @@ module.exports.router = function(app, passport) {
 
   app.get('/api/templatedata', helpers.sendTemplateData);
 
-  app.get('/api/levelpoints', helpers.sendLevelPointsData);
-
 
 };
