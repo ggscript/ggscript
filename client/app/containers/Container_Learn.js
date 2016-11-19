@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import { connect } from 'react-redux'
-import { getLevelData, updateLevel, getLevelPoints } from '../actions'
+import { getLevelData, updateLevel, getLevelPoints, updatePoints} from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
@@ -106,7 +106,6 @@ class Learn extends React.Component {
     if(window.game.input){
       if(window.game.input.keyboard) {
         window.game.input.keyboard.enabled = false;
-        console.log(window.game.input.keyboard.enabled);
       }
     }
   }
@@ -115,7 +114,6 @@ class Learn extends React.Component {
     if(window.game.input){
       if(window.game.input.keyboard) {
         window.game.input.keyboard.enabled = true;
-        console.log(window.game.input.keyboard.enabled);
       }
     }
   }
@@ -197,7 +195,7 @@ class Learn extends React.Component {
   }
 
   display() {
-    console.log(this.props);
+    console.log(this.props, "display");
   }
 
   render() {
@@ -231,12 +229,9 @@ class Learn extends React.Component {
           <p id="missionpromptwords2">{this.props.levelData.description_descthree}</p>
           <h3>What difficulty level would you like to complete {this.props.levelData.levelname} at?</h3>
         {/*button for choosing difficulty level*/}
-          <DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/>
-          <DiffLevel level='Heroic' completed={this.props.levelData.heroicComplete} points={this.props.levelData.heroicpoints}/>
-          <DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/>
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', 'Novice')}>Novice</button>
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', 'Heroic')}>Heroic</button>
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', 'Mythic')}>Mythic</button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', 'Novice')}><DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/></button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', 'Heroic')}><DiffLevel level='Heroic' completed={this.props.levelData.heroicComplete} points={this.props.levelData.heroicpoints}/></button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', 'Mythic')}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button>
           </div>
         </Modal>
         <div id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span></div>
@@ -274,7 +269,7 @@ class Learn extends React.Component {
             </div>
             <span id="makeVideo"> Use A Hint? </span>
             <span>`{this.props.novicecomplete}`</span>
-            <button onClick={this.display.bind(this)}>test</button>
+            <button onClick={this.props.updatePoints.bind(this, 1, 7, 2, 20)}>test</button>
           </div>
         </div>
         <div id="gameCode"></div>
@@ -301,6 +296,9 @@ function mapDispatchToProps(dispatch){
     },
     getLevelPoints: () => {
       dispatch(getLevelPoints());
+    }, 
+    updatePoints: (currlevel, userid, difflevel, points) => {
+      dispatch(updatePoints(currlevel, userid, difflevel, points));
     }
   }
 }

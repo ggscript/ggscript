@@ -9,6 +9,8 @@ module.exports.router = function(app, passport) {
 
   app.post('/api/updatelevel', helpers.isLoggedIn, helpers.updateLevel); 
 
+  app.post('/api/updatepoints', helpers.updatePoints);
+
   app.get('/api/logout', helpers.logout);
 
   app.get('/api/displayname', function(req, res) {

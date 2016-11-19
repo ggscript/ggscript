@@ -65,9 +65,25 @@ module.exports = {
 
 
     })
-    
+
+  },
 
 
+  updatePoints: function(req, res){
+    var currlevel = req.body.currlevel;
+    var userid = req.body.userid;
+    var difflevel = req.body.difflevel;
+    var points = req.body.points;
+
+    db.query(`SELECT * from pointevents WHERE userid = ${userid} and difflevel = ${difflevel} and levelid = ${currlevel} `)
+      .on('end', (result) => {
+        if(result.rows.length === 0){
+          db.query(`INSERT into pointevents (levelid, difflevel, userid) VALUES (${currlevel},${difflevel},${userid})`)
+            .on('end', () => {
+              db.query(`UPDATE users SET points = points + ${points}  where id = ${userid}`)
+            }).catch(err => res.send(err));
+        }
+      }).catch(err => res.send(err));
   },
 
   // Returns all level 1 data which is availale to anyone visting our site otherwise access is restricted

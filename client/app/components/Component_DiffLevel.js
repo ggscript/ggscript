@@ -8,7 +8,7 @@ class DiffLevel extends React.Component {
   }
 
   componentWillMount() {
-
+    console.log("in DiffLevel", typeof this.props.completed)
   }
 
   componentDidMount() {
@@ -22,7 +22,9 @@ class DiffLevel extends React.Component {
   render() {
     return (
       <div className="col-md-4">
-        {this.props.level} {this.props.points}
+        <span>
+          {this.props.level} {this.props.points} <img src={this.props.completed? "./assets/emptystar.png" : "./assets/fullstar.png"}></img>
+        </span>
       </div>
       )
   }

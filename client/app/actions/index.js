@@ -3,6 +3,7 @@ import { getProfileData, getDisplayName } from './Action_UserData'
 import updateLevel from './Action_UpdateLevel'
 import getTemplateData from './Action_GetTemplate'
 import {getLevelPoints} from './Action_GetLevelPoints'
+import updatePoints from './Action_UpdatePoints'
 
 export {
   getProfileData,
@@ -10,5 +11,6 @@ export {
   getDisplayName,
   updateLevel,
   getTemplateData,
-  getLevelPoints
+  getLevelPoints,
+  updatePoints
 }
