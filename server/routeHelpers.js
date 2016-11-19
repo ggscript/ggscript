@@ -81,9 +81,26 @@ module.exports = {
     // Only logged in users can access their current level
     } else {
       db.query(`SELECT leveldata.id, leveldata.levelname, leveldata.prompt, leveldata.description_subone, leveldata.description_descone, leveldata.description_subtwo, leveldata.description_desctwo, leveldata.description_subthree, leveldata.description_descthree, leveldata.tldr, leveldata.shortdesc, leveldata.hint1, leveldata.hint2, leveldata.hint3, leveldata.heroiclevelcode, leveldata.mythiclevelcode, leveldata.novicelevelcode from leveldata, users WHERE leveldata.id = users.currlevel AND users.id = ${req.session.passport.user.id}`)
-        .on('end', (result) => {
-          res.send(result.rows[0]);
+        .then( result => {
+          module.exports.getLevelPointsData(req,res).then( result2 => {
+          //var clientResponse = {1: false, 2: false, 3: false}
+          result.rows[0].noviceComplete = false;
+          result.rows[0].heroicComplete = false;
+          result.rows[0].mythicComplete = false;
+          result2.rows.forEach(entry => {
+            if(entry.difflevel === 1){
+              result[noviceComplete] = true;
+            }
+            if(entry.difflevel === 2){
+              result[heroicComplete] = true;
+            }
+            if(entry.difflevel === 3){
+              result[mythicComplete] = true;
+            }
+            res.send(result.rows[0]);
+          })
         });
+      });
     }
   },
 
@@ -142,14 +159,7 @@ module.exports = {
   },
 //select difflevel, users.currlevel from users, pointevents 
 //where users.id = 7 and pointevents.levelid = users.currlevel
-  sendLevelPointsData: function(req, res){
-    db.query(`SELECT difflevel FROM users, pointevents WHERE users.id = 7 and pointevents.levelid = users.currlevel`)
-      .on('end', (result) => {
-        var clientResponse = {1: false, 2: false, 3: false}
-        result.rows.forEach(entry => {
-          clientResponse[entry.difflevel] = true; 
-        })
-        res.send(clientResponse);
-      });
+  getLevelPointsData: function(req, res){
+    return db.query(`SELECT difflevel FROM users, pointevents WHERE users.id = 7 and pointevents.levelid = users.currlevel`)
   }
 }
