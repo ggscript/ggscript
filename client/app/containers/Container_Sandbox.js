@@ -124,15 +124,6 @@ class Sandbox extends React.Component {
     console.log("after loadcode");
   }
 
-  // saveData() {
-  //   // this.setState({
-  //   //   gameCode: this.state.code,
-  //   //   title: "Test"
-  //   // })
-  //   this.props.saveLevelData();
-  //   console.log(this.props, 'props after save');
-  // }
-
   render() {
     const options = {
       lineNumbers: true,

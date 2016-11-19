@@ -108,12 +108,6 @@ module.exports = {
           })
         }
       }) 
-      // console.log('this title already exists!', db.query(`SELECT exists (SELECT 1 FROM games WHERE title = '${req.body.title}')`));
-    //   db.query(`UPDATE games SET gamecode = '${req.body.gameCode}' WHERE title = '${req.body.title}'`)
-    // console.log(req.session.passport.user.id, req.body.title, req.body.gameCode, 'your stuff');
-    // console.log(req.body, 'this is the req body');
-    // db.query(`INSERT INTO games (userid, title, gamecode)
-    //   VALUES(${req.session.passport.user.id}, 'test23', 'test23')`)
   },
 
   logout: function(req,res) {
