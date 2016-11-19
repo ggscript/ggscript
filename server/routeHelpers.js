@@ -66,15 +66,32 @@ module.exports = {
   },
 
   saveLevelData: function(req, res) {
-    console.log('made it to helper function');
-    // if(db.query(`SELECT exists (SELECT 1 FROM games WHERE title = games.title)`)) {
-    //   db.query(`UPDATE games SET games.gamecode = ${req.gamecode} WHERE games.title = ${req.title}`)
-    // } else {
-    //   db.query(`INSERT INTO games (userid, title, gamecode)
-    //     VALUES (${req.session.passport.user.id}, ${req.title}, ${req.gamecode}`)
-    // }
-    db.query(`INSERT INTO games (userid, title, gamecode)
-      VALUES(${req.session.passport.user.id}, 'test23', 'test23')`)
+    if(!req.passport){
+      res.redirect('/');
+    }
+    db.query(`SELECT exists (SELECT 1 FROM games WHERE title = '${req.body.title}' AND userid = ${req.session.passport.user.id})`)
+      .on('end', (result) => {
+        if(result.rows[0].exists){
+          console.log('this exists');
+          db.query(`UPDATE games SET gamecode = '${req.body.gameCode}' WHERE title = '${req.body.title}'`)
+        } else {
+        db.query(`INSERT INTO games (userid, title, gamecode)
+           VALUES (${req.session.passport.user.id}, '${req.body.title}', '${req.body.gameCode}')`, function(err) {
+            if(err) {
+              throw err;
+            }
+            else {
+              console.log('ugh');
+            }
+          })
+        }
+      }) 
+      // console.log('this title already exists!', db.query(`SELECT exists (SELECT 1 FROM games WHERE title = '${req.body.title}')`));
+    //   db.query(`UPDATE games SET gamecode = '${req.body.gameCode}' WHERE title = '${req.body.title}'`)
+    // console.log(req.session.passport.user.id, req.body.title, req.body.gameCode, 'your stuff');
+    // console.log(req.body, 'this is the req body');
+    // db.query(`INSERT INTO games (userid, title, gamecode)
+    //   VALUES(${req.session.passport.user.id}, 'test23', 'test23')`)
   },
 
   logout: function(req,res) {

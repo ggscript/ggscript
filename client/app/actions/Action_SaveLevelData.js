@@ -1,19 +1,24 @@
-function saveLevelDataUponResponse(data) {
-  console.log('leveldataresponse', data)
-  return {type: 'SAVE_LEVEL_DATA', userid: data.id, title: data.title, gamecode: data.gameCode}
-};
 
-function saveLevelData() {
+function saveLevelData(gameCode, title) {
   return function(dispatch) {
     fetch(`api/saveleveldata`, {
-      method: 'get',
-      credentials: "include"
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      credentials: "include",
+      body: JSON.stringify({gameCode: gameCode, title: title}),
     })
     .then(response => {
       //parse the response and then called the action creator via promise
-        response.text().then(res => {
+        response.JSON().then(res => {
           console.log(res, 'saveLevelData response action');
-          dispatch(saveLevelDataUponResponse(res))
+          // const {data} = getState.reducer();
+          // dispatch(saveLevelDataUponResponse(data))
+          if(response.status === 401) {
+            console.log('error error')
+          }
         })
         .catch(err => {console.log(err)})
       }
@@ -26,4 +31,4 @@ function saveLevelData() {
   };
 }
 
-export { saveLevelDataUponResponse, saveLevelData }
+export { saveLevelData }

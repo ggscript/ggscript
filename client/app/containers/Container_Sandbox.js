@@ -14,19 +14,30 @@ class Sandbox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: "var game = new Phaser.Game(600, 450, Phaser.CANVAS, 'gamebox', { preload: preload, create: create }); \nfunction preload() {\n} \nfunction create() {\n}",
+      code: 'var game = new Phaser.Game(600, 450, Phaser.CANVAS, "gamebox", { preload: preload, create: create }); \nfunction preload() {\n} \nfunction create() {\n}',
       showError: false,
       error_message: null,
       error_lineno: null,
-      error_colno: null
+      error_colno: null,
+      gameCode: null,
+      title: 'example game'
     }
   }
 
   updateCode(newCode) {
     console.log(this, 'this')
     this.setState({
-      code: newCode
+      code: newCode,
+      gameCode: newCode
+      // title: 'updated title'
     });
+  }
+
+  updateTitle(newTitle) {
+    this.setState({
+      title: document.getElementById('title').value
+    })
+    console.log(this.state.title);
   }
 
   stop() {
@@ -100,14 +111,14 @@ class Sandbox extends React.Component {
     })
   }
 
-  saveData(code) {
-    this.setState({
-      gameCode: this.state.code,
-      title: "Test"
-    })
-    this.props.saveLevelData();
-    console.log(this.props, 'props after save');
-  }
+  // saveData() {
+  //   // this.setState({
+  //   //   gameCode: this.state.code,
+  //   //   title: "Test"
+  //   // })
+  //   this.props.saveLevelData();
+  //   console.log(this.props, 'props after save');
+  // }
 
   render() {
     const options = {
@@ -133,9 +144,17 @@ class Sandbox extends React.Component {
             {`Error Line Number: ${this.state.error_lineno}`}<br></br>
             {`Error Column Number: ${this.state.error_colno}`}<br></br>
             </div> : null}
-          </div>
-        <div className="col-md-6 col-md-offset-3">
-        <button className="btn btn-default" onClick={this.loadCode.bind(this)}> Load Data </button>
+        </div>
+
+        <div className="input-group input-grout-lg col-md-8 col-md-offset-2">
+          <input className="form-control" id='title' placeholder="Untitled Game" type="text" onChange={this.updateTitle.bind(this)} aria-describedby="sizing-addon1"></input>
+        </div>
+        <div className="col-md-10 col-md-offset-1">
+        <button id='load' className="btn btn-default" onClick={this.loadCode.bind(this)}> 
+          Load Data &nbsp;  
+          <span className=" glyphicon glyphicon-play-circle" aria-hidden="true"></span></button>
+        <button className="btn btn-default" onClick={this.props.saveLevelData.bind(this, this.state.code, this.state.title)}> Save &nbsp;  
+          <span className=" glyphicon glyphicon-save" aria-hidden="true"></span></button>
         <div id='dropdown' className="dropdown">
           <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Choose a Template
@@ -145,7 +164,6 @@ class Sandbox extends React.Component {
            <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 1)}>Side Scroller</a>
            <a className="dropdown-item" onClick={this.updateTemplate.bind(this, 2)}>Adventure Game</a>
         </div>
-        <button onClick={this.saveData.bind(this)}> Save </button>
         </div>
         </div>
         </div>
@@ -163,7 +181,6 @@ function mapStateToProps(state){
     template: state.getTemplateData,
     title: state.saveLevelData.title,
     gameCode: state.saveLevelData.gameCode,
-    id: state.saveLevelData.id
   }
 }
 
@@ -172,8 +189,8 @@ function matchDispatchToProps(dispatch){
     // The only way to update the store is by dispatching the action (must dispatch an object not a fn)
     dispatch(getTemplateData())
   },
-  saveLevelData: () => {
-    dispatch(saveLevelData())
+  saveLevelData: (gamecode, title) => {
+    dispatch(saveLevelData(gamecode, title))
   }
 };
 }
