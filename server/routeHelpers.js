@@ -80,7 +80,7 @@ module.exports = {
           result.rows[0].heroicComplete = false;
           result.rows[0].mythicComplete = false;
           db.query('SELECT * from difflevelpoints').then(result3 => {
-            for(let item of result3.rows){
+            for(var item of result3.rows){
               result.rows[0][`${item.difflevel}points`] = item.points;
             }
             res.send(result.rows[0]);
@@ -107,7 +107,7 @@ module.exports = {
             }
           })
           db.query('SELECT * from difflevelpoints').then(result3 => {
-            for(let item of result3.rows){
+            for(var item of result3.rows){
               result.rows[0][`${item.difflevel}points`] = item.points;
             }
             res.send(result.rows[0]);
