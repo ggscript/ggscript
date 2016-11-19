@@ -139,5 +139,9 @@ module.exports = {
       .on('end', (result) => {
         res.send(result.rows);
       });
+  },
+
+  sendLevelPointsData: function(req, res){
+    db.query(``)
   }
 }

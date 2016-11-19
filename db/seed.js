@@ -124,6 +124,24 @@ connection.query(
     }
   });
 
-// Create dummy data to work with
+connection.query(
+ `CREATE TABLE IF NOT EXISTS "pointevents" (
+ "id" SERIAL PRIMARY KEY,
+ "levelid" INTEGER NOT NULL,
+ "difflevel" INTEGER NOT NULL,
+ "userid" INTEGER NOT NULL,
+ FOREIGN KEY (userid) REFERENCES users(id),
+ FOREIGN KEY (levelid) REFERENCES leveldata(id),
+ FOREIGN KEY (difflevel) REFERENCES difflevelpoints(id)
+ )`,
+ (err) => {
+   if(err) {
+     console.log('Error adding user completed levels', err);
+   } else {
+     console.log('Table user completed levels created');
+   }
+});
+
+
 
 

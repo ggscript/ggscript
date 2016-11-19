@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import { connect } from 'react-redux'
-import { getLevelData, updateLevel } from '../actions'
+import { getLevelData, updateLevel, getLevelPoints } from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
@@ -68,7 +68,8 @@ class Learn extends React.Component {
   componentWillMount(){
     const component = this;
     this.handleError();
-    this.props.getLevelData(1);
+    this.props.getLevelData();
+    this.props.getLevelPoints();
   }
   updateCode(newCode) {
     console.log(this, 'this')
@@ -302,6 +303,9 @@ function mapDispatchToProps(dispatch){
     dispatch: dispatch,
     updateLevel: (advanceBoolean, currlevel) => {
       dispatch(updateLevel(advanceBoolean, currlevel));
+    },
+    getLevelPoints: () => {
+      dispatch(getLevelPoints());
     }
   }
 }
