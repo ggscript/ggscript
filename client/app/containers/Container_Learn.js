@@ -172,9 +172,10 @@ class Learn extends React.Component {
     this.generateAndAppendScript();
 
     //if there is no canvas, display the error page (even if no error has been caught) needs settimeout since loading script occurs after react functions are run
+    var component = this;
     setTimeout(function() {
       if(!document.getElementsByTagName('canvas').length) {
-        this.displayError();
+        component.displayError();
       } 
     }, 500)
   }

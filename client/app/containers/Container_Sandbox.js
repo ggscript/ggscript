@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Codemirror from 'react-codemirror';
-import { getTemplateData, saveGame, updateSandboxCode } from '../actions'
+import { getTemplateData, saveGame } from '../actions'
 import { bindActionCreators } from 'redux';
 
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
@@ -87,9 +87,10 @@ class Sandbox extends React.Component {
     this.generateAndAppendScript();
 
     //if there is no canvas, display the error page (even if no error has been caught)
+    var component = this;
     setTimeout(function() {
       if(!document.getElementsByTagName('canvas').length) {
-        this.displayError();
+        component.displayError();
       } 
     }, 500)
   }
@@ -114,20 +115,7 @@ class Sandbox extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this, 'learn this')
-    const script = document.createElement("script");
-    script.id = 'gameScript';
-    script.text = this.state.code;
-    document.getElementById('gameCode').appendChild(script);
-
-    var component = this;
-    window.onerror = (messageOrEvent, lineno, colno) => {
-      component.setState({
-        error_message: messageOrEvent,
-        error_lineno: lineno,
-        error_colno: colno
-      });
-    }
+    this.loadCode();
   }
 
   componentWillUnmount() {
@@ -218,16 +206,16 @@ function mapStateToProps(state){
 
 function matchDispatchToProps(dispatch){
   return { getTemplateData: () => {
-    // The only way to update the store is by dispatching the action (must dispatch an object not a fn)
-    dispatch(getTemplateData())
-  },
-  saveGame: (gamecode, title) => {
-    dispatch(saveGame(gamecode, title))
-  },
-  updateCode: (code) => {
-    dispatch({type: 'UPDATE_SANDBOX_CODE', code: code});
-  }
-};
+      // The only way to update the store is by dispatching the action (must dispatch an object not a fn)
+      dispatch(getTemplateData())
+    },
+    saveGame: (gamecode, title) => {
+      dispatch(saveGame(gamecode, title))
+    },
+    updateCode: (code) => {
+      dispatch({type: 'UPDATE_SANDBOX_CODE', code: code});
+    }
+  };
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Sandbox);
