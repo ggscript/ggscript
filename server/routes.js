@@ -9,7 +9,9 @@ module.exports.router = function(app, passport) {
 
   app.post('/api/updatelevel', helpers.isLoggedIn, helpers.updateLevel); 
 
-  app.post('/api/saveleveldata', helpers.saveLevelData);
+  app.post('/api/usergames', helpers.isLoggedIn, helpers.saveUserGame);
+
+  app.get('/api/usergames', helpers.isLoggedIn, helpers.retrieveUserGame);
 
   app.get('/api/logout', helpers.logout);
 
@@ -27,7 +29,7 @@ module.exports.router = function(app, passport) {
   });
 
   app.get('/auth/google/callback', 
-  	passport.authenticate('google', {failureRedirect : '/#/login', successRedirect: '/#/profile'}), (req,res) => {
+  	passport.authenticate('google', {failureRedirect : '/', successRedirect: '/#/profile'}), (req,res) => {
   	});
 
   app.get('/api/templatedata', helpers.sendTemplateData);

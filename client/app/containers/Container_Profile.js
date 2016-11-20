@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import NavLink from '../components/NavLink'
-import { getProfileData, updateLevel } from '../actions'
+import { getProfileData, updateLevel, getUserGame } from '../actions'
 
 //TODO
 //Make User info dynamic to received data
@@ -16,7 +16,7 @@ class Profile extends React.Component {
   }
 
    componentDidMount(){
-    console.log('DID MT ',this);
+    console.log(this.props.data, 'here is your data');
   }
 
   render() {
@@ -25,7 +25,7 @@ class Profile extends React.Component {
   			<div id='userdata' className="row">
   				<div className="col-sm-4">
   					<div className="profile-userpic">
-  					<img className="img-responsive text-center" src="http://www.tigerfdn.com/wp-content/uploads/2015/05/ever-wonderred-what-do-tigers-eat.jpg"/>
+  					<img className="img-responsive text-center" src={this.props.data.picture}/>
   					</div>
   					<h2 id="username" className="text-center">{this.props.data.displayname}</h2>
   					<h4 className="text-center">{this.props.data.title}</h4>
@@ -35,10 +35,10 @@ class Profile extends React.Component {
   				</div>
   				<div className="col-sm-8">
   					<h1> Your Saved Games! </h1>
-            {this.props.data.savedgames.map((title) => <div id="gameCard"><h3 className="gameTitle"> {title.title} </h3></div>)}
+            {this.props.data.savedgames.map((title) => <div key={title.id} onClick={this.props.retrieveGame.bind(this, title.id)}id="gameCard"><h3 className="gameTitle"> {title.title} </h3></div>)}
             <h1> Levels </h1>
-            {this.props.data.levels.filter(level => level.id <= this.props.data.maxlevel).map(level => <div onClick={this.props.updateLevel.bind(this, false, level.id)}id="gameCard"><h3 className="gameTitle">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
-            {this.props.data.levels.filter(level => level.id > this.props.data.maxlevel).map(level => <div id="gameCardIncomp"><h3 className="gameTitleIncomp">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
+            {this.props.data.levels.filter(level => level.id <= this.props.data.maxlevel).map(level => <div key={level.id} onClick={this.props.updateLevel.bind(this, false, level.id)}id="gameCard"><h3 className="gameTitle">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
+            {this.props.data.levels.filter(level => level.id > this.props.data.maxlevel).map(level => <div key={level.id} id="gameCardIncomp"><h3 className="gameTitleIncomp">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
   				</div>
   			</div>
   		</div>
@@ -58,6 +58,9 @@ function mapDispatchToProps(dispatch){
     updateLevel(advanceBoolean, currlevel) {
       dispatch(updateLevel(advanceBoolean, currlevel));
       hashHistory.push('learn');
+    },
+    retrieveGame(gameid) {
+      dispatch(getUserGame(gameid));
     }
   }
 }

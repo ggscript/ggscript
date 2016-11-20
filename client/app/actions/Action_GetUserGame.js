@@ -1,19 +1,18 @@
-function loadLevelDataUponResponse(data) {
-  console.log('leveldataresponse', data)
-  return {type: 'LOAD_LEVEL_DATA', data}
-};
+import {hashHistory} from 'react-router'
 
-function getLevelData() {
+function getUserGame(gameid) {
   return function(dispatch) {
-    fetch(`api/leveldata`, {
+    fetch(`api/usergames?id=${gameid}`, {
       method: 'get',
       credentials: "include"
     })
     .then(response => {
       //parse the response and then called the action creator via promise
         response.json().then(res => {
-          console.log(res, 'getLevelData response action');
-          dispatch(loadLevelDataUponResponse(res))
+          console.log(res, 'getUserGame response action');
+          dispatch({type: 'UPDATE_SANDBOX_CODE', code: res.gamecode});
+          hashHistory.push('sandbox');
+
         })
         .catch(err => {console.log(err)})
       }
@@ -26,4 +25,4 @@ function getLevelData() {
   };
 }
 
-export {getLevelData, loadLevelDataUponResponse}
+export default getUserGame

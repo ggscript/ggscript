@@ -1,7 +1,7 @@
 
-function saveLevelData(gameCode, title) {
+function saveGame(gameCode, title) {
   return function(dispatch) {
-    fetch(`api/saveleveldata`, {
+    fetch(`api/usergames`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -31,4 +31,4 @@ function saveLevelData(gameCode, title) {
   };
 }
 
-export { saveLevelData }
+export default saveGame

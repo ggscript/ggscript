@@ -75,28 +75,57 @@ module.exports = {
     // Users not logged in can access level 1 (req.user.session?)
     if(!req.session.passport){
       db.query(`SELECT * from leveldata WHERE leveldata.id = 1`)
-        .on('end', (result) => {
-          res.send(result.rows[0]);
+        .then(result => {
+          result.rows[0].noviceComplete = false;
+          result.rows[0].heroicComplete = false;
+          result.rows[0].mythicComplete = false;
+          db.query('SELECT * from difflevelpoints').then(result3 => {
+            for(var item of result3.rows){
+              result.rows[0][`${item.difflevel}points`] = item.points;
+            }
+            res.send(result.rows[0]);
+          })
         });
     // Only logged in users can access their current level
     } else {
       db.query(`SELECT leveldata.id, leveldata.levelname, leveldata.prompt, leveldata.description_subone, leveldata.description_descone, leveldata.description_subtwo, leveldata.description_desctwo, leveldata.description_subthree, leveldata.description_descthree, leveldata.tldr, leveldata.shortdesc, leveldata.hint1, leveldata.hint2, leveldata.hint3, leveldata.heroiclevelcode, leveldata.mythiclevelcode, leveldata.novicelevelcode from leveldata, users WHERE leveldata.id = users.currlevel AND users.id = ${req.session.passport.user.id}`)
-        .on('end', (result) => {
-          res.send(result.rows[0]);
+        .then( result => {
+          module.exports.getLevelPointsData(req,res).then( result2 => {
+          //var clientResponse = {1: false, 2: false, 3: false}
+          result.rows[0].noviceComplete = false;
+          result.rows[0].heroicComplete = false;
+          result.rows[0].mythicComplete = false;
+          result2.rows.forEach(entry => {
+            if(entry.difflevel === 1){
+              result.rows[0].noviceComplete = true;
+            }
+            if(entry.difflevel === 2){
+              result.rows[0].heroicComplete = true;
+            }
+            if(entry.difflevel === 3){
+              result.rows[0].mythicComplete = true;
+            }
+          })
+          db.query('SELECT * from difflevelpoints').then(result3 => {
+            for(var item of result3.rows){
+              result.rows[0][`${item.difflevel}points`] = item.points;
+            }
+            res.send(result.rows[0]);
+          })  
         });
+      });
     }
   },
 
-  saveLevelData: function(req, res) {
-    if(!req.passport){
-      res.redirect('/');
-    }
+  saveUserGame: function(req, res) {
     db.query(`SELECT exists (SELECT 1 FROM games WHERE title = '${req.body.title}' AND userid = ${req.session.passport.user.id})`)
       .on('end', (result) => {
         if(result.rows[0].exists){
-          console.log('this exists');
+          //masquerades single quotes by adding an additional quote
+          req.body.gameCode = req.body.gameCode.replace(/'/g, "''"); 
           db.query(`UPDATE games SET gamecode = '${req.body.gameCode}' WHERE title = '${req.body.title}'`)
         } else {
+        req.body.gameCode = req.body.gameCode.replace(/'/g, "''"); 
         db.query(`INSERT INTO games (userid, title, gamecode)
            VALUES (${req.session.passport.user.id}, '${req.body.title}', '${req.body.gameCode}')`, function(err) {
             if(err) {
@@ -108,6 +137,12 @@ module.exports = {
           })
         }
       }) 
+  },
+
+  retrieveUserGame: function(req, res) {
+    db.query(`SELECT * FROM games WHERE userid = ${req.session.passport.user.id} AND id = ${req.query.id}`).then(result => {
+      res.send(result.rows[0]);
+    })
   },
 
   logout: function(req,res) {
@@ -139,5 +174,10 @@ module.exports = {
       .on('end', (result) => {
         res.send(result.rows);
       });
+  },
+//select difflevel, users.currlevel from users, pointevents 
+//where users.id = 7 and pointevents.levelid = users.currlevel
+  getLevelPointsData: function(req, res){
+    return db.query(`select pointevents.difflevel, users.id from users INNER JOIN pointevents ON users.id = pointevents.userid WHERE pointevents.levelid = users.currlevel AND users.id = ${req.session.passport.user.id}`);
   }
 }
