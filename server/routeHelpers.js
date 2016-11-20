@@ -71,10 +71,21 @@ module.exports = {
 
   updatePoints: function(req, res){
     var currlevel = req.body.currlevel;
-    var userid = req.body.userid;
-    var difflevel = req.body.difflevel;
-    var points = req.body.points;
-
+    var userid = req.session.passport.user.id;
+    var difflevel;
+    var points;
+    if(req.body.difflevel === "Novice"){
+      difflevel = 1;
+      points = 10;
+    }
+    if(req.body.difflevel === "Heroic"){
+      difflevel = 2;
+      points = 20;
+    }
+    if(req.body.difflevel === "Mythic"){
+      difflevel = 3;
+      points = 30;
+    }
     db.query(`SELECT * from pointevents WHERE userid = ${userid} and difflevel = ${difflevel} and levelid = ${currlevel} `)
       .on('end', (result) => {
         if(result.rows.length === 0){

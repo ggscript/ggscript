@@ -198,6 +198,11 @@ class Learn extends React.Component {
     console.log(this.props, "display");
   }
 
+  nextLevel() {
+    this.props.updateLevel(true, this.props.levelData.id);
+    this.props.updatePoints(this.props.levelData.id, this.state.difficultyLevel);
+  }
+
   render() {
     const options = {
       lineNumbers: true,
@@ -258,7 +263,7 @@ class Learn extends React.Component {
             </div>
             <div id="learnbuttons">
               <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
-              <button id="makeVideo" className="btn btn-default padded" onClick={this.props.updateLevel.bind(this, true, this.props.levelData.id)}> Next Level </button>
+              <button id="makeVideo" className="btn btn-default padded" onClick={this.nextLevel.bind(this)}> Next Level </button>
               <button id="makeVideo" className="btn btn-default padded" onClick={this.refresh.bind(this)}> Reset Level </button>
             </div>
             <br></br>
@@ -269,7 +274,6 @@ class Learn extends React.Component {
             </div>
             <span id="makeVideo"> Use A Hint? </span>
             <span>`{this.props.novicecomplete}`</span>
-            <button onClick={this.props.updatePoints.bind(this, 1, 7, 2, 20)}>test</button>
           </div>
         </div>
         <div id="gameCode"></div>
@@ -297,8 +301,8 @@ function mapDispatchToProps(dispatch){
     getLevelPoints: () => {
       dispatch(getLevelPoints());
     }, 
-    updatePoints: (currlevel, userid, difflevel, points) => {
-      dispatch(updatePoints(currlevel, userid, difflevel, points));
+    updatePoints: (currlevel, difflevel) => {
+      dispatch(updatePoints(currlevel, difflevel));
     }
   }
 }

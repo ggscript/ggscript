@@ -1,4 +1,4 @@
-function updatePoints(currlevel,userid,difflevel,points){
+function updatePoints(currlevel,difflevel){
 	return function(dispatch){
 		fetch('/api/updatepoints',{
 			headers:{
@@ -8,9 +8,7 @@ function updatePoints(currlevel,userid,difflevel,points){
 			method: 'POST',
 			body: JSON.stringify({
 				currlevel: currlevel,
-				userid: userid,
 				difflevel: difflevel,
-				points: points
 			}),
 			credentials: "include"
 		}).catch(err => {
