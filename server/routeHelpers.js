@@ -117,7 +117,7 @@ module.exports = {
     }
   },
 
-  saveLevelData: function(req, res) {
+  saveUserGame: function(req, res) {
     if(!req.passport){
       res.redirect('/');
     }
@@ -138,6 +138,12 @@ module.exports = {
           })
         }
       }) 
+  },
+
+  retrieveUserGame: function(req, res) {
+    db.query(`SELECT * FROM games WHERE userid = ${req.session.passport.user.id} AND id = ${req.query.id}`).then(result => {
+      res.send(result.rows[0]);
+    })
   },
 
   logout: function(req,res) {

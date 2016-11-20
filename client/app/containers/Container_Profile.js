@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import NavLink from '../components/NavLink'
-import { getProfileData, updateLevel } from '../actions'
+import { getProfileData, updateLevel, getUserGame } from '../actions'
 
 //TODO
 //Make User info dynamic to received data
@@ -35,10 +35,10 @@ class Profile extends React.Component {
   				</div>
   				<div className="col-sm-8">
   					<h1> Your Saved Games! </h1>
-            {this.props.data.savedgames.map((title) => <div id="gameCard"><h3 className="gameTitle"> {title.title} </h3></div>)}
+            {this.props.data.savedgames.map((title) => <div key={title.id} onClick={this.props.retrieveGame.bind(this, title.id)}id="gameCard"><h3 className="gameTitle"> {title.title} </h3></div>)}
             <h1> Levels </h1>
-            {this.props.data.levels.filter(level => level.id <= this.props.data.maxlevel).map(level => <div onClick={this.props.updateLevel.bind(this, false, level.id)}id="gameCard"><h3 className="gameTitle">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
-            {this.props.data.levels.filter(level => level.id > this.props.data.maxlevel).map(level => <div id="gameCardIncomp"><h3 className="gameTitleIncomp">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
+            {this.props.data.levels.filter(level => level.id <= this.props.data.maxlevel).map(level => <div key={level.id} onClick={this.props.updateLevel.bind(this, false, level.id)}id="gameCard"><h3 className="gameTitle">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
+            {this.props.data.levels.filter(level => level.id > this.props.data.maxlevel).map(level => <div key={level.id} id="gameCardIncomp"><h3 className="gameTitleIncomp">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
   				</div>
   			</div>
   		</div>
@@ -58,6 +58,9 @@ function mapDispatchToProps(dispatch){
     updateLevel(advanceBoolean, currlevel) {
       dispatch(updateLevel(advanceBoolean, currlevel));
       hashHistory.push('learn');
+    },
+    retrieveGame(gameid) {
+      dispatch(getUserGame(gameid));
     }
   }
 }

@@ -1,7 +1,7 @@
 
 function saveGame(gameCode, title) {
   return function(dispatch) {
-    fetch(`api/saveleveldata`, {
+    fetch(`api/usergames`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
