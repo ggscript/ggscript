@@ -7,22 +7,12 @@ class DiffLevel extends React.Component {
     }
   }
 
-  componentWillMount() {
-
-  }
-
-  componentDidMount() {
-
-  }
-
-  componentWillReceiveProps() {
-  }
-
-
   render() {
     return (
       <div className="col-md-4">
-        {this.props.level} {this.props.points}
+        <span>
+          {this.props.level} {this.props.points} <img src={this.props.completed? "./assets/emptystar1.png" : "./assets/fullstar1.png"}></img>
+        </span>
       </div>
       )
   }

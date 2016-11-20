@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import { connect } from 'react-redux'
-import { getLevelData, updateLevel, getLevelPoints, getDisplayName } from '../actions'
+import { getLevelData, updateLevel, getLevelPoints, getDisplayName, updatePoints } from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
@@ -189,8 +189,9 @@ class Learn extends React.Component {
     document.getElementById('gameScript').remove();
   }
 
-  display() {
-    console.log(this.props);
+  nextLevel() {
+    this.props.updateLevel(true, this.props.levelData.id);
+    this.props.updatePoints(this.props.levelData.id, this.state.difficultyLevel);
   }
 
   render() {
@@ -224,12 +225,9 @@ class Learn extends React.Component {
           <p id="missionpromptwords2">{this.props.levelData.description_descthree}</p>
           <h3>What difficulty level would you like to complete {this.props.levelData.levelname} at?</h3>
         {/*button for choosing difficulty level*/}
-          <DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/>
-          <DiffLevel level='Heroic' completed={this.props.levelData.heroicComplete} points={this.props.levelData.heroicpoints}/>
-          <DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/>
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', 'Novice')}>Novice</button>
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', 'Heroic')}>Heroic</button>
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', 'Mythic')}>Mythic</button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', 'Novice')}><DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/></button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', 'Heroic')}><DiffLevel level='Heroic' completed={this.props.levelData.heroicComplete} points={this.props.levelData.heroicpoints}/></button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', 'Mythic')}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button>
           </div>
         </Modal>
         <div id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span></div>
@@ -256,7 +254,7 @@ class Learn extends React.Component {
             </div>
             <div id="learnbuttons">
               <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
-              <button id="makeVideo" className="btn btn-default padded" onClick={this.props.updateLevel.bind(this, true, this.props.levelData.id)}> Next Level </button>
+              <button id="makeVideo" className="btn btn-default padded" onClick={this.nextLevel.bind(this)}> Next Level </button>
               <button id="makeVideo" className="btn btn-default padded" onClick={this.refresh.bind(this)}> Reset Level </button>
             </div>
             <br></br>
@@ -266,8 +264,6 @@ class Learn extends React.Component {
               <Hint hint={this.props.levelData.hint3}/>
             </div>
             <span id="makeVideo"> Use A Hint? </span>
-            <span>`{this.props.novicecomplete}`</span>
-            <button onClick={this.display.bind(this)}>test</button>
           </div>
         </div>
         <div id="gameCode"></div>
@@ -285,6 +281,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
+    
     getLevelData: () => {
       dispatch(getLevelData())
     },
@@ -294,6 +291,9 @@ function mapDispatchToProps(dispatch){
     },
     getLevelPoints: () => {
       dispatch(getLevelPoints());
+    }, 
+    updatePoints: (currlevel, difflevel) => {
+      dispatch(updatePoints(currlevel, difflevel));
     }
 
   }
