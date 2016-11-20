@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import { connect } from 'react-redux'
-import { getLevelData, updateLevel, getLevelPoints, updatePoints} from '../actions'
+import { getLevelData, updateLevel, getLevelPoints, getDisplayName, updatePoints } from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
@@ -72,7 +72,6 @@ class Learn extends React.Component {
     this.props.getLevelData();
   }
   updateCode(newCode) {
-    console.log(this, 'this')
     this.setState({
       code: newCode
     });
@@ -141,10 +140,7 @@ class Learn extends React.Component {
         window.game.destroy();
       }
     }
-  }
-
-  runGame(code) {
-  }
+  } 
 
   generateAndAppendScript() {
     // remove current game script if there is one
@@ -169,10 +165,13 @@ class Learn extends React.Component {
     //generate and append new script
     this.generateAndAppendScript();
 
-    //if there is no canvas, display the error page (even if no error has been caught)
-    if(!document.getElementsByTagName('canvas').length) {
-      this.displayError();
-    }
+    //if there is no canvas, display the error page (even if no error has been caught) needs settimeout since loading script occurs after react functions are run
+    var component = this;
+    setTimeout(function() {
+      if(!document.getElementsByTagName('canvas').length) {
+        component.displayError();
+      } 
+    }, 500)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -186,16 +185,8 @@ class Learn extends React.Component {
   }
 
   componentWillUnmount() {
-    if(window.game) {
-      if(window.game.destroy && window.game.state) {
-        window.game.destroy();
-      }
-    }
+    this.destroyGame();
     document.getElementById('gameScript').remove();
-  }
-
-  display() {
-    console.log(this.props, "display");
   }
 
   nextLevel() {
@@ -273,7 +264,6 @@ class Learn extends React.Component {
               <Hint hint={this.props.levelData.hint3}/>
             </div>
             <span id="makeVideo"> Use A Hint? </span>
-            <span>`{this.props.novicecomplete}`</span>
           </div>
         </div>
         <div id="gameCode"></div>
@@ -291,6 +281,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
+    
     getLevelData: () => {
       dispatch(getLevelData())
     },
@@ -304,6 +295,7 @@ function mapDispatchToProps(dispatch){
     updatePoints: (currlevel, difflevel) => {
       dispatch(updatePoints(currlevel, difflevel));
     }
+
   }
 }
 

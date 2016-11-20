@@ -7,18 +7,6 @@ class DiffLevel extends React.Component {
     }
   }
 
-  componentWillMount() {
-    console.log("in DiffLevel", typeof this.props.completed)
-  }
-
-  componentDidMount() {
-
-  }
-
-  componentWillReceiveProps() {
-  }
-
-
   render() {
     return (
       <div className="col-md-4">

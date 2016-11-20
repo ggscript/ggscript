@@ -144,6 +144,34 @@ module.exports = {
     }
   },
 
+  saveUserGame: function(req, res) {
+    db.query(`SELECT exists (SELECT 1 FROM games WHERE title = '${req.body.title}' AND userid = ${req.session.passport.user.id})`)
+      .on('end', (result) => {
+        if(result.rows[0].exists){
+          //masquerades single quotes by adding an additional quote
+          req.body.gameCode = req.body.gameCode.replace(/'/g, "''"); 
+          db.query(`UPDATE games SET gamecode = '${req.body.gameCode}' WHERE title = '${req.body.title}'`)
+        } else {
+        req.body.gameCode = req.body.gameCode.replace(/'/g, "''"); 
+        db.query(`INSERT INTO games (userid, title, gamecode)
+           VALUES (${req.session.passport.user.id}, '${req.body.title}', '${req.body.gameCode}')`, function(err) {
+            if(err) {
+              throw err;
+            }
+            else {
+              console.log('ugh');
+            }
+          })
+        }
+      }) 
+  },
+
+  retrieveUserGame: function(req, res) {
+    db.query(`SELECT * FROM games WHERE userid = ${req.session.passport.user.id} AND id = ${req.query.id}`).then(result => {
+      res.send(result.rows[0]);
+    })
+  },
+
   logout: function(req,res) {
     req.session.destroy();
     req.logout();
