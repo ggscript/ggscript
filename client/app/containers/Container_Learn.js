@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import { connect } from 'react-redux'
-import { getLevelData, updateLevel, getLevelPoints } from '../actions'
+import { getLevelData, updateLevel, getLevelPoints, getDisplayName } from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
@@ -72,7 +72,6 @@ class Learn extends React.Component {
     this.props.getLevelData();
   }
   updateCode(newCode) {
-    console.log(this, 'this')
     this.setState({
       code: newCode
     });
@@ -106,7 +105,6 @@ class Learn extends React.Component {
     if(window.game.input){
       if(window.game.input.keyboard) {
         window.game.input.keyboard.enabled = false;
-        console.log(window.game.input.keyboard.enabled);
       }
     }
   }
@@ -115,7 +113,6 @@ class Learn extends React.Component {
     if(window.game.input){
       if(window.game.input.keyboard) {
         window.game.input.keyboard.enabled = true;
-        console.log(window.game.input.keyboard.enabled);
       }
     }
   }
@@ -143,10 +140,7 @@ class Learn extends React.Component {
         window.game.destroy();
       }
     }
-  }
-
-  runGame(code) {
-  }
+  } 
 
   generateAndAppendScript() {
     // remove current game script if there is one
@@ -301,6 +295,7 @@ function mapDispatchToProps(dispatch){
     getLevelPoints: () => {
       dispatch(getLevelPoints());
     }
+
   }
 }
 

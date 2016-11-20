@@ -16,7 +16,7 @@ class Profile extends React.Component {
   }
 
    componentDidMount(){
-    console.log('DID MT ',this);
+    console.log(this.props.data, 'here is your data');
   }
 
   render() {
@@ -25,7 +25,7 @@ class Profile extends React.Component {
   			<div id='userdata' className="row">
   				<div className="col-sm-4">
   					<div className="profile-userpic">
-  					<img className="img-responsive text-center" src="http://www.tigerfdn.com/wp-content/uploads/2015/05/ever-wonderred-what-do-tigers-eat.jpg"/>
+  					<img className="img-responsive text-center" src={this.props.data.picture}/>
   					</div>
   					<h2 id="username" className="text-center">{this.props.data.displayname}</h2>
   					<h4 className="text-center">{this.props.data.title}</h4>
