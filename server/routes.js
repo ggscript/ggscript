@@ -27,7 +27,7 @@ module.exports.router = function(app, passport) {
   });
 
   app.get('/auth/google/callback', 
-  	passport.authenticate('google', {failureRedirect : '/#/login', successRedirect: '/#/profile'}), (req,res) => {
+  	passport.authenticate('google', {failureRedirect : '/', successRedirect: '/#/profile'}), (req,res) => {
   	});
 
   app.get('/api/templatedata', helpers.sendTemplateData);

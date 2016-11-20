@@ -84,7 +84,7 @@ class App extends React.Component {
                   <NavLink id="profile" to="/profile">Welcome, {this.props.displayname} </NavLink>
                 </li> 
                 <li>
-                  <a href='#/' data-target = '#logout-modal' data-toggle="modal" className="landing-pg-links"> Log Out </a>
+                  <a href='#/' data-target ='#logout-modal' data-toggle="modal" className="landing-pg-links"> Log Out </a>
                 </li>
               </ul> : 
               <ul className="nav navbar-nav navbar-right"> 

@@ -14,7 +14,8 @@ function advanceLevel(currlevel) {
     }).then(response => {
       //parse the response and then called the action creator via promise
         if(response.status === 401) {
-          hashHistory.push('login');
+          // document.getElementById('login-modal').modal("show");
+          // hashHistory.push('login');
         } else {
           dispatch(getLevelData(1));
         }

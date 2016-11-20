@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import { connect } from 'react-redux'
-import { getLevelData, updateLevel } from '../actions'
+import { getLevelData, updateLevel, getDisplayName } from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
@@ -71,7 +71,6 @@ class Learn extends React.Component {
     this.props.getLevelData(1);
   }
   updateCode(newCode) {
-    console.log(this, 'this')
     this.setState({
       code: newCode
     });
@@ -105,7 +104,6 @@ class Learn extends React.Component {
     if(window.game.input){
       if(window.game.input.keyboard) {
         window.game.input.keyboard.enabled = false;
-        console.log(window.game.input.keyboard.enabled);
       }
     }
   }
@@ -114,7 +112,6 @@ class Learn extends React.Component {
     if(window.game.input){
       if(window.game.input.keyboard) {
         window.game.input.keyboard.enabled = true;
-        console.log(window.game.input.keyboard.enabled);
       }
     }
   }
@@ -142,10 +139,7 @@ class Learn extends React.Component {
         window.game.destroy();
       }
     }
-  }
-
-  runGame(code) {
-  }
+  } 
 
   generateAndAppendScript() {
     // remove current game script if there is one
@@ -251,7 +245,7 @@ class Learn extends React.Component {
           <div className="text-center">
             <div>
               <span id="prompt">Level:<span id="promptwords"> {this.props.levelname}</span></span>
-             <span id="prompt">Difficulty:<span id="promptwords"> {this.state.difficultyLevel}</span></span>
+              <span id="prompt">Difficulty:<span id="promptwords"> {this.state.difficultyLevel}</span></span>
             </div>
             <div id="learnbuttons">
               <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
@@ -290,7 +284,8 @@ function mapStateToProps(state){
     heroiclevelcode: state.getLevelData.heroiclevelcode,
     mythiclevelcode: state.getLevelData.mythiclevelcode,
     novicelevelcode: state.getLevelData.novicelevelcode,
-    difficultyLevel: state.getLevelData.difficultyLevel
+    difficultyLevel: state.getLevelData.difficultyLevel,
+    data: state.userData
   }
 }
 
@@ -302,6 +297,9 @@ function mapDispatchToProps(dispatch){
     dispatch: dispatch,
     updateLevel: (advanceBoolean, currlevel) => {
       dispatch(updateLevel(advanceBoolean, currlevel));
+    },
+    getProfileData: () => {
+      dispatch(getProfileData());
     }
   }
 }

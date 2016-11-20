@@ -88,12 +88,10 @@ module.exports = {
   },
 
   saveLevelData: function(req, res) {
-    if(!req.passport){
-      res.redirect('/');
-    }
     db.query(`SELECT exists (SELECT 1 FROM games WHERE title = '${req.body.title}' AND userid = ${req.session.passport.user.id})`)
       .on('end', (result) => {
         if(result.rows[0].exists){
+          //masquerades single quotes by adding an additional quote
           req.body.gameCode = req.body.gameCode.replace(/'/g, "''"); 
           db.query(`UPDATE games SET gamecode = '${req.body.gameCode}' WHERE title = '${req.body.title}'`)
         } else {
