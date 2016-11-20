@@ -23,7 +23,7 @@ class DiffLevel extends React.Component {
     return (
       <div className="col-md-4">
         <span>
-          {this.props.level} {this.props.points} <img src={this.props.completed? "./assets/emptystar.png" : "./assets/fullstar.png"}></img>
+          {this.props.level} {this.props.points} <img src={this.props.completed? "./assets/emptystar1.png" : "./assets/fullstar1.png"}></img>
         </span>
       </div>
       )
