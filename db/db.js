@@ -1,7 +1,7 @@
 const pg = require('pg');
 var DB_URL;
-if (process.env.NODE_ENV !== 'production') {
-  DB_URL = require('../config/database.credentials.js');
+if (!process.env.DATABASE_URL) {
+  DB_URL = require('../config/database.credentials');
 }
 console.log(DB_URL)
 
