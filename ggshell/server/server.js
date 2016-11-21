@@ -6,4 +6,4 @@ const port = process.env.PORT || 3001;
 
 app.use(express.static(path.join(__dirname, '../client')));
 
-app.listen(port);
+app.listen(port, console.log('listening on... ', port));

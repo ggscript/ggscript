@@ -1,9 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://cdn.jsdelivr.net/phaser/2.6.2/phaser.js"></script>
+  <script type="text/javascript" src="/lib/porthole.min.js"></script>
+
   <title>ggshell</title>
 </head>
 <body style="background: blue;">
-  <h1>HELLO FROM THE OTHER SIDE</h1>
+  <div id="test">HELLO FROM THE OTHER SIDE</div>
+  <div id="gamebox">
+    <script>
+      function onMessage(messageEvent) {
+        if(messageEvent.data.script) {
+          eval(messageEvent.data.script);
+        }
+        document.getElementById("test").innerHTML = "WORKED!";
+        console.log(messageEvent);
+      }
+      var windowProxy;
+      window.onload = function(){
+        windowProxy = new Porthole.WindowProxy("http://localhost:3000");
+        windowProxy.addEventListener(onMessage);
+      }
+    </script>
+  </div>
 </body>
 </html>

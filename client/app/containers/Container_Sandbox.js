@@ -52,7 +52,10 @@ class Sandbox extends React.Component {
     }
   }
 
-
+  setUpProxy() {
+    var guestDomain = "http://localhost:3001";
+    window.windowProxy = new Porthole.WindowProxy(guestDomain, "ggshell");
+  }
 
   updateTitle(newTitle) {
     this.setState({
@@ -91,7 +94,7 @@ class Sandbox extends React.Component {
     setTimeout(function() {
       if(!document.getElementsByTagName('canvas').length) {
         component.displayError();
-      } 
+      }
     }, 500)
   }
 
@@ -111,6 +114,7 @@ class Sandbox extends React.Component {
   componentWillMount() {
     this.props.getTemplateData();
     this.handleError();
+    this.setUpProxy();
     console.log('BEFORE SANDBOX MT: ', this);
   }
 
@@ -158,23 +162,25 @@ class Sandbox extends React.Component {
         <div id="moveright">
         <Codemirror value={this.props.code} onChange={this.props.updateCode.bind(this)} options={options} />
         <div id='sandboxrightside'>
-          <div id="gamebox">
+          {/*<div id="gamebox">
             {this.state.showError ? <div id="errorconsole">
             Oops, you have an error!<br></br>
             {`${this.state.error_message}`}<br></br>
             {`Error Line Number: ${this.state.error_lineno}`}<br></br>
             {`Error Column Number: ${this.state.error_colno}`}<br></br>
             </div> : null}
-        </div>
+          </div>*/}
+          <iframe src="http://localhost:3001" id="errorconsole" name="ggshell">
+          </iframe>
 
         <div className="input-group input-grout-lg col-md-8 col-md-offset-2">
           <input className="form-control" id='title' placeholder="Untitled Game" type="text" onChange={this.updateTitle.bind(this)} aria-describedby="sizing-addon1"></input>
         </div>
         <div className="col-md-10 col-md-offset-1">
-        <button id='load' className="btn btn-default" onClick={this.loadCode.bind(this)}> 
-          Run Game &nbsp;  
+        <button id='load' className="btn btn-default" onClick={this.loadCode.bind(this)}>
+          Run Game &nbsp;
           <span className=" glyphicon glyphicon-play-circle" aria-hidden="true"></span></button>
-        <button className="btn btn-default" onClick={this.props.saveGame.bind(this, this.props.code, this.state.title)}> Save &nbsp;  
+        <button className="btn btn-default" onClick={this.props.saveGame.bind(this, this.props.code, this.state.title)}> Save &nbsp;
           <span className=" glyphicon glyphicon-save" aria-hidden="true"></span></button>
         <div id='dropdown' className="dropdown">
           <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
