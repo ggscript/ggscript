@@ -12,7 +12,7 @@ class App extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
                       // <NavLink id="logged" to="/login">Log In</NavLink>
-
+      console.log(nextProps, 'next');
   }
 
   render() {
@@ -81,7 +81,7 @@ class App extends React.Component {
             {this.props.displayname ? 
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <NavLink id="profile" to="/profile">Welcome, {this.props.displayname} </NavLink>
+                  <NavLink id="profile" to="/profile">Welcome, {this.props.displayname} {this.props.data.points} points </NavLink>
                 </li> 
                 <li>
                   <a href='#/' data-target ='#logout-modal' data-toggle="modal" className="landing-pg-links"> Log Out </a>
@@ -105,7 +105,8 @@ class App extends React.Component {
 
 function mapStateToProps(state){
   console.log(state, 'map state to props container app')
-  return {displayname: state.userData.displayname};
+  return {displayname: state.userData.displayname,
+    data: state.userData};
 }
 
 function mapDispatchToProps(dispatch){
