@@ -337,6 +337,11 @@ html {
   display: block;
 }
 
+/************************About page styles*************************/
+.socialIcon {
+  height: 7%;
+  margin: 0 auto;
+}
 
 /*beginning of codemirror css
 .CodeMirror {
