@@ -37,7 +37,7 @@ class Sandbox extends React.Component {
   }
 
   setUpProxy() {
-    var guestDomain = location.hostname === 'localhost' ? "http://localhost:3001" : 'https://ggshell.herokuapp.com';
+    var guestDomain = location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com';
     console.log('sandbox guestdomain:', guestDomain);
     window.windowProxy = new Porthole.WindowProxy(guestDomain, "ggshell");
   }
@@ -130,7 +130,7 @@ class Sandbox extends React.Component {
         <div id="moveright">
         <Codemirror value={this.props.code} onChange={this.props.updateCode.bind(this)} options={options} />
         <div id='sandboxrightside'>
-          <iframe src="http://localhost:3001" id="errorconsole" name="ggshell" scrolling="no"></iframe>
+          <iframe src={location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com'} id="errorconsole" name="ggshell" scrolling="no"></iframe>
 
         <div className="input-group input-grout-lg col-md-8 col-md-offset-2">
           <input className="form-control" id='title' placeholder="Untitled Game" type="text" onChange={this.updateTitle.bind(this)} aria-describedby="sizing-addon1"></input>
