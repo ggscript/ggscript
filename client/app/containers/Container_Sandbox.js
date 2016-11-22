@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Codemirror from 'react-codemirror';
-import { getTemplateData, saveGame } from '../actions'
+import { getTemplateData, saveGame, getProfileData } from '../actions'
 import { bindActionCreators } from 'redux';
 
 require('../../../node_modules/codemirror/mode/javascript/javascript.js');
@@ -52,13 +52,17 @@ class Sandbox extends React.Component {
     }
   }
 
-
+  decideAlert() {
+    if(this.state.title && this.state.title) {
+      console.log('hello');
+    }
+  }
 
   updateTitle(newTitle) {
     this.setState({
       title: document.getElementById('title').value
     })
-    console.log(this.state.title);
+    console.log(this.props, "ALL");
   }
 
   stop() {
@@ -185,6 +189,7 @@ class Sandbox extends React.Component {
            <a className="dropdown-item" onClick={this.changeTemplate.bind(this, 2)}>Side Scroller</a>
            <a className="dropdown-item" onClick={this.changeTemplate.bind(this, 3)}>Adventure Game</a>
         </div>
+
         </div>
         </div>
         </div>
@@ -200,7 +205,8 @@ function mapStateToProps(state){
   console.log('SANDBOX STATE: ', state)
   return {
     template: state.getTemplateData,
-    code: state.updateSandboxCode.sandboxGameCode
+    code: state.updateSandboxCode.sandboxGameCode,
+    user: state.userData
   }
 }
 
@@ -214,6 +220,9 @@ function matchDispatchToProps(dispatch){
     },
     updateCode: (code) => {
       dispatch({type: 'UPDATE_SANDBOX_CODE', code: code});
+    },
+    getProfileData: () => {
+      dispatch(getProfileData());
     }
   };
 }
