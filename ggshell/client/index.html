@@ -9,8 +9,13 @@
 <body>
   <div id="gamebox">
   <div id="errorconsole">
-    <h1>error</h1>
-    <div id="errormsg"></div>
+    <span>UH OH! <br></br>
+      It looks like there is a slight error in your code :(
+      But don't worry!  We're here to help you solve it.  Usually it's something very simple, such as a missing open or close parenthesis or bracket.  Luckily, while writing code in Javascript with Phaser, we have access to error messages that give hints as to what and where the error is.  Try looking over the error message below and try to fix it!  <br></br>
+    </span><br></br>
+    <div id="error-msg"></div>
+    <div id="error-line"></div>
+    <div id="error-col"></div>
   </div>
     <script>
       function onMessage(messageEvent) {
@@ -41,13 +46,16 @@
 
       function handleError() {
         window.onerror = (messageOrEvent, source, lineno, colno, error) => {
-          var error_message = messageOrEvent;
-          var error_source = source;
-          var error_lineno = lineno;
-          var error_colno = colno;
-          var error = error;
-          document.getElementsByTagName("canvas")[0].remove();
-          document.getElementById("errorconsole").show();
+          var error_msg = messageOrEvent;
+          var error_line = lineno;
+          var error_col = colno;
+          if(document.getElementsByTagName('canvas').length){
+            document.getElementsByTagName('canvas')[0].remove();
+          }
+          document.getElementById('errorconsole').style.display = 'inline-block';
+          document.getElementById('error-msg').innerHTML = error_msg;
+          document.getElementById('error-line').innerHTML = 'Error Message: ' + error_line;
+          document.getElementById('error-col').innerHTML = 'Error Message: ' +error_col;
         }
       }
     </script>

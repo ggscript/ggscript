@@ -16,13 +16,13 @@ body {
 
 #errorconsole {
   background: black;
-  width: 600px;
+  width: 550px;
   height: 450px;
   color: red;
   font-family: "Courier";
   font-size: 1em;
-  padding: 0px;
-  display: hidden;
+  padding: 10px;
+  display: none;
   margin-bottom: 10px;
 }
 
