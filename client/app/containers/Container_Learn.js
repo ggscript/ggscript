@@ -75,6 +75,7 @@ class Learn extends React.Component {
   startLevel(code, startLevel) {
     var selectedCode = this.props.levelData[code];
     //load the code base based on the user's selected difficulty level;
+    //startLevel is a boolean which allows the code to be loaded upon new level start, but not upon every change of codemirror text
     this.props.updateCode(startLevel, selectedCode);
     this.closeModal();
   }
@@ -94,6 +95,7 @@ class Learn extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     var component = this;
+    //only open the modal if the level id has changed
     if(this.props.levelData.id !== nextProps.levelData.id) {
       this.setState({modalIsOpen: true});
     }
@@ -111,12 +113,10 @@ class Learn extends React.Component {
   }
 
   componentDidUpdate(){
+    //once the props have been recieved, load the code if its the beginning of a level but not if codemirror text has been altered by user
     if(this.props.startLevel) {
       this.loadCode();
     }
-  }
-
-  componentWillUnmount() {
   }
 
   nextLevel() {
