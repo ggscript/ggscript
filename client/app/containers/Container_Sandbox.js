@@ -37,7 +37,8 @@ class Sandbox extends React.Component {
   }
 
   setUpProxy() {
-    var guestDomain = "http://localhost:3001";
+    var guestDomain = location.hostname === 'localhost' ? "http://localhost:3001" : 'https://ggshell.herokuapp.com';
+    console.log('sandbox guestdomain:', guestDomain);
     window.windowProxy = new Porthole.WindowProxy(guestDomain, "ggshell");
   }
 
