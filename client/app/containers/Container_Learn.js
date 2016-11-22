@@ -79,12 +79,10 @@ class Learn extends React.Component {
     this.props.updateCode(startLevel, selectedCode);
     this.closeModal();
   }
-  refresh() {
-    location.reload();
-  }
 
   generateAndSendScript() {
     // send the script to the ggshell ifream
+    console.log('sending script from learn container', this.props.code);
     windowProxy.post({script: this.props.code});
   }
 
@@ -177,7 +175,7 @@ class Learn extends React.Component {
             <div id="learnbuttons">
               <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
               <button id="makeVideo" className="btn btn-default padded" onClick={this.nextLevel.bind(this)}> Next Level </button>
-              <button id="makeVideo" className="btn btn-default padded" onClick={this.refresh.bind(this)}> Reset Level </button>
+              <button id="makeVideo" className="btn btn-default padded" onClick={this.openModal.bind(this)}> Reset Level </button>
             </div>
             <br></br>
             <div id="hints">
