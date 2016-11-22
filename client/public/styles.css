@@ -120,6 +120,10 @@ body {
   margin-left: 10px !important;
 }
 
+iframe {
+  border: none;
+}
+
 #sandboxrightside {
   display: inline-block;
   margin: 0px !important;
@@ -225,10 +229,9 @@ html {
   color: red;
   font-family: "Courier";
   font-size: 1em;
-  padding: 5px;
+  padding: 0px;
   display: inline-block;
-  height: 400px;
-  width: 600px;
+  margin-bottom: 10px;
 }
 
 #errorconsole span {

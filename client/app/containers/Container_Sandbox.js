@@ -20,22 +20,6 @@ class Sandbox extends React.Component {
     }
   }
 
-  handleError() {
-    const component = this;
-    window.onerror = (messageOrEvent, source, lineno, colno, error) => {
-      component.setState({
-        error_message: messageOrEvent,
-        error_source: source,
-        error_lineno: lineno,
-        error_colno: colno,
-        error: error
-      });
-      //if the window receives any error, stop game and display error
-      component.destroyGame();
-      component.displayError();
-    }
-  }
-
   displayError() {
     if(document.getElementsByTagName('canvas').length) {
       document.getElementsByTagName('canvas')[0].remove();
@@ -52,7 +36,11 @@ class Sandbox extends React.Component {
     }
   }
 
-
+  setUpProxy() {
+    var guestDomain = location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com';
+    console.log('sandbox guestdomain:', guestDomain);
+    window.windowProxy = new Porthole.WindowProxy(guestDomain, "ggshell");
+  }
 
   updateTitle(newTitle) {
     this.setState({
@@ -76,41 +64,25 @@ class Sandbox extends React.Component {
   }
 
   loadCode() {
-    //remove any previous error if there is one
-    if(this.state.showError) {
-      this.setState({showError: false})
-    }
-    //stop the current game code from running
-    this.destroyGame();
-
     //generate and append new script
-    this.generateAndAppendScript();
+    this.generateAndSendScript();
 
     //if there is no canvas, display the error page (even if no error has been caught)
     var component = this;
     setTimeout(function() {
       if(!document.getElementsByTagName('canvas').length) {
         component.displayError();
-      } 
+      }
     }, 500)
   }
 
-  generateAndAppendScript() {
-    // remove current game script if there is one
-    if(document.getElementById('gameScript')){
-      document.getElementById('gameScript').remove();
-    }
-    //add the new code to the newly created script tag
-    const script = document.createElement("script");
-    script.text = this.props.code;
-    script.id = 'gameScript';
-    //run the new script by appending it to DOM
-    document.getElementById('gameCode').appendChild(script);
+  generateAndSendScript() {
+    windowProxy.post({script: this.props.code});
   }
 
   componentWillMount() {
     this.props.getTemplateData();
-    this.handleError();
+    this.setUpProxy();
     console.log('BEFORE SANDBOX MT: ', this);
   }
 
@@ -158,23 +130,16 @@ class Sandbox extends React.Component {
         <div id="moveright">
         <Codemirror value={this.props.code} onChange={this.props.updateCode.bind(this)} options={options} />
         <div id='sandboxrightside'>
-          <div id="gamebox">
-            {this.state.showError ? <div id="errorconsole">
-            Oops, you have an error!<br></br>
-            {`${this.state.error_message}`}<br></br>
-            {`Error Line Number: ${this.state.error_lineno}`}<br></br>
-            {`Error Column Number: ${this.state.error_colno}`}<br></br>
-            </div> : null}
-        </div>
+          <iframe src={location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com'} id="errorconsole" name="ggshell" scrolling="no"></iframe>
 
         <div className="input-group input-grout-lg col-md-8 col-md-offset-2">
           <input className="form-control" id='title' placeholder="Untitled Game" type="text" onChange={this.updateTitle.bind(this)} aria-describedby="sizing-addon1"></input>
         </div>
         <div className="col-md-10 col-md-offset-1">
-        <button id='load' className="btn btn-default" onClick={this.loadCode.bind(this)}> 
-          Run Game &nbsp;  
+        <button id='load' className="btn btn-default" onClick={this.loadCode.bind(this)}>
+          Run Game &nbsp;
           <span className=" glyphicon glyphicon-play-circle" aria-hidden="true"></span></button>
-        <button className="btn btn-default" onClick={this.props.saveGame.bind(this, this.props.code, this.state.title)}> Save &nbsp;  
+        <button className="btn btn-default" onClick={this.props.saveGame.bind(this, this.props.code, this.state.title)}> Save &nbsp;
           <span className=" glyphicon glyphicon-save" aria-hidden="true"></span></button>
         <div id='dropdown' className="dropdown">
           <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

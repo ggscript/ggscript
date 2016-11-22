@@ -140,7 +140,7 @@ class Learn extends React.Component {
         window.game.destroy();
       }
     }
-  } 
+  }
 
   generateAndAppendScript() {
     // remove current game script if there is one
@@ -170,14 +170,14 @@ class Learn extends React.Component {
     setTimeout(function() {
       if(!document.getElementsByTagName('canvas').length) {
         component.displayError();
-      } 
+      }
     }, 500)
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       modalIsOpen: true
-    })   
+    })
   }
 
   componentDidMount() {
@@ -281,7 +281,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    
+
     getLevelData: () => {
       dispatch(getLevelData())
     },
@@ -291,7 +291,7 @@ function mapDispatchToProps(dispatch){
     },
     getLevelPoints: () => {
       dispatch(getLevelPoints());
-    }, 
+    },
     updatePoints: (currlevel, difflevel) => {
       dispatch(updatePoints(currlevel, difflevel));
     }
