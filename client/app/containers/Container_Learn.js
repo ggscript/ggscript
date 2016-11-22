@@ -71,24 +71,12 @@ class Learn extends React.Component {
     this.props.getLevelData();
   }
 
-  updateCode(newCode) {
-    this.setState({
-      code: newCode
-    });
-  }
 
-  startLevel(code, level) {
+  startLevel(code, startLevel) {
     var selectedCode = this.props.levelData[code];
     //load the code base based on the user's selected difficulty level;
-    this.setState({
-      code: selectedCode,
-      difficultyLevel: level
-    }, function() {
-      //after state has been set (happens asyncronously), load code
-      this.loadCode();
-    });
+    this.props.updateCode(startLevel, selectedCode);
     this.closeModal();
-    this.loadCode();
   }
   refresh() {
     location.reload();
@@ -96,7 +84,7 @@ class Learn extends React.Component {
 
   generateAndSendScript() {
     // send the script to the ggshell ifream
-    windowProxy.post({script: this.state.code});
+    windowProxy.post({script: this.props.code});
   }
 
   loadCode() {
@@ -105,9 +93,10 @@ class Learn extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      modalIsOpen: true
-    })
+    var component = this;
+    if(this.props.levelData.id !== nextProps.levelData.id) {
+      this.setState({modalIsOpen: true});
+    }
   }
 
   componentDidMount() {
@@ -118,6 +107,12 @@ class Learn extends React.Component {
         component.loadCode();
         component.setState({mounting: false});
       }
+    }
+  }
+
+  componentDidUpdate(){
+    if(this.props.startLevel) {
+      this.loadCode();
     }
   }
 
@@ -160,14 +155,14 @@ class Learn extends React.Component {
           <p id="missionpromptwords2">{this.props.levelData.description_descthree}</p>
           <h3>What difficulty level would you like to complete {this.props.levelData.levelname} at?</h3>
         {/*button for choosing difficulty level*/}
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', 'Novice')}><DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/></button>
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', 'Heroic')}><DiffLevel level='Heroic' completed={this.props.levelData.heroicComplete} points={this.props.levelData.heroicpoints}/></button>
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', 'Mythic')}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', true)}><DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/></button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', true)}><DiffLevel level='Heroic' completed={this.props.levelData.heroicComplete} points={this.props.levelData.heroicpoints}/></button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', true)}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button>
           </div>
         </Modal>
         <div id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span></div>
         <span>
-        <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
+        <Codemirror id="tutorialCode"value={this.props.code} onChange={this.props.updateCode.bind(this, false)} options={options} />
         </span>
         <div id="learnrightside">
 
@@ -202,7 +197,9 @@ class Learn extends React.Component {
 function mapStateToProps(state){
   console.log('map state to props learn container', state)
   return {
-    levelData: state.getLevelData
+    levelData: state.getLevelData,
+    code: state.updateLearnCode.learnCode,
+    startLevel: state.updateLearnCode.startLevel
   }
 }
 
@@ -222,8 +219,9 @@ function mapDispatchToProps(dispatch){
     updatePoints: (currlevel, difflevel) => {
       dispatch(updatePoints(currlevel, difflevel));
     },
-    updateCode: (code) => {
-      dispatch({type: 'UPDATE_LEARN_CODE', code: code});
+    updateCode: (startLevel, code) => {
+      console.log(code, 'code', startLevel, 'startLevel')
+      dispatch({type: 'UPDATE_LEARN_CODE', code: code, startLevel: startLevel });
     }
 
   }
