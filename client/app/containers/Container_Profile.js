@@ -21,6 +21,24 @@ class Profile extends React.Component {
 
   render() {
   	return(
+      <div>
+      <div className="modal fade" id="delete-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div className="modal-dialog" role="document">
+                <div className="loginmodal-container">
+                  <div className="modal-content">
+                    <div className="modal-body">
+                    <h1 id="makeVideo" className="text-center"> Are You Sure You Want to Delete this Game? </h1>
+                    <h3 id="makeVideo" className="text-center">Remember, there's no redo's for this one!</h3>
+                    <br></br>
+                    <div className="btn-group btn-group-justified">
+                      <a href="/auth/google" className="btn btn-danger">Delete My Game!</a>
+                      <a href="/auth/google" className="btn btn-success">Nevermind, Keep My Game!</a>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
   		  <div className="container">
   			<div id='userdata' className="row">
   				<div className="col-sm-4">
@@ -35,13 +53,14 @@ class Profile extends React.Component {
   				</div>
   				<div className="col-sm-8">
   					<h1> Your Saved Games! </h1>
-            {this.props.data.savedgames.map((title) => <div key={title.id} onClick={this.props.retrieveGame.bind(this, title.id)}id="gameCard"><h3 className="gameTitle"> {title.title} </h3></div>)}
+            {this.props.data.savedgames.map((title) => <div key={title.id} id="gameCard"><h3 onClick={this.props.retrieveGame.bind(this, title.id)} className="gameTitle"> {title.title} </h3> <a data-target = '#delete-modal' data-toggle="modal" className="landing-pg-links"><h4 className="delete">Delete</h4></a></div>)}
             <h1> Levels </h1>
             {this.props.data.levels.filter(level => level.id <= this.props.data.maxlevel).map(level => <div key={level.id} onClick={this.props.updateLevel.bind(this, false, level.id)}id="gameCard"><h3 className="gameTitle">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
             {this.props.data.levels.filter(level => level.id > this.props.data.maxlevel).map(level => <div key={level.id} id="gameCardIncomp"><h3 className="gameTitleIncomp">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
   				</div>
   			</div>
   		</div>
+    </div>
   	)
   }
 }
