@@ -6,6 +6,7 @@ import getTemplateData from './Action_GetTemplate'
 import {getLevelPoints} from './Action_GetLevelPoints'
 import updatePoints from './Action_UpdatePoints'
 import getUserGame from './Action_GetUserGame'
+import deleteGame from './Action_DeleteGame'
 
 export {
   getProfileData,
@@ -16,5 +17,6 @@ export {
   getTemplateData,
   getLevelPoints,
   updatePoints,
+  deleteGame,
   getUserGame
 }

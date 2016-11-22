@@ -16,6 +16,14 @@ module.exports = {
       });
   },
 
+  deletegame: function(req, res) {
+    db.query(`DELETE FROM games WHERE games.userid = ${req.session.passport.user.id} AND games.title = '${req.body.gameTitle}'`)
+    .on('end', (result) => {
+      console.log(req.session.passport.user.id, "SESSIONI");
+      console.log(req.body, "TITLONI")
+    })
+  },
+
 
   // Returns all user data including name, picture, games titles, game code, etc
   sendUserData: function(req, res){

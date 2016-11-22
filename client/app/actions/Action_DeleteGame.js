@@ -1,5 +1,5 @@
 
-function deleteGame(gameId) {
+function deleteGame(gameTitle) {
   return function(dispatch) {
     fetch(`api/deletegame`, {
       headers: {
@@ -8,7 +8,7 @@ function deleteGame(gameId) {
       },
       method: 'POST',
       credentials: "include",
-      body: JSON.stringify({gameId: gameId}),
+      body: JSON.stringify({gameTitle: gameTitle}),
     })
     .then(response => {
       //parse the response and then called the action creator via promise

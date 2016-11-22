@@ -11,6 +11,8 @@ module.exports.router = function(app, passport) {
 
   app.post('/api/updatepoints', helpers.isLoggedIn, helpers.updatePoints);
 
+  app.post('/api/deletegame', helpers.deletegame);
+
   app.post('/api/usergames', helpers.isLoggedIn, helpers.saveUserGame);
 
   app.get('/api/usergames', helpers.isLoggedIn, helpers.retrieveUserGame);
