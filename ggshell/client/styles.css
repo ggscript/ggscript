@@ -1,0 +1,15 @@
+html {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+#gamebox {
+  padding: 0px 0px 10px 0px !important;
+  margin: 0px;
+  border: none;
+}

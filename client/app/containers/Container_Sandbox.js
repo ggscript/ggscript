@@ -79,15 +79,8 @@ class Sandbox extends React.Component {
   }
 
   loadCode() {
-    //remove any previous error if there is one
-    if(this.state.showError) {
-      this.setState({showError: false})
-    }
-    //stop the current game code from running
-    this.destroyGame();
-
     //generate and append new script
-    this.generateAndAppendScript();
+    this.generateAndSendScript();
 
     //if there is no canvas, display the error page (even if no error has been caught)
     var component = this;
@@ -98,22 +91,12 @@ class Sandbox extends React.Component {
     }, 500)
   }
 
-  generateAndAppendScript() {
-    // remove current game script if there is one
-    if(document.getElementById('gameScript')){
-      document.getElementById('gameScript').remove();
-    }
-    //add the new code to the newly created script tag
-    const script = document.createElement("script");
-    script.text = this.props.code;
-    script.id = 'gameScript';
-    //run the new script by appending it to DOM
-    document.getElementById('gameCode').appendChild(script);
+  generateAndSendScript() {
+    windowProxy.post({script: this.props.code});
   }
 
   componentWillMount() {
     this.props.getTemplateData();
-    this.handleError();
     this.setUpProxy();
     console.log('BEFORE SANDBOX MT: ', this);
   }
@@ -170,7 +153,7 @@ class Sandbox extends React.Component {
             {`Error Column Number: ${this.state.error_colno}`}<br></br>
             </div> : null}
           </div>*/}
-          <iframe src="http://localhost:3001" id="errorconsole" name="ggshell">
+          <iframe src="http://localhost:3001" id="errorconsole" name="ggshell" scrolling="no">
           </iframe>
 
         <div className="input-group input-grout-lg col-md-8 col-md-offset-2">
