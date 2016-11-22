@@ -14,32 +14,9 @@ class Sandbox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showError: false,
-      gameCode: null,
-      title: 'example game'
+      title: 'example game',
+      mounting: true
     }
-  }
-
-  displayError() {
-    if(document.getElementsByTagName('canvas').length) {
-      document.getElementsByTagName('canvas')[0].remove();
-    }
-    this.setState({showError: true});
-
-  }
-
-  destroyGame() {
-    if(window.game) {
-      if(window.game.destroy && window.game.state){
-        window.game.destroy();
-      }
-    }
-  }
-
-  setUpProxy() {
-    var guestDomain = location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com';
-    console.log('sandbox guestdomain:', guestDomain);
-    window.windowProxy = new Porthole.WindowProxy(guestDomain, "ggshell");
   }
 
   updateTitle(newTitle) {
@@ -49,53 +26,32 @@ class Sandbox extends React.Component {
     console.log(this.state.title);
   }
 
-  stop() {
-  if(window.game.input.keyboard) {
-    window.game.input.keyboard.enabled = false;
-    console.log(window.game.input.keyboard.enabled);
-  }
-}
-
-  go() {
-    if(window.game.input.keyboard) {
-      window.game.input.keyboard.enabled = true;
-      console.log(window.game.input.keyboard.enabled);
-    }
-  }
 
   loadCode() {
     //generate and append new script
     this.generateAndSendScript();
-
-    //if there is no canvas, display the error page (even if no error has been caught)
-    var component = this;
-    setTimeout(function() {
-      if(!document.getElementsByTagName('canvas').length) {
-        component.displayError();
-      }
-    }, 500)
   }
 
   generateAndSendScript() {
+    console.log('sending script from container sandbox', this.props.code)
     windowProxy.post({script: this.props.code});
   }
 
   componentWillMount() {
     this.props.getTemplateData();
-    this.setUpProxy();
     console.log('BEFORE SANDBOX MT: ', this);
   }
 
   componentDidMount() {
-    this.loadCode();
+    //iframe must load before sending script, or else the iframe will keep executing script from previous page (when switching from sandbox to learn)
+    var component = this;
+    document.getElementById('ggshell').onload = function() {
+      if(component.state.mounting) {
+        component.loadCode();
+        component.setState({mounting: false});
+      }
+    }
   }
-
-  componentWillUnmount() {
-    document.getElementById('gameScript').remove();
-    this.destroyGame();
-  }
-
-
 
   updateTemplate(id) {
     console.log('UPDATED TEMP: ', this.props.template.template[id]);
@@ -108,9 +64,6 @@ class Sandbox extends React.Component {
 
   changeTemplate(id) {
     this.updateTemplate(id);
-    console.log(this.state.code, "in changeTemplate")
-    console.log("before loadcode");
-    console.log("after loadcode");
   }
 
   render() {
@@ -130,7 +83,7 @@ class Sandbox extends React.Component {
         <div id="moveright">
         <Codemirror value={this.props.code} onChange={this.props.updateCode.bind(this)} options={options} />
         <div id='sandboxrightside'>
-          <iframe src={location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com'} id="errorconsole" name="ggshell" scrolling="no"></iframe>
+          <iframe src={location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com'} id="ggshell" name="ggshell" scrolling="no"></iframe>
 
         <div className="input-group input-grout-lg col-md-8 col-md-offset-2">
           <input className="form-control" id='title' placeholder="Untitled Game" type="text" onChange={this.updateTitle.bind(this)} aria-describedby="sizing-addon1"></input>

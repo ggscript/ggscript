@@ -47,9 +47,8 @@ class Learn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: "var game = new Phaser.Game(600, 450, Phaser.CANVAS, 'gamebox', { preload: preload, create: create }); \nfunction preload() {\n} \nfunction create() {\n}",
       modalIsOpen: false,
-      showError: false
+      mounting: true
     }
   }
 
@@ -66,55 +65,16 @@ class Learn extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
+
+
   componentWillMount(){
-    const component = this;
-    this.handleError();
     this.props.getLevelData();
   }
+
   updateCode(newCode) {
     this.setState({
       code: newCode
     });
-  }
-
-  handleError() {
-    const component = this;
-    window.onerror = (messageOrEvent, source, lineno, colno, error) => {
-      component.setState({
-        error_message: messageOrEvent,
-        error_source: source,
-        error_lineno: lineno,
-        error_colno: colno,
-        error: error
-      });
-      //if the window receives any error, stop game and display error
-      component.destroyGame();
-      component.displayError();
-    }
-  }
-
-  displayError() {
-    if(document.getElementsByTagName('canvas').length) {
-      document.getElementsByTagName('canvas')[0].remove();
-    }
-    this.setState({showError: true});
-
-  }
-
-  stop() {
-    if(window.game.input){
-      if(window.game.input.keyboard) {
-        window.game.input.keyboard.enabled = false;
-      }
-    }
-  }
-
-  go() {
-    if(window.game.input){
-      if(window.game.input.keyboard) {
-        window.game.input.keyboard.enabled = true;
-      }
-    }
   }
 
   startLevel(code, level) {
@@ -134,44 +94,14 @@ class Learn extends React.Component {
     location.reload();
   }
 
-  destroyGame() {
-    if(window.game) {
-      if(window.game.destroy && window.game.state){
-        window.game.destroy();
-      }
-    }
+  generateAndSendScript() {
+    // send the script to the ggshell ifream
+    windowProxy.post({script: this.state.code});
   }
 
-  generateAndAppendScript() {
-    // remove current game script if there is one
-    if(document.getElementById('gameScript')){
-      document.getElementById('gameScript').remove();
-    }
-    //add the new code to the newly created script tag
-    const script = document.createElement("script");
-    script.text = this.state.code;
-    script.id = 'gameScript';
-    //run the new script by appending it to DOM
-    document.getElementById('gameCode').appendChild(script);
-  }
   loadCode() {
-    //remove any previous error if there is one
-    if(this.state.showError) {
-      this.setState({showError: false})
-    }
-    //stop the current game code from running
-    this.destroyGame();
-
     //generate and append new script
-    this.generateAndAppendScript();
-
-    //if there is no canvas, display the error page (even if no error has been caught) needs settimeout since loading script occurs after react functions are run
-    var component = this;
-    setTimeout(function() {
-      if(!document.getElementsByTagName('canvas').length) {
-        component.displayError();
-      }
-    }, 500)
+    this.generateAndSendScript();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -181,12 +111,17 @@ class Learn extends React.Component {
   }
 
   componentDidMount() {
-    this.generateAndAppendScript();
+    //iframe must load before sending script, or else the iframe will keep executing script from previous page (when switching from sandbox to learn)
+    var component = this;
+    document.getElementById('ggshell').onload = function() {
+      if(component.state.mounting) {
+        component.loadCode();
+        component.setState({mounting: false});
+      }
+    }
   }
 
   componentWillUnmount() {
-    this.destroyGame();
-    document.getElementById('gameScript').remove();
   }
 
   nextLevel() {
@@ -231,21 +166,13 @@ class Learn extends React.Component {
           </div>
         </Modal>
         <div id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span></div>
-        <span onClick={this.stop}>
+        <span>
         <Codemirror id="tutorialCode"value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
         </span>
-        <div id="learnrightside" onClick={this.go}>
+        <div id="learnrightside">
 
           <div id="gamebox">
-            {this.state.showError ? <div id="errorconsole">
-            <span>UH OH! <br></br><br></br>
-              It looks like there is a slight error in your code :(
-              But don't worry!  We're here to help you solve it.  Usually it's something very simple, such as a missing open or close parenthesis or bracket.  Luckily, while writing code in Javascript with Phaser, we have access to error messages that give hints as to what and where the error is.  Try looking over the error message below and try to fix it!  If you're unable to get it, don't fret!  Just restart the level and we'll get you coding and gaming again in no time.<br></br>
-            </span><br></br>
-            {`${this.state.error_message}`}<br></br>
-            {`Error Line Number: ${this.state.error_lineno}`}<br></br>
-            {`Error Column Number: ${this.state.error_colno}`}<br></br>
-            </div> : null}
+            <iframe src={location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com'} id="ggshell" name="ggshell" scrolling="no"></iframe>
           </div>
           <div className="text-center">
             <div>
@@ -294,6 +221,9 @@ function mapDispatchToProps(dispatch){
     },
     updatePoints: (currlevel, difflevel) => {
       dispatch(updatePoints(currlevel, difflevel));
+    },
+    updateCode: (code) => {
+      dispatch({type: 'UPDATE_LEARN_CODE', code: code});
     }
 
   }
