@@ -80,6 +80,9 @@ function mapDispatchToProps(dispatch){
     },
     retrieveGame(gameid) {
       dispatch(getUserGame(gameid));
+    },
+    deleteGame(gameid) {
+      dispatch(deleteGame(gameid));
     }
   }
 }
