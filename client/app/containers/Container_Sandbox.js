@@ -20,22 +20,6 @@ class Sandbox extends React.Component {
     }
   }
 
-  handleError() {
-    const component = this;
-    window.onerror = (messageOrEvent, source, lineno, colno, error) => {
-      component.setState({
-        error_message: messageOrEvent,
-        error_source: source,
-        error_lineno: lineno,
-        error_colno: colno,
-        error: error
-      });
-      //if the window receives any error, stop game and display error
-      component.destroyGame();
-      component.displayError();
-    }
-  }
-
   displayError() {
     if(document.getElementsByTagName('canvas').length) {
       document.getElementsByTagName('canvas')[0].remove();
@@ -145,16 +129,7 @@ class Sandbox extends React.Component {
         <div id="moveright">
         <Codemirror value={this.props.code} onChange={this.props.updateCode.bind(this)} options={options} />
         <div id='sandboxrightside'>
-          {/*<div id="gamebox">
-            {this.state.showError ? <div id="errorconsole">
-            Oops, you have an error!<br></br>
-            {`${this.state.error_message}`}<br></br>
-            {`Error Line Number: ${this.state.error_lineno}`}<br></br>
-            {`Error Column Number: ${this.state.error_colno}`}<br></br>
-            </div> : null}
-          </div>*/}
-          <iframe src="http://localhost:3001" id="errorconsole" name="ggshell" scrolling="no">
-          </iframe>
+          <iframe src="http://localhost:3001" id="errorconsole" name="ggshell" scrolling="no"></iframe>
 
         <div className="input-group input-grout-lg col-md-8 col-md-offset-2">
           <input className="form-control" id='title' placeholder="Untitled Game" type="text" onChange={this.updateTitle.bind(this)} aria-describedby="sizing-addon1"></input>

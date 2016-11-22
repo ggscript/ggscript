@@ -8,6 +8,10 @@
 </head>
 <body>
   <div id="gamebox">
+  <div id="errorconsole">
+    <h1>error</h1>
+    <div id="errormsg"></div>
+  </div>
     <script>
       function onMessage(messageEvent) {
         if(messageEvent.data.script) {
@@ -24,6 +28,7 @@
       var windowProxy;
 
       window.onload = function(){
+        handleError();
         windowProxy = new Porthole.WindowProxy("http://localhost:3000");
         windowProxy.addEventListener(onMessage);
         if(sessionStorage) {
@@ -31,6 +36,18 @@
           if(sessionStorage.script){
             eval(sessionStorage.script);
           }
+        }
+      }
+
+      function handleError() {
+        window.onerror = (messageOrEvent, source, lineno, colno, error) => {
+          var error_message = messageOrEvent;
+          var error_source = source;
+          var error_lineno = lineno;
+          var error_colno = colno;
+          var error = error;
+          document.getElementsByTagName("canvas")[0].remove();
+          document.getElementById("errorconsole").show();
         }
       }
     </script>
