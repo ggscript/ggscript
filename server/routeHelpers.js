@@ -17,6 +17,7 @@ module.exports = {
   },
 
   deletegame: function(req, res) {
+    req.body.gameTitle = req.body.gameTitle.replace(/'/g, "''");
     db.query(`DELETE FROM games WHERE games.userid = ${req.session.passport.user.id} AND games.title = '${req.body.gameTitle}'`)
     .on('end', (result) => {
       console.log(req.session.passport.user.id, "SESSIONI");
@@ -153,14 +154,14 @@ module.exports = {
   },
 
   saveUserGame: function(req, res) {
+    //masquerades single quotes by adding an additional quote
+    req.body.gameCode = req.body.gameCode.replace(/'/g, "''"); 
+    req.body.title = req.body.title.replace(/'/g, "''");
     db.query(`SELECT exists (SELECT 1 FROM games WHERE title = '${req.body.title}' AND userid = ${req.session.passport.user.id})`)
       .on('end', (result) => {
         if(result.rows[0].exists){
-          //masquerades single quotes by adding an additional quote
-          req.body.gameCode = req.body.gameCode.replace(/'/g, "''"); 
           db.query(`UPDATE games SET gamecode = '${req.body.gameCode}' WHERE title = '${req.body.title}'`)
         } else {
-        req.body.gameCode = req.body.gameCode.replace(/'/g, "''"); 
         db.query(`INSERT INTO games (userid, title, gamecode)
            VALUES (${req.session.passport.user.id}, '${req.body.title}', '${req.body.gameCode}')`, function(err) {
             if(err) {

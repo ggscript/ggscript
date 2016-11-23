@@ -16,7 +16,7 @@ class Sandbox extends React.Component {
     this.state = {
       showError: false,
       gameCode: null,
-      title: 'example game'
+      title: null
     }
   }
 
@@ -53,9 +53,25 @@ class Sandbox extends React.Component {
   }
 
   decideAlert() {
-    if(this.state.title && this.state.title) {
-      console.log('hello');
+    $('#savealert').hide();
+    $('#loginalert').hide();
+    $('#titlealert').hide();
+    if(this.state.title && this.props.user.id) {
+      this.props.saveGame(this.props.code, this.state.title);
+      $('#savealert').show();
     }
+    if(this.state.title && !this.props.user.id) {
+      $('#loginalert').show();
+    }
+    if(!this.state.title && this.props.user.id) {
+      $('#titlealert').show();
+    }
+  }
+
+  hidesave() {
+    $('#savealert').hide();
+    $('#loginalert').hide();
+    $('#titlealert').hide();
   }
 
   updateTitle(newTitle) {
@@ -159,6 +175,15 @@ class Sandbox extends React.Component {
     return (
       <div>
         <h1 id='makeVideo'> Phaser Sandbox</h1>
+        <div onClick={this.hidesave} className="alert alert-success input-group" id="savealert" role="alert">
+            <strong>Well done!</strong> You successfully saved your game!.
+        </div>
+        <div onClick={this.hidesave} className="alert alert-danger input-group" id="loginalert" role="alert">
+            <strong>Oh no!</strong> You need to log in to save your game!.
+        </div>
+        <div onClick={this.hidesave} className="alert alert-danger input-group" id="titlealert" role="alert">
+            <strong>Oh no!</strong> You need a title if you want to save your game!
+        </div>
         <div id="moveright">
         <Codemirror value={this.props.code} onChange={this.props.updateCode.bind(this)} options={options} />
         <div id='sandboxrightside'>
@@ -170,7 +195,6 @@ class Sandbox extends React.Component {
             {`Error Column Number: ${this.state.error_colno}`}<br></br>
             </div> : null}
         </div>
-
         <div className="input-group input-grout-lg col-md-8 col-md-offset-2">
           <input className="form-control" id='title' placeholder="Untitled Game" type="text" onChange={this.updateTitle.bind(this)} aria-describedby="sizing-addon1"></input>
         </div>
@@ -178,7 +202,7 @@ class Sandbox extends React.Component {
         <button id='load' className="btn btn-default" onClick={this.loadCode.bind(this)}> 
           Run Game &nbsp;  
           <span className=" glyphicon glyphicon-play-circle" aria-hidden="true"></span></button>
-        <button className="btn btn-default" onClick={this.props.saveGame.bind(this, this.props.code, this.state.title)}> Save &nbsp;  
+        <button className="btn btn-default" onClick={this.decideAlert.bind(this)}> Save &nbsp;  
           <span className=" glyphicon glyphicon-save" aria-hidden="true"></span></button>
         <div id='dropdown' className="dropdown">
           <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -189,7 +213,6 @@ class Sandbox extends React.Component {
            <a className="dropdown-item" onClick={this.changeTemplate.bind(this, 2)}>Side Scroller</a>
            <a className="dropdown-item" onClick={this.changeTemplate.bind(this, 3)}>Adventure Game</a>
         </div>
-
         </div>
         </div>
         </div>

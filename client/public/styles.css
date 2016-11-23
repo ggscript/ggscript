@@ -120,6 +120,18 @@ body {
   margin-left: 10px !important;
 }
 
+#savealert {
+  display: none;
+}
+
+#loginalert {
+  display: none;
+}
+
+#titlealert {
+  display: none;
+}
+
 #sandboxrightside {
   display: inline-block;
   margin: 0px !important;
