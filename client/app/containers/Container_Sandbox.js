@@ -21,37 +21,6 @@ class Sandbox extends React.Component {
     }
   }
 
-  // handleError() {
-  //   const component = this;
-  //   window.onerror = (messageOrEvent, source, lineno, colno, error) => {
-  //     component.setState({
-  //       error_message: messageOrEvent,
-  //       error_source: source,
-  //       error_lineno: lineno,
-  //       error_colno: colno,
-  //       error: error
-  //     });
-  //     //if the window receives any error, stop game and display error
-  //     component.destroyGame();
-  //     component.displayError();
-  //   }
-  // }
-
-  // displayError() {
-  //   if(document.getElementsByTagName('canvas').length) {
-  //     document.getElementsByTagName('canvas')[0].remove();
-  //   }
-  //   this.setState({showError: true});
-
-  // }
-
-  // destroyGame() {
-  //   if(window.game) {
-  //     if(window.game.destroy && window.game.state){
-  //       window.game.destroy();
-  //     }
-  //   }
-  // }
 
   decideAlert() {
     // $('#savealert').hide();
@@ -109,7 +78,19 @@ class Sandbox extends React.Component {
   }
 
   componentWillMount() {
+    var component = this;
     this.props.getTemplateData();
+    //check for a query string, if one exists, fetch the game
+    if(location.hash.split('?game=')[1]) {
+      var hash = location.hash.split('?game=')[1];
+      fetch(`/api/sharedgames?game=${hash}`)
+      .then(result => {
+        result.json()
+        .then(res => component.props.updateCode(res.gamecode))
+        .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err));
+    }
     console.log('BEFORE SANDBOX MT: ', this);
   }
 

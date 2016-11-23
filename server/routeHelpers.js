@@ -42,7 +42,7 @@ module.exports = {
         res.send({link: link + '#/sandbox?game=' + hashString});
         //insert hash into database
 
-        db.query(`INSERT INTO sharedgames (gameid, userid, hash) VALUES (${req.body.id}, ${req.session.passport.user.id}, ${hashString})`).catch(err => console.log(err));
+        db.query(`INSERT INTO sharedgames (gameid, userid, hash) VALUES (${req.body.id}, ${req.session.passport.user.id}, '${hashString}')`).catch(err => console.log(err));
       }
     })
 
@@ -51,9 +51,17 @@ module.exports = {
 
 
   retrieveSharedGame: function(req, res) {
-    var hashString = req.query.id;
-    db.query(`SELECT games.id, games.title, games.gamecode FROM games, sharedgames WHERE sharedgames.hash = ${hashString}`)
-    .then(result => res.send(result.rows[0])).catch(err => res.send(err));
+    var hashString = req.query.game;
+    console.log(hashString, 'hashString');
+    db.query(`SELECT games.id, games.title, games.gamecode FROM games, sharedgames WHERE sharedgames.hash = '${hashString}'`)
+    .then(result => {
+      console.log(result, 'retrieveSharedGame')
+      res.send(result.rows[0])
+    })
+    .catch(err => {
+      res.send(err);
+      console.log(err, 'retrieveSharedGame error')
+    });
   },
 
   // Returns all user data including name, picture, games titles, game code, etc
