@@ -326,8 +326,6 @@ html {
 .share {
   float: right;
   margin-right: 10px;
-  display: inline-block;
-  position: absolute;
 }
 
 .share:hover {

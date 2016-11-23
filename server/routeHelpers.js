@@ -17,6 +17,15 @@ module.exports = {
       });
   },
 
+  deletegame: function(req, res) {
+  req.body.gameTitle = req.body.gameTitle.replace(/'/g, "''");
+  db.query(`DELETE FROM games WHERE games.userid = ${req.session.passport.user.id} AND games.title = '${req.body.gameTitle}'`)
+  .on('end', (result) => {
+    console.log(req.session.passport.user.id, "SESSIONI");
+    console.log(req.body, "TITLONI")
+  })
+},
+
   generateLink: function(req, res) {
     console.log('SENT SHARE GAME ID: ', req.body.id);
     db.query(`SELECT hash FROM sharedgames WHERE gameid = ${req.body.id}`).then(result => {
