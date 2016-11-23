@@ -97,8 +97,10 @@ class Profile extends React.Component {
   				</div>
   				<div className="col-sm-8">
   					<h1> Your Saved Games! </h1>
+
             {this.props.data.savedgames.map((title) => <div key={title.id} onClick={this.deleter.bind(this, title.title)} id="gameCard"><h3 onClick={this.props.retrieveGame.bind(this, title.id)} className="gameTitle"> {title.title} </h3> <a data-target = '#delete-modal' data-toggle="modal" className="landing-pg-links"><h4 className="delete">Delete</h4></a>
               <a data-target = '#share-modal' data-toggle="modal" className="landing-pg-links"><h4 onClick={this.sharer.bind(this, title.id)} className="share">Share</h4></a></div>)}
+
             <h1> Levels </h1>
             {this.props.data.levels.filter(level => level.id <= this.props.data.maxlevel).map(level => <div key={level.id} onClick={this.props.updateLevel.bind(this, false, level.id)}id="gameCard"><h3 className="gameTitle">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
             {this.props.data.levels.filter(level => level.id > this.props.data.maxlevel).map(level => <div key={level.id} id="gameCardIncomp"><h3 className="gameTitleIncomp">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}

@@ -11,7 +11,7 @@ module.exports.router = function(app, passport) {
 
   app.post('/api/updatepoints', helpers.isLoggedIn, helpers.updatePoints);
 
-  // app.post('/api/deletegame', helpers.deletegame);
+  app.post('/api/deletegame', helpers.deletegame);
 
   app.post('/api/usergames', helpers.isLoggedIn, helpers.saveUserGame);
 
@@ -21,7 +21,14 @@ module.exports.router = function(app, passport) {
 
   app.get('/api/usergames', helpers.isLoggedIn, helpers.retrieveUserGame);
 
+  app.post('/api/sharedgames', helpers.generateLink);
+
+  app.get('/api/sharedgames', helpers.retrieveSharedGame);
+
   app.get('/api/logout', helpers.logout);
+
+  app.get('/api/templatedata', helpers.sendTemplateData);
+
 
   app.get('/api/displayname', function(req, res) {
     if(req.session.passport){
@@ -31,16 +38,16 @@ module.exports.router = function(app, passport) {
     }
   })
 
+
   //Sends to Google for Authentication
   app.get('/auth/google', passport.authenticate('google', {scope : ['profile', 'email']}), function(req, res) {
 
   });
 
   app.get('/auth/google/callback',
-  	passport.authenticate('google', {failureRedirect : '/', successRedirect: '/#/profile'}), (req,res) => {
-  	});
+    passport.authenticate('google', {failureRedirect : '/', successRedirect: '/#/profile'}), (req,res) => {
+    });
 
-  app.get('/api/templatedata', helpers.sendTemplateData);
 
 
 };

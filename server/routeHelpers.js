@@ -41,6 +41,43 @@ module.exports = {
 
   },
 
+  generateLink: function(req, res) {
+    db.query(`SELECT hash FROM sharedgames WHERE gameid = ${req.body.id}`).then(result => {
+      //if the result exists
+      if(result.rows[0]) {
+        console.log(process.env)
+        //send the hash back to the client
+        res.send({link: `${link}#/sandbox?game=${result.rows[0].hash}`});
+      } else { //if it doesn't exist
+        //generate hash from gameid
+        var hash = crypto.createHash('sha1');
+        hash.update(`${req.body.id}`);
+        var hashString = hash.digest('hex').slice(0, 16);
+        //send hash response back to client
+        res.send({link: link + '#/sandbox?game=' + hashString});
+        //insert hash into database
+
+        db.query(`INSERT INTO sharedgames (gameid, userid, hash) VALUES (${req.body.id}, ${req.session.passport.user.id}, '${hashString}')`).catch(err => console.log(err));
+      }
+    })
+
+
+  },
+
+
+  retrieveSharedGame: function(req, res) {
+    var hashString = req.query.game;
+    console.log(hashString, 'hashString');
+    db.query(`SELECT games.id, games.title, games.gamecode FROM games, sharedgames WHERE sharedgames.hash = '${hashString}'`)
+    .then(result => {
+      console.log(result, 'retrieveSharedGame')
+      res.send(result.rows[0])
+    })
+    .catch(err => {
+      res.send(err);
+      console.log(err, 'retrieveSharedGame error')
+    });
+  },
 
   retrieveSharedGame: function(req, res) {
     var hashString = req.query.id;

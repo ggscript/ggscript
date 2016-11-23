@@ -3,4 +3,5 @@ client/public/bundle.js
 npm-debug.log
 config/database.credentials.js
 config/auth.js
+.DS_Store
 

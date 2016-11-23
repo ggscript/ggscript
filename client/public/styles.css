@@ -138,6 +138,16 @@ body {
   margin-bottom: 10px;
 }
 
+#lengthalert {
+  display: none;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+iframe {
+  border: none;
+}
+
 #sandboxrightside {
   display: inline-block;
   margin: 0px !important;
@@ -236,23 +246,16 @@ html {
 }
 
 
-#errorconsole {
+#ggshell {
   background: black;
   width: 600px;
   height: 450px;
-  color: red;
-  font-family: "Courier";
-  font-size: 1em;
-  padding: 5px;
+  padding: 0px;
   display: inline-block;
-  height: 400px;
-  width: 600px;
+  margin-bottom: 10px;
 }
 
-#errorconsole span {
-  color: white;
-  font-size: 1.3em;
-}
+
 
 #hintandcontrols {
   display: inline-block;
