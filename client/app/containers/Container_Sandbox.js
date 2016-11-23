@@ -21,38 +21,6 @@ class Sandbox extends React.Component {
     }
   }
 
-  // handleError() {
-  //   const component = this;
-  //   window.onerror = (messageOrEvent, source, lineno, colno, error) => {
-  //     component.setState({
-  //       error_message: messageOrEvent,
-  //       error_source: source,
-  //       error_lineno: lineno,
-  //       error_colno: colno,
-  //       error: error
-  //     });
-  //     //if the window receives any error, stop game and display error
-  //     component.destroyGame();
-  //     component.displayError();
-  //   }
-  // }
-
-  // displayError() {
-  //   if(document.getElementsByTagName('canvas').length) {
-  //     document.getElementsByTagName('canvas')[0].remove();
-  //   }
-  //   this.setState({showError: true});
-
-  // }
-
-  // destroyGame() {
-  //   if(window.game) {
-  //     if(window.game.destroy && window.game.state){
-  //       window.game.destroy();
-  //     }
-  //   }
-  // }
-
   decideAlert() {
     // $('#savealert').hide();
     document.getElementById('savealert').style.display = 'none';
