@@ -11,13 +11,13 @@ module.exports.router = function(app, passport) {
 
   app.post('/api/updatepoints', helpers.isLoggedIn, helpers.updatePoints);
 
-  app.post('/api/deletegame', helpers.deletegame);
+  // app.post('/api/deletegame', helpers.deletegame);
 
   app.post('/api/usergames', helpers.isLoggedIn, helpers.saveUserGame);
 
-  app.post('/api/sharedgames', function(req, res) {
-    console.log('SHARED GAME ID: ',req.body.id);
-  });
+  app.post('/api/sharedgames', helpers.generateLink);
+
+  app.get('/api/sharedgames', helpers.retrieveSharedGame);
 
   app.get('/api/usergames', helpers.isLoggedIn, helpers.retrieveUserGame);
 

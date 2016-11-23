@@ -1,10 +1,6 @@
-function postGameUponResponse(data){
-  return {type: 'SHARE_GAME', link: 'http://localhost:3000/#/sandbox?game=356a192b7913b04c'};
-}
-
 function shareGame(gameID) {
   return function(dispatch) {
-    fetch('api/sharedgames', {
+    fetch(`api/sharedgames`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -15,11 +11,11 @@ function shareGame(gameID) {
     })
     .then(response => {
       //parse the response and then called the action creator via promise
-        response.JSON().then(res => {
+        response.json().then(res => {
           console.log(res, 'shareGame response action');
-            dispatch(postGameUponResponse(res));
+            // dispatch(postGameUponResponse(res));
           if(response.status === 401) {
-            console.log('Error Post Share Game')
+            console.log('Error posting shared game')
           }
         })
         .catch(err => {console.log(err)})
@@ -33,4 +29,4 @@ function shareGame(gameID) {
   };
 }
 
-export {shareGame, postGameUponResponse}
+export default shareGame
