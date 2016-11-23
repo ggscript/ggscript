@@ -59,12 +59,16 @@ class Sandbox extends React.Component {
     document.getElementById('loginalert').style.display = 'none';
     // $('#titlealert').hide();
     document.getElementById('titlealert').style.display = 'none';
-    if(this.state.title && this.props.user.id) {
+    document.getElementById('lengthalert').style.display = 'none';
+    if(this.state.title && this.props.user.id && this.state.title.length <= 30) {
       this.props.saveGame(this.props.code, this.state.title);
       document.getElementById('savealert').style.display = 'inline-block';
     }
     if(!this.props.user.id) {
       document.getElementById('loginalert').style.display = 'inline-block';
+    }
+    if(this.state.title.length > 30 && this.state.title.length) {
+      document.getElementById('lengthalert').style.display = 'inline-block';
     }
     if(!this.state.title && this.props.user.id) {
       document.getElementById('titlealert').style.display = 'inline-block';
@@ -78,6 +82,7 @@ class Sandbox extends React.Component {
     document.getElementById('loginalert').style.display = 'none';
     // $('#titlealert').hide();
     document.getElementById('titlealert').style.display = 'none';
+    document.getElementById('lengthalert').style.display = 'none';
   }
 
   updateTitle(newTitle) {
@@ -189,6 +194,9 @@ class Sandbox extends React.Component {
         </div>
         <div onClick={this.hidesave} className="alert alert-danger input-group" id="titlealert" role="alert">
             <strong>Oh no!</strong> You need a title if you want to save your game!
+        </div>
+        <div onClick={this.hidesave} className="alert alert-danger input-group" id="lengthalert" role="alert">
+            <strong>Oh no!</strong> Your title is too long - it must be less than 30 characters!
         </div>
         <div id="moveright">
         <Codemirror value={this.props.code} onChange={this.props.updateCode.bind(this)} options={options} />
