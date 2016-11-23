@@ -39,11 +39,11 @@ if (process.env.NODE_ENV !== 'production') {
 ///use session
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ 
+app.use(session({
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: true,
-  cookie: {  
+  cookie: {
     maxAge: 600000 * 3, //30 min
     secure: false
     }
