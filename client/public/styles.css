@@ -120,6 +120,30 @@ body {
   margin-left: 10px !important;
 }
 
+#savealert {
+  display: none;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+#loginalert {
+  display: none;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+#titlealert {
+  display: none;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+#lengthalert {
+  display: none;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
 iframe {
   border: none;
 }
@@ -277,16 +301,38 @@ html {
   background-color: #212121;
   width: 100%;
   height: 10%;
+  margin-bottom: 12px;
 }
 
+.gameTitle {
+  margin-top: 10px;
+  margin-left: 10px;
+  display: inline-block;
+}
 .gameTitle:hover {
   color: #35CDDC;
 }
 
-.gameTitle {
-  padding-top: 5px;
-  padding-left: 5px;
+
+.delete {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  display: inline-block;
 }
+.delete:hover {
+  color: #F66662;
+}
+
+.share {
+  float: right;
+  margin-right: 10px;
+}
+.share:hover {
+  color: green;
+}
+
+
 
 #gameCardIncomp {
   color: white;
@@ -334,6 +380,11 @@ html {
   display: block;
 }
 
+/************************About page styles*************************/
+.socialIcon {
+  height: 7%;
+  margin: 0 auto;
+}
 
 /*beginning of codemirror css
 .CodeMirror {

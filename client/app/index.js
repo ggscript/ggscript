@@ -8,6 +8,8 @@ import { Router, Route, hashHistory } from 'react-router'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Home from './components/Home'
+import About from './components/Component_About'
+import Resources from './components/Component_Resources'
 import Sandbox from './containers/Container_Sandbox'
 import Learn from './containers/Container_Learn'
 import Profile from './containers/Container_Profile'
@@ -25,6 +27,8 @@ render(
         <Route path="/profile" component={Profile}/>
         <Route path="/logout" component={Logout}/>
         <Route path="/login" component={Login}/>
+        <Route path="/about" component={About}/>
+        <Route path="/resources" component={Resources}/>
       </Route>
     </Router>
   </Provider>,
