@@ -7,7 +7,7 @@ function deleteGame(gameTitle) {
         'Content-Type': 'application/json'
       },
       method: 'POST',
-      credentials: "include",
+      credentials: "same-origin",
       body: JSON.stringify({gameTitle: gameTitle}),
     })
     .then(response => {

@@ -7,7 +7,7 @@ function saveGame(gameCode, title) {
         'Content-Type': 'application/json'
       },
       method: 'POST',
-      credentials: "include",
+      credentials: "same-origin",
       body: JSON.stringify({gameCode: gameCode, title: title}),
     })
     .then(response => {
