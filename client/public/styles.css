@@ -222,22 +222,16 @@ html {
 }
 
 
-#errorconsole {
+#ggshell {
   background: black;
   width: 600px;
   height: 450px;
-  color: red;
-  font-family: "Courier";
-  font-size: 1em;
   padding: 0px;
   display: inline-block;
   margin-bottom: 10px;
 }
 
-#errorconsole span {
-  color: white;
-  font-size: 1.3em;
-}
+
 
 #hintandcontrols {
   display: inline-block;

@@ -9,10 +9,16 @@ import { bindActionCreators } from 'redux';
 class App extends React.Component {
   componentWillMount(){
     this.props.getDisplayName();
+    this.setUpProxy();
   }
   componentWillReceiveProps(nextProps) {
                       // <NavLink id="logged" to="/login">Log In</NavLink>
 
+  }
+  setUpProxy() {
+    var guestDomain = location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com';
+    console.log('HOSTNAME GGSCRIPT:', guestDomain);
+    window.windowProxy = new Porthole.WindowProxy(guestDomain, "ggshell");
   }
 
   render() {
