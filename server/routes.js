@@ -21,10 +21,6 @@ module.exports.router = function(app, passport) {
 
   app.get('/api/usergames', helpers.isLoggedIn, helpers.retrieveUserGame);
 
-  app.post('/api/sharedgames', helpers.generateLink);
-
-  app.get('/api/sharedgames', helpers.retrieveSharedGame);
-
   app.get('/api/logout', helpers.logout);
 
   app.get('/api/templatedata', helpers.sendTemplateData);
