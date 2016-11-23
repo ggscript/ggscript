@@ -26,10 +26,16 @@ The actual code to create sprites is super simple - it goes game.add.sprite (x c
 One important note: the order that items are rendered depends on the order you create them - so if you have things, such as a background, that always need to be in the back or the front, make sure to take that in consideration when creating your create function.</p>
                   <h3>What are Groups?</h3>
                   <p>A group acts as a container for display objects, which includes things like sprites and images.  Any transformations applied to a group will be applied to all of the objects that are defined as a part of this group.  For example, if you scale up a group, all of the group’s children objects will be scaled up as well.  Groups also make it easier for you to recycle objects with identical properties such as platforms or enemy sprites.  game.add.group() creates the group that we assign to a local variable - so platforms =game.add.group() creates a group that we can refer to as platforms.</p>
-                  <br></br>
+            <br></br>
+            <h2 id="makeVideo"> Mastering Phaser's Update Function </h2>
+            <h3>The Update Function</h3>
+            <p>The update function is the core game loop.   It is run every frame of the game.  It usually runs around 60 times per second, with variations due to different computer processors  The update function is responsible for calling both the update logic function (which in turn updates the logic subsystems such as the physics, camera, and sound subsystems) and the updateRender function.</p>
+            <h3>But What Does It Really Do?</h3>
+            <p>It’s inside of the update function where you can write code that allows sprites to move, interact with other sprites, and add any other logic that depends on the current state of other sprites.  Need to detect a collision?  Do it here.  Need to shoot a bullet?  That goes here as well.</p>
+            <h3>Yes, the Update Loop is as Cool as it Sounds.</h3>
+            <p>Some cool things that you’ll be introduced to over the course of this tutorial that will be in the update loop: moving, jumping, colliding, shooting, scoring, bouncing, swimming, flying, powerups, and a lot more.</p>
+            <br></br>
       	</div>
-      	<br></br>
-      	<br></br>
       </div>
       )
   }
