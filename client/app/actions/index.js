@@ -7,7 +7,7 @@ import {getLevelPoints} from './Action_GetLevelPoints'
 import updatePoints from './Action_UpdatePoints'
 import getUserGame from './Action_GetUserGame'
 import deleteGame from './Action_DeleteGame'
-import shareGame from './Action_ShareGame'
+import { shareGame } from './Action_ShareGame'
 
 export {
   getProfileData,
