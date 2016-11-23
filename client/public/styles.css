@@ -313,7 +313,6 @@ html {
   color: #35CDDC;
 }
 
-
 .delete {
   float: right;
   margin-top: 10px;
@@ -328,11 +327,14 @@ html {
   float: right;
   margin-right: 10px;
 }
+
 .share:hover {
   color: green;
 }
 
-
+#modalInput {
+  font-size: 14px;
+}
 
 #gameCardIncomp {
   color: white;

@@ -1,23 +1,26 @@
+function postGameUponResponse(data) {
+  console.log('SHARE GAME DATA: ', data);
+  return {type: 'SHARE_GAME', data}
+}
 
-function saveGame(gameCode, title) {
+function shareGame(gameID) {
   return function(dispatch) {
-    fetch(`api/usergames`, {
+    fetch(`api/sharedgames`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       method: 'POST',
       credentials: "include",
-      body: JSON.stringify({gameCode: gameCode, title: title}),
+      body: JSON.stringify({ id: gameID }),
     })
     .then(response => {
       //parse the response and then called the action creator via promise
         response.json().then(res => {
-          console.log(res, 'saveLevelData response action');
-          // const {data} = getState.reducer();
-          // dispatch(saveLevelDataUponResponse(data))
+          console.log(res, 'shareGame link response');
+            dispatch(postGameUponResponse(res));
           if(response.status === 401) {
-            console.log('error error')
+            console.log('Error posting shared game')
           }
         })
         .catch(err => {console.log(err)})
@@ -31,4 +34,5 @@ function saveGame(gameCode, title) {
   };
 }
 
-export default saveGame
+export { shareGame, postGameUponResponse }
+

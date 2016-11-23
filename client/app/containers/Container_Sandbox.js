@@ -77,7 +77,19 @@ class Sandbox extends React.Component {
   }
 
   componentWillMount() {
+    var component = this;
     this.props.getTemplateData();
+    //check for a query string, if one exists, fetch the game
+    if(location.hash.split('?game=')[1]) {
+      var hash = location.hash.split('?game=')[1];
+      fetch(`/api/sharedgames?game=${hash}`)
+      .then(result => {
+        result.json()
+        .then(res => component.props.updateCode(res.gamecode))
+        .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err));
+    }
     console.log('BEFORE SANDBOX MT: ', this);
   }
 
