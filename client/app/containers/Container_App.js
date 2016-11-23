@@ -77,6 +77,7 @@ class App extends React.Component {
               <li><NavLink to="/learn">Learn Phaser</NavLink></li>
               <li><NavLink to="/sandbox">Sandbox</NavLink></li>
               <li><NavLink to='/about'>About</NavLink></li>
+              <li><NavLink to='/resources'>Resources</NavLink></li>
             </ul>
             {/*right side of nav bar displays username if it exits, or login if it doesn't*/}
             {this.props.displayname ? 

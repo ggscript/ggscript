@@ -53,25 +53,31 @@ class Sandbox extends React.Component {
   }
 
   decideAlert() {
-    $('#savealert').hide();
-    $('#loginalert').hide();
-    $('#titlealert').hide();
+    // $('#savealert').hide();
+    document.getElementById('savealert').style.display = 'none';
+    // $('#loginalert').hide();
+    document.getElementById('loginalert').style.display = 'none';
+    // $('#titlealert').hide();
+    document.getElementById('titlealert').style.display = 'none';
     if(this.state.title && this.props.user.id) {
       this.props.saveGame(this.props.code, this.state.title);
-      $('#savealert').show();
+      document.getElementById('savealert').style.display = 'inline-block';
     }
-    if(this.state.title && !this.props.user.id) {
-      $('#loginalert').show();
+    if(!this.props.user.id) {
+      document.getElementById('loginalert').style.display = 'inline-block';
     }
     if(!this.state.title && this.props.user.id) {
-      $('#titlealert').show();
+      document.getElementById('titlealert').style.display = 'inline-block';
     }
   }
 
   hidesave() {
-    $('#savealert').hide();
-    $('#loginalert').hide();
-    $('#titlealert').hide();
+    // $('#savealert').hide();
+    document.getElementById('savealert').style.display = 'none';
+    // $('#loginalert').hide();
+    document.getElementById('loginalert').style.display = 'none';
+    // $('#titlealert').hide();
+    document.getElementById('titlealert').style.display = 'none';
   }
 
   updateTitle(newTitle) {

@@ -122,14 +122,20 @@ body {
 
 #savealert {
   display: none;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 #loginalert {
   display: none;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 #titlealert {
   display: none;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 #sandboxrightside {
