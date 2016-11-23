@@ -69,7 +69,6 @@ class Profile extends React.Component {
                   <div className="modal-content">
                     <div className="modal-body">
                     <h1 id="makeVideo" className="text-center"> Here's your link: </h1>
-
                     <div className="col-md-10 offset-md-1">
                     <form className="form-hortizontal" role="form">
                       <div className="form-group">
