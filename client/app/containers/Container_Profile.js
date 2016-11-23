@@ -71,10 +71,13 @@ class Profile extends React.Component {
                     <h1 id="makeVideo" className="text-center"> Here's your link: </h1>
 
                     <div className="col-md-10 offset-md-1">
-                      <div className="input-group input-group-lg">
-                        <input type="text" className="form-control" aria-describedby="sizing-addon1" value={this.props.link.shareGame.link}></input>
+                    <form className="form-hortizontal" role="form">
+                      <div className="form-group">
+                        <input type="text" className="form-control" id="modalInput" aria-describedby="sizing-addon1" value={this.props.link.shareGame.link}></input>
                       </div>
+                    </form>
                     </div>
+                    <br></br>
                     <br></br>
                   </div>
                 </div>
