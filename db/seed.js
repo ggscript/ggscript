@@ -2,21 +2,21 @@ const connection = require('./db');
 // const gamecode = require('');
 
 // Step 1: Drop old data
-connection.query('DROP TABLE users CASCADE', (err) => {
-  if (err) {
-    console.error('users has already been dropped', err);
-  } else {
-    console.log('users dropped');
-  }
-});
+// connection.query('DROP TABLE users CASCADE', (err) => {
+//   if (err) {
+//     console.error('users has already been dropped', err);
+//   } else {
+//     console.log('users dropped');
+//   }
+// });
 
-connection.query('DROP TABLE leveldata', (err) => {
-  if (err) {
-    console.error('leveldata has already been dropped');
-  } else {
-    console.log('leveldata dropped');
-  }
-});
+// connection.query('DROP TABLE leveldata', (err) => {
+//   if (err) {
+//     console.error('leveldata has already been dropped');
+//   } else {
+//     console.log('leveldata dropped');
+//   }
+// });
 
 connection.query(
   `CREATE TABLE IF NOT EXISTS "leveldata" (
@@ -139,6 +139,23 @@ connection.query(
      console.log('Error adding user completed levels', err);
    } else {
      console.log('Table user completed levels created');
+   }
+});
+
+connection.query(
+ `CREATE TABLE IF NOT EXISTS "sharedgames" (
+ "id" SERIAL PRIMARY KEY,
+ "gameid" INTEGER NOT NULL,
+ "userid" INTEGER NOT NULL,
+ "hash" TEXT,
+ FOREIGN KEY (userid) REFERENCES users(id),
+ FOREIGN KEY (gameid) REFERENCES games(id)
+ )`,
+ (err) => {
+   if(err) {
+     console.log('Error adding sharedgames', err);
+   } else {
+     console.log('Table sharedgames completed levels created');
    }
 });
 
