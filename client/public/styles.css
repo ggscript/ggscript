@@ -310,7 +310,6 @@ html {
   color: #35CDDC;
 }
 
-
 .delete {
   float: right;
   margin-top: 10px;
@@ -319,6 +318,17 @@ html {
 }
 .delete:hover {
   color: #F66662;
+}
+
+.share {
+  float: right;
+  margin-right: 10px;
+  display: inline-block;
+  position: absolute;
+}
+
+.share:hover {
+  color: green;
 }
 
 #gameCardIncomp {
