@@ -7,13 +7,17 @@ module.exports.router = function(app, passport) {
 
   app.get('/api/leveldata', helpers.sendLevelData);
 
-  app.post('/api/updatelevel', helpers.isLoggedIn, helpers.updateLevel); 
+  app.post('/api/updatelevel', helpers.isLoggedIn, helpers.updateLevel);
 
   app.post('/api/updatepoints', helpers.isLoggedIn, helpers.updatePoints);
 
   app.post('/api/deletegame', helpers.deletegame);
 
   app.post('/api/usergames', helpers.isLoggedIn, helpers.saveUserGame);
+
+  app.post('/api/sharedgames', helpers.generateLink);
+
+  app.get('/api/sharedgames', helpers.retrieveSharedGame);
 
   app.get('/api/usergames', helpers.isLoggedIn, helpers.retrieveUserGame);
 
@@ -40,7 +44,7 @@ module.exports.router = function(app, passport) {
 
   });
 
-  app.get('/auth/google/callback', 
+  app.get('/auth/google/callback',
     passport.authenticate('google', {failureRedirect : '/', successRedirect: '/#/profile'}), (req,res) => {
     });
 

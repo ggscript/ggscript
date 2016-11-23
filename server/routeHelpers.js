@@ -17,13 +17,28 @@ module.exports = {
       });
   },
 
-  deletegame: function(req, res) {
-    req.body.gameTitle = req.body.gameTitle.replace(/'/g, "''");
-    db.query(`DELETE FROM games WHERE games.userid = ${req.session.passport.user.id} AND games.title = '${req.body.gameTitle}'`)
-    .on('end', (result) => {
-      console.log(req.session.passport.user.id, "SESSIONI");
-      console.log(req.body, "TITLONI")
+  generateLink: function(req, res) {
+    console.log('SENT SHARE GAME ID: ', req.body.id);
+    db.query(`SELECT hash FROM sharedgames WHERE gameid = ${req.body.id}`).then(result => {
+      //if the result exists
+      if(result.rows[0]) {
+        console.log(process.env)
+        //send the hash back to the client
+        res.send({link: `${link}#/sandbox?game=${result.rows[0].hash}`});
+      } else { //if it doesn't exist
+        //generate hash from gameid
+        var hash = crypto.createHash('sha1');
+        hash.update(`${req.body.id}`);
+        var hashString = hash.digest('hex').slice(0, 16);
+        //send hash response back to client
+        res.send({link: link + '#/sandbox?game=' + hashString});
+        //insert hash into database
+
+        db.query(`INSERT INTO sharedgames (gameid, userid, hash) VALUES (${req.body.id}, ${req.session.passport.user.id}, '${hashString}')`).catch(err => console.log(err));
+      }
     })
+
+
   },
 
   generateLink: function(req, res) {
@@ -62,6 +77,12 @@ module.exports = {
       res.send(err);
       console.log(err, 'retrieveSharedGame error')
     });
+  },
+
+  retrieveSharedGame: function(req, res) {
+    var hashString = req.query.id;
+    db.query(`SELECT games.id, games.title, games.gamecode FROM games, sharedgames WHERE sharedgames.hash = ${hashString}`)
+    .then(result => res.send(result.rows[0])).catch(err => res.send(err));
   },
 
   // Returns all user data including name, picture, games titles, game code, etc
@@ -185,21 +206,21 @@ module.exports = {
               result.rows[0][`${item.difflevel}points`] = item.points;
             }
             res.send(result.rows[0]);
-          })  
+          })
         });
       });
     }
   },
 
   saveUserGame: function(req, res) {
-    //masquerades single quotes by adding an additional quote
-    req.body.gameCode = req.body.gameCode.replace(/'/g, "''"); 
-    req.body.title = req.body.title.replace(/'/g, "''");
     db.query(`SELECT exists (SELECT 1 FROM games WHERE title = '${req.body.title}' AND userid = ${req.session.passport.user.id})`)
       .on('end', (result) => {
         if(result.rows[0].exists){
+          //masquerades single quotes by adding an additional quote
+          req.body.gameCode = req.body.gameCode.replace(/'/g, "''");
           db.query(`UPDATE games SET gamecode = '${req.body.gameCode}' WHERE title = '${req.body.title}'`)
         } else {
+        req.body.gameCode = req.body.gameCode.replace(/'/g, "''");
         db.query(`INSERT INTO games (userid, title, gamecode)
            VALUES (${req.session.passport.user.id}, '${req.body.title}', '${req.body.gameCode}')`, function(err) {
             if(err) {
@@ -210,7 +231,7 @@ module.exports = {
             }
           })
         }
-      }) 
+      })
   },
 
   retrieveUserGame: function(req, res) {
@@ -249,7 +270,7 @@ module.exports = {
         res.send(result.rows);
       });
   },
-//select difflevel, users.currlevel from users, pointevents 
+//select difflevel, users.currlevel from users, pointevents
 //where users.id = 7 and pointevents.levelid = users.currlevel
   getLevelPointsData: function(req, res){
     return db.query(`select pointevents.difflevel, users.id from users INNER JOIN pointevents ON users.id = pointevents.userid WHERE pointevents.levelid = users.currlevel AND users.id = ${req.session.passport.user.id}`);
