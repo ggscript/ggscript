@@ -17,7 +17,7 @@ function updateLevel(advanceBoolean, currlevel) {
     }).then(response => {
       //parse the response and then called the action creator via promise
         if(response.status === 401) {
-          hashHistory.push('login');
+          $('#login-modal').modal();
         } else {
           dispatch(getLevelData());
         }
