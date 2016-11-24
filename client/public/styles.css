@@ -13,6 +13,10 @@ body {
   font-family: 'video'
 }
 
+.footerProp {
+  margin-right: 14px;
+}
+
 .ggscript {
   background: white;
   padding-top: 10px;
@@ -277,8 +281,14 @@ html {
   text-align: center;
 }
 
+.missionOpen {
+  margin-top: 5px !important;
+}
+
 .padded {
   margin: 5px;
+  padding-bottom: 10px;
+  width: 30% !important;
 }
 .difficulty {
 	margin-right: 5px;

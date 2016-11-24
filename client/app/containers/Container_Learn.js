@@ -158,7 +158,10 @@ class Learn extends React.Component {
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', true)}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button>
           </div>
         </Modal>
-        <div id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span></div>
+        <div className="row">
+          <div className="col-md-10 offset-md-1" id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span>
+        </div>
+        </div>
         <span>
         <Codemirror id="tutorialCode"value={this.props.code} onChange={this.props.updateCode.bind(this, false)} options={options} />
         </span>
@@ -172,11 +175,20 @@ class Learn extends React.Component {
               <span id="prompt">Level:<span id="promptwords"> {this.props.levelData.levelname}</span></span>
              <span id="prompt">Difficulty:<span id="promptwords"> {this.state.difficultyLevel}</span></span>
             </div>
+          <div className="row">
+            <div className="col-md-10 offset-md-1">
             <div id="learnbuttons">
-              <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
+              <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run Code </button>
               <button id="makeVideo" className="btn btn-default padded" onClick={this.nextLevel.bind(this)}> Next Level </button>
               <button id="makeVideo" className="btn btn-default padded" onClick={this.openModal.bind(this)}> Reset Level </button>
             </div>
+          </div>
+          </div>
+          <div className='row'>
+            <div className="col-md-6 offset-md-3">
+              <button id="makeVideo" onClick={this.openModal.bind(this)} className="missionOpen btn btn-default btn-block">Show Mission Prompt</button>
+            </div>
+          </div>
             <br></br>
             <div id="hints">
               <Hint hint={this.props.levelData.hint1}/>
