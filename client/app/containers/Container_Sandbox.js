@@ -85,7 +85,9 @@ class Sandbox extends React.Component {
       fetch(`/api/sharedgames?game=${hash}`)
       .then(result => {
         result.json()
-        .then(res => component.props.updateCode(res.gamecode))
+        .then(res => {
+          component.props.updateCode(res.gamecode);
+        })
         .catch(err => console.log(err))
       })
       .catch(err => console.log(err));

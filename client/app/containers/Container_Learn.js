@@ -73,8 +73,9 @@ class Learn extends React.Component {
   }
 
 
-  startLevel(code, startLevel) {
+  startLevel(code, startLevel, level) {
     var selectedCode = this.props.levelData[code];
+    this.setState({difficultyLevel: level});
     //load the code base based on the user's selected difficulty level;
     //startLevel is a boolean which allows the code to be loaded upon new level start, but not upon every change of codemirror text
     this.props.updateCode(startLevel, selectedCode);
@@ -155,9 +156,9 @@ class Learn extends React.Component {
           <p id="missionpromptwords2">{this.props.levelData.description_descthree}</p>
           <h3>What difficulty level would you like to complete {this.props.levelData.levelname} at?</h3>
         {/*button for choosing difficulty level*/}
-        {this.state.learned ? <button  onClick={this.closeModal.bind(this)} className="btn btn-default"> Return to Mission </button> : <div> <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', true)}><DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/></button>
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', true)}><DiffLevel level='Heroic' completed={this.props.levelData.heroicComplete} points={this.props.levelData.heroicpoints}/></button>
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', true)}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button></div>}
+        {this.state.learned ? <button  onClick={this.closeModal.bind(this)} className="btn btn-default"> Return to Mission </button> : <div> <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', true, 'Novice')}><DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/></button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', true, 'Heroic')}><DiffLevel level='Heroic' completed={this.props.levelData.heroicComplete} points={this.props.levelData.heroicpoints}/></button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', true, 'Mythic')}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button></div>}
           </div>
         </Modal>
         <div className="row">

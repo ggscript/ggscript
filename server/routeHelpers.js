@@ -53,15 +53,12 @@ module.exports = {
 
   retrieveSharedGame: function(req, res) {
     var hashString = req.query.game;
-    console.log(hashString, 'hashString');
-    db.query(`SELECT games.id, games.title, games.gamecode FROM games, sharedgames WHERE sharedgames.hash = '${hashString}'`)
+    db.query(`select games.id, games.title, games.gamecode from games INNER JOIN sharedgames ON games.id = sharedgames.gameid WHERE sharedgames.hash = '${hashString}'`)
     .then(result => {
-      console.log(result, 'retrieveSharedGame')
       res.send(result.rows[0])
     })
     .catch(err => {
       res.send(err);
-      console.log(err, 'retrieveSharedGame error')
     });
   },
 
