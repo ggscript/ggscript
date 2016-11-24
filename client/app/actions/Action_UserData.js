@@ -13,7 +13,7 @@ function getProfileData(text) {
   return function(dispatch) {
     fetch('/api/userdata', {
       method: 'get',
-      credentials: "include"
+      credentials: "same-origin"
     }).then(response => {
       console.log('initialized', response)
       //parse the response and then called the action creator via promise
