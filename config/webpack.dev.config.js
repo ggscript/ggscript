@@ -3,6 +3,7 @@ var path = require('path');
 var config = {
   context: path.join(__dirname, '../client/app'),
   entry: [
+    'whatwg-fetch',
     './index.js',
   ],
   output: {
