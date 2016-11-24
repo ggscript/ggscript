@@ -155,7 +155,7 @@ class Sandbox extends React.Component {
             {`Error Column Number: ${this.state.error_colno}`}<br></br>
             </div> : null}
         </div>
-          <iframe src={location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com'} id="ggshell" name="ggshell" scrolling="no"></iframe>
+          <iframe src={(location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com'} id="ggshell" name="ggshell" scrolling="no"></iframe>
         <div className="input-group input-grout-lg col-md-8 col-md-offset-2">
           <input className="form-control" id='title' placeholder="Untitled Game" type="text" onChange={this.updateTitle.bind(this)} aria-describedby="sizing-addon1"></input>
         </div>
