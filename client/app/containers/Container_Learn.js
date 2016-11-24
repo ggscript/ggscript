@@ -48,7 +48,8 @@ class Learn extends React.Component {
     super(props);
     this.state = {
       modalIsOpen: false,
-      mounting: true
+      mounting: true, 
+      learned: false
     }
   }
 
@@ -62,10 +63,10 @@ class Learn extends React.Component {
   }
 
   closeModal() {
-    this.setState({modalIsOpen: false});
+    this.setState({modalIsOpen: false,
+      learned: true});
+    console.log('active');
   }
-
-
 
   componentWillMount(){
     this.props.getLevelData();
@@ -111,14 +112,15 @@ class Learn extends React.Component {
     }
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps){
     //once the props have been recieved, load the code if its the beginning of a level but not if codemirror text has been altered by user
-    if(this.props.startLevel) {
+    if(prevProps.startLevel !== this.props.startLevel){
       this.loadCode();
     }
   }
 
   nextLevel() {
+    this.setState({learned:false})
     this.props.updateLevel(true, this.props.levelData.id);
     this.props.updatePoints(this.props.levelData.id, this.state.difficultyLevel);
   }
@@ -154,12 +156,15 @@ class Learn extends React.Component {
           <p id="missionpromptwords2">{this.props.levelData.description_descthree}</p>
           <h3>What difficulty level would you like to complete {this.props.levelData.levelname} at?</h3>
         {/*button for choosing difficulty level*/}
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', true, 'Novice')}><DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/></button>
+        {this.state.learned ? <button  onClick={this.closeModal.bind(this)} className="btn btn-default"> Return to Mission </button> : <div> <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', true, 'Novice')}><DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/></button>
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', true, 'Heroic')}><DiffLevel level='Heroic' completed={this.props.levelData.heroicComplete} points={this.props.levelData.heroicpoints}/></button>
-          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', true, 'Mythic')}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button>
+          <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', true, 'Mythic')}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button></div>}
           </div>
         </Modal>
-        <div id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span></div>
+        <div className="row">
+          <div className="col-md-10 offset-md-1" id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span>
+        </div>
+        </div>
         <span>
         <Codemirror id="tutorialCode"value={this.props.code} onChange={this.props.updateCode.bind(this, false)} options={options} />
         </span>
@@ -173,11 +178,20 @@ class Learn extends React.Component {
               <span id="prompt">Level:<span id="promptwords"> {this.props.levelData.levelname}</span></span>
              <span id="prompt">Difficulty:<span id="promptwords"> {this.state.difficultyLevel}</span></span>
             </div>
+          <div className="row">
+            <div className="col-md-10 offset-md-1">
             <div id="learnbuttons">
-              <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run My Code </button>
+              <button id="makeVideo" className="btn btn-default padded" onClick={this.loadCode.bind(this)}> Run Code </button>
               <button id="makeVideo" className="btn btn-default padded" onClick={this.nextLevel.bind(this)}> Next Level </button>
               <button id="makeVideo" className="btn btn-default padded" onClick={this.openModal.bind(this)}> Reset Level </button>
             </div>
+          </div>
+          </div>
+          <div className='row'>
+            <div className="col-md-6 offset-md-3">
+              <button id="makeVideo" onClick={this.openModal.bind(this)} className="missionOpen btn btn-default btn-block">Show Mission Prompt</button>
+            </div>
+          </div>
             <br></br>
             <div id="hints">
               <Hint hint={this.props.levelData.hint1}/>
