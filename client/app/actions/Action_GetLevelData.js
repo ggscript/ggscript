@@ -7,7 +7,7 @@ function getLevelData() {
   return function(dispatch) {
     fetch(`api/leveldata`, {
       method: 'get',
-      credentials: "include"
+      credentials: "same-origin"
     })
     .then(response => {
       //parse the response and then called the action creator via promise

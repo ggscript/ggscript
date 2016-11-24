@@ -10,7 +10,7 @@ function updatePoints(currlevel,difflevel){
 				currlevel: currlevel,
 				difflevel: difflevel,
 			}),
-			credentials: "include"
+			credentials: "same-origin"
 		}).catch(err => {
 			console.log(err);
 		});
