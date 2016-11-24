@@ -166,7 +166,7 @@ class Learn extends React.Component {
         <div id="learnrightside">
 
           <div id="gamebox">
-            <iframe src={location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com'} id="ggshell" name="ggshell" scrolling="no"></iframe>
+            <iframe src={(location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com'} id="ggshell" name="ggshell" scrolling="no"></iframe>
           </div>
           <div className="text-center">
             <div>
