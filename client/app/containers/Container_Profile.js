@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import NavLink from '../components/NavLink'
-import { getProfileData, updateLevel, getUserGame, deleteGame } from '../actions'
+import { getProfileData, updateLevel, getUserGame, deleteGame, shareGame } from '../actions'
 
 //TODO
 //Make User info dynamic to received data
@@ -22,7 +22,7 @@ class Profile extends React.Component {
     this.props.getProfileData();
   }
 
-   componentDidMount(){
+  componentDidMount(){
     console.log(this.props.data, 'here is your data');
   }
 
@@ -30,13 +30,17 @@ class Profile extends React.Component {
     this.setState ({
       currTitle: title
     })
-    console.log(title, "State after deleter call");
+    console.log(this.props, "State after deleter call");
   }
 
   combo() {
     this.props.deleteGame(this.state.currTitle);
     this.props.getProfileData();
     console.log('job is done');
+  }
+
+  sharer(titleID) {
+    this.props.shareGame(titleID);
   }
 
   render() {
@@ -59,6 +63,26 @@ class Profile extends React.Component {
             </div>
           </div>
         </div>
+        <div className="modal fade" id="share-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div className="modal-dialog" role="document">
+                <div className="loginmodal-container">
+                  <div className="modal-content">
+                    <div className="modal-body">
+                    <h1 id="makeVideo" className="text-center"> Here's your link: </h1>
+                    <div className="col-md-10 offset-md-1">
+                    <form className="form-hortizontal" role="form">
+                      <div className="form-group">
+                        <input type="text" className="form-control" id="modalInput" aria-describedby="sizing-addon1" value={this.props.link.shareGame.link}></input>
+                      </div>
+                    </form>
+                    </div>
+                    <br></br>
+                    <br></br>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
   		  <div className="container">
   			<div id='userdata' className="row">
   				<div className="col-sm-4">
@@ -73,7 +97,10 @@ class Profile extends React.Component {
   				</div>
   				<div className="col-sm-8">
   					<h1> Your Saved Games! </h1>
-            {this.props.data.savedgames.map((title) => <div key={title.id} onClick={this.deleter.bind(this, title.title)} id="gameCard"><h3 onClick={this.props.retrieveGame.bind(this, title.id)} className="gameTitle"> {title.title} </h3> <a data-target = '#delete-modal' data-toggle="modal" className="landing-pg-links"><h4 className="delete">Delete</h4></a><a><h4 className="share">Share</h4></a></div>)}
+
+            {this.props.data.savedgames.map((title) => <div key={title.id} onClick={this.deleter.bind(this, title.title)} id="gameCard"><h3 onClick={this.props.retrieveGame.bind(this, title.id)} className="gameTitle"> {title.title} </h3> <a data-target = '#delete-modal' data-toggle="modal" className="landing-pg-links"><h4 className="delete">Delete</h4></a>
+              <a data-target = '#share-modal' data-toggle="modal" className="landing-pg-links"><h4 onClick={this.sharer.bind(this, title.id)} className="share">Share</h4></a></div>)}
+
             <h1> Levels </h1>
             {this.props.data.levels.filter(level => level.id <= this.props.data.maxlevel).map(level => <div key={level.id} onClick={this.props.updateLevel.bind(this, false, level.id)}id="gameCard"><h3 className="gameTitle">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
             {this.props.data.levels.filter(level => level.id > this.props.data.maxlevel).map(level => <div key={level.id} id="gameCardIncomp"><h3 className="gameTitleIncomp">{level.id} | {level.levelname} | {level.shortdesc}</h3></div>)}
@@ -86,7 +113,8 @@ class Profile extends React.Component {
 }
 
 function mapStateToProps(state){
-  return {data: state.userData};
+  console.log('PROF STATE: ', state);
+  return {data: state.userData, link: state};
 }
 
 function mapDispatchToProps(dispatch){
@@ -103,6 +131,9 @@ function mapDispatchToProps(dispatch){
     },
     deleteGame(gameTitle) {
       dispatch(deleteGame(gameTitle));
+    },
+    shareGame(gameID) {
+      dispatch(shareGame(gameID));
     }
   }
 }

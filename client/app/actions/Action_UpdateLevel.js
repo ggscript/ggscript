@@ -13,7 +13,7 @@ function updateLevel(advanceBoolean, currlevel) {
         advance: advanceBoolean,
         currlevel: currlevel
       }),
-      credentials: "include"
+      credentials: "same-origin"
     }).then(response => {
       //parse the response and then called the action creator via promise
         if(response.status === 401) {

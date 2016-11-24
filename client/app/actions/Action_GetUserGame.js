@@ -4,7 +4,7 @@ function getUserGame(gameid) {
   return function(dispatch) {
     fetch(`api/usergames?id=${gameid}`, {
       method: 'get',
-      credentials: "include"
+      credentials: "same-origin"
     })
     .then(response => {
       //parse the response and then called the action creator via promise

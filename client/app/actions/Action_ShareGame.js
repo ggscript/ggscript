@@ -1,23 +1,26 @@
+function postGameUponResponse(data) {
+  console.log('SHARE GAME DATA: ', data);
+  return {type: 'SHARE_GAME', data}
+}
 
-function deleteGame(gameTitle) {
+function shareGame(gameID) {
   return function(dispatch) {
-    fetch(`api/deletegame`, {
+    fetch(`api/sharedgames`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       method: 'POST',
       credentials: "same-origin",
-      body: JSON.stringify({gameTitle: gameTitle}),
+      body: JSON.stringify({ id: gameID }),
     })
     .then(response => {
       //parse the response and then called the action creator via promise
-        response.JSON().then(res => {
-          console.log(res, 'deleteLevelData response action');
-          // const {data} = getState.reducer();
-          // dispatch(saveLevelDataUponResponse(data))
+        response.json().then(res => {
+          console.log(res, 'shareGame link response');
+            dispatch(postGameUponResponse(res));
           if(response.status === 401) {
-            console.log('error error')
+            console.log('Error posting shared game')
           }
         })
         .catch(err => {console.log(err)})
@@ -31,4 +34,5 @@ function deleteGame(gameTitle) {
   };
 }
 
-export default deleteGame
+export { shareGame, postGameUponResponse }
+

@@ -7,12 +7,12 @@ function saveGame(gameCode, title) {
         'Content-Type': 'application/json'
       },
       method: 'POST',
-      credentials: "include",
+      credentials: "same-origin",
       body: JSON.stringify({gameCode: gameCode, title: title}),
     })
     .then(response => {
       //parse the response and then called the action creator via promise
-        response.JSON().then(res => {
+        response.json().then(res => {
           console.log(res, 'saveLevelData response action');
           // const {data} = getState.reducer();
           // dispatch(saveLevelDataUponResponse(data))
