@@ -132,8 +132,8 @@ class Sandbox extends React.Component {
     };
     return (
       <div>
-        <div className="sandColor">
         <div className="row">
+          <div className="sandColor">
             <h1 className="sandTitle" id='makeVideo'> Phaser Sandbox </h1>
           </div>
         </div>

@@ -27,8 +27,8 @@ class Home extends React.Component{
       <div>
       <div className="row ggscript">
         <p className="title">./ggscript<span className="blinker">_</span></p>
-        <div className="col-md-7 pressenter">
-        press ENTER to
+        <div className="col-md-6 pressenter">
+        press START to
         </div>
         {this.state.currentHeadline === 0 ? <div className="col-md-5" id="ggscriptheadlines">{this.state.ggscriptheadlines[this.state.currentHeadline]}
         </div> : null }

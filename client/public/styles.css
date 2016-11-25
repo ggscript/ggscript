@@ -12,10 +12,16 @@ body {
 .logoStyle {
   font-family: 'Courier';
   color: black !important;
-  font-size: 200%;
+  font-size: 220%;
+}
+.logoStyle:hover {
+  color: #226666 !important;
 }
 .navItem {
   font-size: 115%;
+}
+.navItem:hover {
+  color: #226666 !important;
 }
 
 /********************homepage styling**************************/
@@ -37,6 +43,9 @@ body {
 
 .footerItem {
   font-family: 'Courier';
+}
+.item:hover {
+  color: #226666 !important;
 }
 
 .invader {
@@ -73,6 +82,7 @@ body {
 
 .pressenter {
   text-align: right;
+  margin-left: 90px;
   font-size: 2em;
 }
 
@@ -160,6 +170,14 @@ body {
   background-image: url("http://i.imgur.com/Tljiomv.png");
 }
 
+/*RESOURCES STYLING*/
+.topic {
+  color: black !important;
+}
+.topic:hover {
+  color: #226666 !important;
+}
+
 
 /*SANDBOX STYLING*/
 
@@ -214,8 +232,12 @@ iframe {
 }
 .sandColor {
   background: #D1F5FF;
+  margin-top: -7px;
 }
-
+.teaColor {
+  background: #CFFFB3;
+  margin-top: -7px;
+}
 #title {
   margin-right: 4px;
   margin-bottom: 5px;
@@ -385,7 +407,7 @@ iframe {
 }
 
 .share:hover {
-  color: green;
+  color: #CFFFB3;
 }
 
 #modalInput {
@@ -440,7 +462,7 @@ iframe {
 
 /************************About page styles*************************/
 .socialIcon {
-  height: 7%;
+  height: 5%;
   margin: 0 auto;
 }
 

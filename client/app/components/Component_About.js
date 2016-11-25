@@ -6,7 +6,9 @@ class About extends React.Component {
     return (
       <div className="container">
       	<div className="row">
+            <div className="sandColor">
       		<h1 id="makeVideo"> About the Team </h1>
+            </div>
       		<div className="col-md-3">
       			<div className="profile-userpic">
       				<img className="img-responsive text-center" src="https://lh3.googleusercontent.com/-bIswOe7xSYg/AAAAAAAAAAI/AAAAAAAAAA0/y0_6WkOxIv0/photo.jpg?sz=250"></img>
@@ -55,7 +57,9 @@ class About extends React.Component {
       	<br></br>
       	<br></br>
       	<div className="row">
+            <div className="teaColor">
       		<h1 id="makeVideo"> Our Tech Stack </h1>
+            </div>
       		<div className="col-md-3">
       			<div className="profile-userpic">
       				<img className="img-responsive text-center" src="http://i.imgur.com/hQaEDFD.png"></img>
