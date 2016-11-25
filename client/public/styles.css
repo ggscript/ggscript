@@ -8,9 +8,51 @@ body {
 }
 
 
+/********************navbar styling**************************/
+.logoStyle {
+  font-family: 'Courier';
+  color: black !important;
+  font-size: 200%;
+}
+.navItem {
+  font-size: 115%;
+}
+
 /********************homepage styling**************************/
+.aboutPhaser {
+  background: #CFFFB3;
+  overflow: hidden;
+}
+
+.aboutText {
+  font-size: 115%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .homepage {
-  font-family: 'video'
+  font-family: 'video';
+}
+
+.footerItem {
+  font-family: 'Courier';
+}
+
+.invader {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.blurb {
+  color: black;
+}
+
+.blurbTitle {
+  color: black;
+}
+
+.blurbTitle:hover {
+  color: #226666;
 }
 
 .footerProp {
@@ -18,10 +60,10 @@ body {
 }
 
 .ggscript {
-  background: white;
+  background: #D1F5FF;
   padding-top: 10px;
   padding-bottom: 30px;
-  margin-top: 10px;
+  /*margin-top: 10px;*/
   color: black;
   font-family: "Courier";
   white-space: nowrap;
@@ -90,13 +132,13 @@ body {
 
 /*Behavior for Homepage Icon*/
 #trophy {
-  height: 35%;
+  height: 38%;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("http://i.imgur.com/0jUvIEe.png?1");
+  background-image: url("./assets/trophy.png");
 }
 #trophy:hover {
-  background-image: url("http://i.imgur.com/rbLEhOD.png?1");
+  background-image: url("./assets/trophypixel.png");
 }
 #arcade {
   height: 38%;

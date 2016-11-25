@@ -112,9 +112,9 @@ class Learn extends React.Component {
     }
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps){
     //once the props have been recieved, load the code if its the beginning of a level but not if codemirror text has been altered by user
-    if(this.props.startLevel) {
+    if(prevProps.startLevel !== this.props.startLevel){
       this.loadCode();
     }
   }
