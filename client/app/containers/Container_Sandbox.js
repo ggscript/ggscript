@@ -21,7 +21,6 @@ class Sandbox extends React.Component {
     }
   }
 
-
   decideAlert() {
     // $('#savealert').hide();
     document.getElementById('savealert').style.display = 'none';
@@ -74,7 +73,7 @@ class Sandbox extends React.Component {
 
   generateAndSendScript() {
     console.log('sending script from container sandbox', this.props.code)
-    windowProxy.post({script: this.props.code});
+    windowProxy.post({script: this.props.code, learn: false, sandbox: true});
   }
 
   componentWillMount() {
@@ -149,31 +148,24 @@ class Sandbox extends React.Component {
         <div id="moveright">
         <Codemirror value={this.props.code} onChange={this.props.updateCode.bind(this)} options={options} />
         <div id='sandboxrightside'>
-          <div id="gamebox">
-            {this.state.showError ? <div id="errorconsole">
-            Oops, you have an error!<br></br>
-            {`${this.state.error_message}`}<br></br>
-            {`Error Line Number: ${this.state.error_lineno}`}<br></br>
-            {`Error Column Number: ${this.state.error_colno}`}<br></br>
-            </div> : null}
-        </div>
           <iframe src={(location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com'} id="ggshell" name="ggshell" scrolling="no"></iframe>
         <div className="input-group input-grout-lg col-md-8 col-md-offset-2">
           <input className="form-control" id='title' placeholder="Untitled Game" type="text" onChange={this.updateTitle.bind(this)} aria-describedby="sizing-addon1"></input>
         </div>
-        <div className="col-md-10 col-md-offset-1">
+        <div className="col-md-10 offset-md-1">
         <button id='load' className="btn btn-default" onClick={this.loadCode.bind(this)}>
           Run Game &nbsp;
           <span className=" glyphicon glyphicon-play-circle" aria-hidden="true"></span></button>
         <button className="btn btn-default" onClick={this.decideAlert.bind(this)}> Save &nbsp;  <span className=" glyphicon glyphicon-save" aria-hidden="true"></span></button>
-
-          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Choose a Template
+        <div className="btn-group">
+          <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Choose a Template
           </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-           <a className="dropdown-item" onClick={this.changeTemplate.bind(this, 1)}>Space Game</a>
-           <a className="dropdown-item" onClick={this.changeTemplate.bind(this, 2)}>Side Scroller</a>
-           <a className="dropdown-item" onClick={this.changeTemplate.bind(this, 3)}>Adventure Game</a>
+          <div className="dropdown-menu">
+            <li><a onClick={this.changeTemplate.bind(this, 1)}>Space Game</a></li>
+            <li><a onClick={this.changeTemplate.bind(this, 2)}>Side Scroller</a></li>
+            <li><a onClick={this.changeTemplate.bind(this, 3)}>Adventure Game</a></li>
+          </div>
         </div>
         </div>
         </div>
