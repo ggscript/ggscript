@@ -4,6 +4,7 @@ GGScript is an educational platform for teaching users the fundamentals of Phase
 ##Table of Contents
 * [Team Members](#team-members)
 * [Tech Stack, API's and Third-party Tools](#tech-stack)
+* [Starting the App](#starting-the-app)
 
 ##Team Members
 * [Jason Maier](https://github.com/jason-maier)
@@ -17,7 +18,7 @@ GGScript is an educational platform for teaching users the fundamentals of Phase
 * [Postgres](http://www.postgresql.org/) for relation database
 * [Webpack](https://webpack.github.io/) 
 
-##Starting the app
+##Starting the App
 - [ ] Clone this repo as well as the [GGShell](https://github.com/ggscript/ggshell) repository
 
 - [ ] Run `npm install` within your terminal to download the depndencies for both repos.
