@@ -73,7 +73,7 @@ class Sandbox extends React.Component {
 
   generateAndSendScript() {
     console.log('sending script from container sandbox', this.props.code)
-    windowProxy.post({script: this.props.code});
+    windowProxy.post({script: this.props.code, learn: false, sandbox: true});
   }
 
   componentWillMount() {
@@ -132,7 +132,11 @@ class Sandbox extends React.Component {
     };
     return (
       <div>
-        <h1 id='makeVideo'> Phaser Sandbox</h1>
+        <div className="sandColor">
+        <div className="row">
+            <h1 className="sandTitle" id='makeVideo'> Phaser Sandbox </h1>
+          </div>
+        </div>
         <div onClick={this.hidesave} className="alert alert-success input-group" id="savealert" role="alert">
             <strong>Well done!</strong> You successfully saved your game!.
         </div>

@@ -28,6 +28,7 @@ body {
   font-size: 115%;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-family: 'courier';
 }
 
 .homepage {
@@ -208,8 +209,11 @@ iframe {
   margin: 0px !important;
 }
 
-html {
-  font-family: 'video';
+.sandTitle {
+  margin-left: 40px !important;
+}
+.sandColor {
+  background: #D1F5FF;
 }
 
 #title {
