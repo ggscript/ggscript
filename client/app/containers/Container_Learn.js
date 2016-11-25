@@ -49,12 +49,21 @@ class Learn extends React.Component {
     this.state = {
       modalIsOpen: false,
       mounting: true, 
-      learned: false
+      showLearningObjectives: false
     }
   }
 
   openModal() {
     this.setState({modalIsOpen: true});
+  }
+
+  showLearningObjectives() {
+    this.setState({showLearningObjectives: true}, this.openModal);
+  }
+
+  hideLearningObjectives() {
+    this.closeModal();
+    this.setState({showLearningObjectives: false});
   }
 
   afterOpenModal() {
@@ -63,9 +72,7 @@ class Learn extends React.Component {
   }
 
   closeModal() {
-    this.setState({modalIsOpen: false,
-      learned: true});
-    console.log('active');
+    this.setState({modalIsOpen: false});
   }
 
   componentWillMount(){
@@ -84,13 +91,14 @@ class Learn extends React.Component {
 
   generateAndSendScript() {
     // send the script to the ggshell ifream
-    console.log('sending script from learn container', this.props.code);
     windowProxy.post({script: this.props.code});
   }
 
   loadCode() {
     //generate and append new script
     this.generateAndSendScript();
+    //set start level to false
+    this.props.updateCode(false, this.props.code);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -112,9 +120,9 @@ class Learn extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps){
+  componentDidUpdate(prevProps, prevState){
     //once the props have been recieved, load the code if its the beginning of a level but not if codemirror text has been altered by user
-    if(prevProps.startLevel !== this.props.startLevel){
+    if(this.props.startLevel){
       this.loadCode();
     }
   }
@@ -156,7 +164,7 @@ class Learn extends React.Component {
           <p id="missionpromptwords2">{this.props.levelData.description_descthree}</p>
           <h3>What difficulty level would you like to complete {this.props.levelData.levelname} at?</h3>
         {/*button for choosing difficulty level*/}
-        {this.state.learned ? <button  onClick={this.closeModal.bind(this)} className="btn btn-default"> Return to Mission </button> : <div> <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', true, 'Novice')}><DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/></button>
+        {this.state.showLearningObjectives ? <button  onClick={this.hideLearningObjectives.bind(this)} className="btn btn-default"> Return to Mission </button> : <div> <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'novicelevelcode', true, 'Novice')}><DiffLevel level='Novice' completed={this.props.levelData.noviceComplete} points={this.props.levelData.novicepoints}/></button>
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'heroiclevelcode', true, 'Heroic')}><DiffLevel level='Heroic' completed={this.props.levelData.heroicComplete} points={this.props.levelData.heroicpoints}/></button>
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', true, 'Mythic')}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button></div>}
           </div>
@@ -189,7 +197,7 @@ class Learn extends React.Component {
           </div>
           <div className='row'>
             <div className="col-md-6 offset-md-3">
-              <button id="makeVideo" onClick={this.openModal.bind(this)} className="missionOpen btn btn-default btn-block">Show Mission Prompt</button>
+              <button id="makeVideo" onClick={this.showLearningObjectives.bind(this)} className="missionOpen btn btn-default btn-block">Show Learning Objectives</button>
             </div>
           </div>
             <br></br>
