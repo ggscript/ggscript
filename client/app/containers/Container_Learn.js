@@ -170,9 +170,13 @@ class Learn extends React.Component {
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', true, 'Mythic')}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button></div>}
           </div>
         </Modal>
-        <div className="row">
-          <div className="col-md-10 offset-md-1" id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span>
-        </div>
+        <div className="missionColor">
+          <div className="row">
+          <div className="col-md-11">
+            <div className="sandTitle" id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span>
+            </div>
+          </div>
+          </div>
         </div>
         <span>
         <Codemirror id="tutorialCode"value={this.props.code} onChange={this.props.updateCode.bind(this, false)} options={options} />
