@@ -91,7 +91,7 @@ class Learn extends React.Component {
 
   generateAndSendScript() {
     // send the script to the ggshell ifream
-    windowProxy.post({script: this.props.code});
+    windowProxy.post({script: this.props.code, learn: true, sandbox: false});
   }
 
   loadCode() {

@@ -73,7 +73,7 @@ class Sandbox extends React.Component {
 
   generateAndSendScript() {
     console.log('sending script from container sandbox', this.props.code)
-    windowProxy.post({script: this.props.code});
+    windowProxy.post({script: this.props.code, learn: false, sandbox: true});
   }
 
   componentWillMount() {
