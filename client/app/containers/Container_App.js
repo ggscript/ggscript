@@ -21,6 +21,22 @@ class App extends React.Component {
     window.windowProxy = new Porthole.WindowProxy(guestDomain, "ggshell");
   }
 
+  login() {
+    var component = this;
+    var oauthWindow = window.open('/auth/google', "oauth", "location=yes,width=8");
+    window.loginInterval = window.setInterval(function() {
+      //if the pop up window's location equals the call back url, then the login is over (regardless of success)
+      if(oauthWindow.document.URL === window.location.origin + '/#/') {
+        window.clearInterval(window.loginInterval);
+        oauthWindow.close();
+        $('#login-modal').modal('hide');
+        component.props.getDisplayName();
+        component.props.getProfileData();
+      }
+    },
+    100);
+  }
+
   render() {
     return (
       <div>
@@ -33,7 +49,7 @@ class App extends React.Component {
                     <h3 id="makeVideo" className="text-center">Pew Pew, Welcome Back!</h3>
                     <br></br>
                     <div className="btn-group btn-group-justified">
-                      <a href="/auth/google" className="btn btn-danger">Google</a>
+                      <a onClick={this.login.bind(this)} className="btn btn-danger">Google</a>
                     </div>
                   </div>
                 </div>
