@@ -76,7 +76,7 @@ class Learn extends React.Component {
   }
 
   componentWillMount(){
-    if(JSON.parse(sessionStorage.learnLogin)){
+    if(JSON.parse(sessionStorage.getItem('learnLogin'))){
       var data = JSON.parse(sessionStorage.getItem('levelData'));
       var code = JSON.parse(sessionStorage.getItem('learnCode'));
       this.props.dispatch({type: 'LOAD_LEVEL_DATA', data});
