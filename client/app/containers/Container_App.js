@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link, hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import NavLink from '../components/NavLink'
 import { getDisplayName, getProfileData } from '../actions'
@@ -11,10 +11,29 @@ class App extends React.Component {
     this.props.getDisplayName();
     this.setUpProxy();
     this.wakeUpGGShell();
+    //if redirected to homepage from login on learn page, send back to learn page
+    if(JSON.parse(sessionStorage.getItem('learnLogin'))) {
+      console.log('learn login redirect');
+      hashHistory.push('learn');
+      this.props.getProfileData();
+
+    }
+    //if redirected to homepage from login on sandbox page, send back to sandbox page
+    if(JSON.parse(sessionStorage.getItem('sandboxLogin'))) {
+      console.log('sandbox login redirect');
+      hashHistory.push('sandbox');
+      this.props.getProfileData();
+    }
   }
   componentWillReceiveProps(nextProps) {
-                      // <NavLink id="logged" to="/login">Log In</NavLink>
-      console.log(nextProps, 'next');
+    //if there is a display name, get the points to display as well
+     if(nextProps.displayname) {
+      this.props.getProfileData();
+     }
+     //if the level has change, get the updated point values for navbar
+     if(this.props.level !== nextProps.level) {
+      this.props.getProfileData();
+     }
   }
   setUpProxy() {
     var guestDomain = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com';
@@ -24,22 +43,6 @@ class App extends React.Component {
 
   wakeUpGGShell() {
     fetch('/wakeup').then(result => console.log('GGShell successfully woken')).catch(err => console.log('GGShell unable to be woken', err));
-  }
-
-  login() {
-    var component = this;
-    var oauthWindow = window.open('/auth/google', "oauth", "location=yes,width=8");
-    window.loginInterval = window.setInterval(function() {
-      //if the pop up window's location equals the call back url, then the login is over (regardless of success)
-      if(oauthWindow.document.URL === window.location.origin + '/#/') {
-        window.clearInterval(window.loginInterval);
-        oauthWindow.close();
-        $('#login-modal').modal('hide');
-        component.props.getDisplayName();
-        component.props.getProfileData();
-      }
-    },
-    100);
   }
 
   render() {
@@ -54,7 +57,7 @@ class App extends React.Component {
                     <h3 id="makeVideo" className="text-center">Pew Pew, Welcome Back!</h3>
                     <br></br>
                     <div className="btn-group btn-group-justified">
-                      <a onClick={this.login.bind(this)} className="btn btn-danger">Google</a>
+                      <a href="/auth/google" className="btn btn-danger">Google</a>
                     </div>
                   </div>
                 </div>
@@ -134,8 +137,11 @@ class App extends React.Component {
 
 function mapStateToProps(state){
   console.log(state, 'map state to props container app')
-  return {displayname: state.userData.displayname,
-    data: state.userData};
+  return {
+    displayname: state.userData.displayname,
+    data: state.userData,
+    level: state.getLevelData.id
+  };
 }
 
 function mapDispatchToProps(dispatch){

@@ -36,7 +36,11 @@ class Sandbox extends React.Component {
       }
     }
     if(!this.props.user.id) {
-      document.getElementById('loginalert').style.display = 'inline-block';
+      //update the sessionStorage so the user can access their code upon redirect, without losing it
+      sessionStorage.setItem('sandboxLogin', JSON.stringify(true));
+      sessionStorage.setItem('sandboxCode', JSON.stringify(this.props.code));
+      //display login alert
+      $('#login-modal').modal();
     }
     if(!this.state.title && this.props.user.id) {
       document.getElementById('titlealert').style.display = 'inline-block';
@@ -77,8 +81,12 @@ class Sandbox extends React.Component {
   }
 
   componentWillMount() {
+    //define component as this so it can be used inside of nested functions
     var component = this;
+
+    //get the template data from database
     this.props.getTemplateData();
+
     //check for a query string, if one exists, fetch the game
     if(location.hash.split('?game=')[1]) {
       var hash = location.hash.split('?game=')[1];
@@ -92,7 +100,16 @@ class Sandbox extends React.Component {
       })
       .catch(err => console.log(err));
     }
-    console.log('BEFORE SANDBOX MT: ', this);
+
+    //load the users code that they had before loggin in
+    if(JSON.parse(sessionStorage.getItem('sandboxLogin'))) {
+      //fetch the saved code from storage
+      var code = JSON.parse(sessionStorage.getItem('sandboxCode'));
+      //update the code
+      this.props.updateCode(code);
+      //reset the flag to false
+      sessionStorage.setItem('sandboxLogin', JSON.stringify(false));
+    }
   }
 
   componentDidMount() {
