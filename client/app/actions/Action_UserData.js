@@ -18,7 +18,7 @@ function getProfileData(text) {
       console.log('initialized', response)
       //parse the response and then called the action creator via promise
         if(response.status === 401) {
-          hashHistory.push('login');
+          $('#login-modal').modal();
         } else {
           response.json().then(res => {
           console.log('initialize store', res);
