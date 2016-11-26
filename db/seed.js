@@ -149,7 +149,7 @@ connection.query(
  "userid" INTEGER NOT NULL,
  "hash" TEXT,
  FOREIGN KEY (userid) REFERENCES users(id),
- FOREIGN KEY (gameid) REFERENCES games(id)
+ FOREIGN KEY (gameid) REFERENCES games(id) ON DELETE CASCADE
  )`,
  (err) => {
    if(err) {

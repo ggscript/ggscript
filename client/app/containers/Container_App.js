@@ -111,33 +111,43 @@ class App extends React.Component {
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <ul className="nav navbar-nav" role="nav">
-              <li><NavLink to="/">GGScript</NavLink></li>
-              <li><NavLink to="/learn">Learn Phaser</NavLink></li>
-              <li><NavLink to="/sandbox">Sandbox</NavLink></li>
-              <li><NavLink to='/about'>About</NavLink></li>
-              <li><NavLink to='/resources'>Resources</NavLink></li>
+              <li><NavLink className="logoStyle" to="/">./ggscript_</NavLink></li>
+              <li><NavLink className="navItem" to="/learn">Learn Phaser</NavLink></li>
+              <li><NavLink className="navItem" to="/sandbox">Sandbox</NavLink></li>
+              <li><NavLink className="navItem" to='/about'>About</NavLink></li>
+              <li><NavLink className="navItem" to='/resources'>Resources</NavLink></li>
             </ul>
             {/*right side of nav bar displays username if it exits, or login if it doesn't*/}
             {this.props.displayname ? 
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <NavLink id="profile" to="/profile">Welcome, {this.props.displayname} {this.props.data.points} points </NavLink>
+                  <NavLink id="profile" to="/profile" className="navItem">Welcome, {this.props.displayname} {this.props.data.points} points </NavLink>
                 </li> 
                 <li>
-                  <a href='#/' data-target ='#logout-modal' data-toggle="modal" className="landing-pg-links"> Log Out </a>
+                  <a href='#/' data-target ='#logout-modal' data-toggle="modal" className="navItem landing-pg-links"> Log Out </a>
                 </li>
               </ul> : 
               <ul className="nav navbar-nav navbar-right"> 
                 <li>
-                  <a href='#/' data-target = '#login-modal' data-toggle="modal" className="landing-pg-links"> Log In </a>
+                  <a href='#/' data-target = '#login-modal' data-toggle="modal" className="navItem landing-pg-links"> Log In </a>
                 </li>
                 <li>
-                  <a href='#/' data-target = '#signup-modal' data-toggle="modal" className="landing-pg-links"> Sign Up </a>
+                  <a href='#/' data-target = '#signup-modal' data-toggle="modal" className="navItem landing-pg-links"> Sign Up </a>
                 </li>
               </ul>}
           </div>
         </nav>
         {this.props.children}
+        <br></br>
+        <br></br>
+        <footer className="footer">
+          <div className="container">
+            <div className="text-muted text-center footerItem">
+              <span className="item">Tech Stack &nbsp;&nbsp;</span><span className="item"> About Us &nbsp;&nbsp;</span><span className="item"> github &nbsp;&nbsp;</span><span className="item">/ggscript_ </span><span className="item"> &nbsp;&nbsp; © 2016 - GGScript | San Francisco CA </span>
+            </div>
+          </div>
+        </footer>
+        <br></br>
       </div>
     )
   }

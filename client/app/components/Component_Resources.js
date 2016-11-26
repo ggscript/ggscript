@@ -5,10 +5,17 @@ class Resources extends React.Component {
   render() {
     return (
       <div className="container">
+      <div className="sandColor">
         <h1 id="makeVideo"> Phaser Resources </h1>
+      </div>
       	<div className="row">
-                  <div className="col-md-10">
-                  <br></br>
+            <div className="col-md-2">
+                  <h3 id="makeVideo"> Topics </h3>
+                  <a className="topic" href="#functions"><p>Understanding Phaser's Four Core Functions: Preload, Create, Update and Render</p></a>
+                  <a className="topic" href="#create"><p>Using Phaser's Create Function</p></a>
+                  <a className="topic" href="#update"><p>Mastering Phaser's Update Function</p></a>
+            </div>
+            <div className="col-md-10">
                   <span id="functions"><h2 id="makeVideo"> Understanding Phaser's Four Core Functions: Preload, Create, Update and Render </h2></span>
                   <h3>Overview of Preload, Create, Update and Render</h3>
                   <p>Phaser has a number of special ‘reserved’ functions that are executed at specific points in the game, and each contain specific pieces of code to perform distinct operations. Preload loads content before creating, updating and rendering your game.</p>
@@ -36,12 +43,6 @@ One important note: the order that items are rendered depends on the order you c
             <h3>Yes, the Update Loop is as Cool as it Sounds.</h3>
             <p>Some cool things that you’ll be introduced to over the course of this tutorial that will be in the update loop: moving, jumping, colliding, shooting, scoring, bouncing, swimming, flying, powerups, and a lot more.</p>
             <br></br>
-            </div>
-            <div className="col-md-2">
-                  <h3 id="makeVideo"> Topics </h3>
-                  <a href="#functions"><p>Understanding Phaser's Four Core Functions: Preload, Create, Update and Render</p></a>
-                  <a href="#create"><p>Using Phaser's Create Function</p></a>
-                  <a href="#update"><p>Mastering Phaser's Update Function</p></a>
             </div>
       	</div>
       </div>

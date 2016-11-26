@@ -8,9 +8,61 @@ body {
 }
 
 
+/********************navbar styling**************************/
+.logoStyle {
+  font-family: 'Courier';
+  color: black !important;
+  font-size: 220%;
+}
+.logoStyle:hover {
+  color: #226666 !important;
+}
+.navItem {
+  font-size: 115%;
+}
+.navItem:hover {
+  color: #226666 !important;
+}
+
 /********************homepage styling**************************/
+.aboutPhaser {
+  background: #CFFFB3;
+  overflow: hidden;
+}
+
+.aboutText {
+  font-size: 115%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: 'courier';
+}
+
 .homepage {
-  font-family: 'video'
+  font-family: 'video';
+}
+
+.footerItem {
+  font-family: 'Courier';
+}
+.item:hover {
+  color: #226666 !important;
+}
+
+.invader {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.blurb {
+  color: black;
+}
+
+.blurbTitle {
+  color: black;
+}
+
+.blurbTitle:hover {
+  color: #226666;
 }
 
 .footerProp {
@@ -18,10 +70,10 @@ body {
 }
 
 .ggscript {
-  background: white;
+  background: #D1F5FF;
   padding-top: 10px;
   padding-bottom: 30px;
-  margin-top: 10px;
+  /*margin-top: 10px;*/
   color: black;
   font-family: "Courier";
   white-space: nowrap;
@@ -30,6 +82,7 @@ body {
 
 .pressenter {
   text-align: right;
+  margin-left: 90px;
   font-size: 2em;
 }
 
@@ -90,13 +143,13 @@ body {
 
 /*Behavior for Homepage Icon*/
 #trophy {
-  height: 35%;
+  height: 38%;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("http://i.imgur.com/0jUvIEe.png?1");
+  background-image: url("./assets/trophy.png");
 }
 #trophy:hover {
-  background-image: url("http://i.imgur.com/rbLEhOD.png?1");
+  background-image: url("http://i.imgur.com/GahBNW9.png");
 }
 #arcade {
   height: 38%;
@@ -115,6 +168,15 @@ body {
 }
 #explore:hover {
   background-image: url("http://i.imgur.com/Tljiomv.png");
+}
+
+/*RESOURCES STYLING*/
+.topic {
+  color: black !important;
+  text-decoration: none !important;
+}
+.topic:hover {
+  color: #226666 !important;
 }
 
 
@@ -166,10 +228,17 @@ iframe {
   margin: 0px !important;
 }
 
-html {
-  font-family: 'video';
+.sandTitle {
+  margin-left: 40px !important;
 }
-
+.sandColor {
+  background: #D1F5FF;
+  margin-top: -7px;
+}
+.teaColor {
+  background: #CFFFB3;
+  margin-top: -7px;
+}
 #title {
   margin-right: 4px;
   margin-bottom: 5px;
@@ -182,6 +251,12 @@ html {
 /********************************learn page styles***********************/
 #gamebox {
   padding: 0px 0px 10px 0px !important;
+}
+
+.missionColor {
+  background: #D1F5FF;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 #learnrightside {
@@ -201,7 +276,6 @@ html {
   font-size: 1em;
   border-radius: 1px;
   border: 10px;
-  background-color: #f2f2f2;
 }
 #promptwords {
 /*  font-weight: bolder;*/
@@ -212,7 +286,7 @@ html {
   font-size: 1em;
   border-radius: 1px;
   border: 10px;
-  background-color: #f2f2f2;
+
 }
 #missionprompt {
 /*  font-weight: bolder;*/
@@ -223,7 +297,7 @@ html {
   font-size: 1.3em;
   border-radius: 1px;
   border: 10px;
-  background-color: #f2f2f2;
+  background: #D1F5FF;
 }
 #missionpromptwords {
 /*  font-weight: bolder;*/
@@ -234,7 +308,6 @@ html {
   font-size: 1em;
   border-radius: 1px;
   border: 10px;
-  background-color: #f2f2f2;
 }
 
 #missionpromptwords2 {
@@ -246,7 +319,6 @@ html {
   font-size: 1.2em;
   border-radius: 1px;
   border: 10px;
-  background-color: #f2f2f2;
 }
 
 
@@ -314,6 +386,14 @@ html {
   margin-bottom: 12px;
 }
 
+.sectionTitle {
+  margin-bottom: 30px !important;
+}
+
+.levels {
+  margin-top: 25px;
+}
+
 .gameTitle {
   margin-top: 10px;
   margin-left: 10px;
@@ -339,7 +419,7 @@ html {
 }
 
 .share:hover {
-  color: green;
+  color: #CFFFB3;
 }
 
 #modalInput {
@@ -394,7 +474,7 @@ html {
 
 /************************About page styles*************************/
 .socialIcon {
-  height: 7%;
+  height: 5%;
   margin: 0 auto;
 }
 

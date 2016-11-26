@@ -24,11 +24,11 @@ class Home extends React.Component{
   }
   render() {
     return (
-      <div className="container">
+      <div>
       <div className="row ggscript">
         <p className="title">./ggscript<span className="blinker">_</span></p>
-        <div className="col-md-7 pressenter">
-        press ENTER to
+        <div className="col-md-6 pressenter">
+        press START to
         </div>
         {this.state.currentHeadline === 0 ? <div className="col-md-5" id="ggscriptheadlines">{this.state.ggscriptheadlines[this.state.currentHeadline]}
         </div> : null }
@@ -37,30 +37,48 @@ class Home extends React.Component{
         {this.state.currentHeadline === 2 ? <div className="col-md-5" id="ggscriptheadlines">{this.state.ggscriptheadlines[this.state.currentHeadline]}
         </div> : null }
       </div>
+      <div className="container">
       <div className="row homepage">
         <a href='/#/learn'> 
         <div className="col-md-4">
           <div id="arcade"></div>
-          <h1 className="text-center">Learn</h1>
-          <p className="text-center"> Level up your Phaser skills by completing coding challenges.  
+          <h1 className="text-center blurbTitle">Learn</h1>
+          <p className="text-center blurb"> Level up your Phaser skills by completing coding challenges.  
           Available in Novice, Heroic, and Mythic difficulties, which path will you choose? </p>
       </div> 
       </a>
       <a href='/#/sandbox'>
         <div className="col-md-4">
           <div id="explore"></div>
-          <h1 className="text-center">Explore</h1>
-          <p className="text-center"> If you need a greater challenge, use our Phaser sandbox to build your own games from scratch, or with a little guidance from provided templates.</p> 
+          <h1 className="text-center blurbTitle">Explore</h1>
+          <p className="text-center blurb"> If you need a greater challenge, use our Phaser sandbox to build your own games from scratch, or with a little guidance from provided templates.</p> 
         </div>
         </a>
         <a href='/#/profile'>
         <div className="col-md-4">
-          <div id="trophy"></div>
-          <h1 className="text-center">Brag</h1>
-          <p className="text-center"> Visit your player profile page to revisit and share your saved Phaser games.
-          You didn't embark on this quest to keep the spoils for yourself did you?  Share with your friends and bask in their adoration.</p>
+          <div className="profile-userpic">
+            <div className="img-responsive text-center" id="trophy"></div>
+          </div>
+          <h1 className="text-center blurbTitle">Brag</h1>
+          <p className="text-center blurb"> 
+          You didn't embark on this quest to keep the spoils for yourself did you?  Share your saved Phaser games with your friends and bask in their adoration.</p>
         </div>
         </a>
+      </div>
+      <br></br>
+      </div>
+      <div className="aboutPhaser">
+        <div className="row">
+        <div className="aboutText col-md-10 offset-md-1 text-center">
+          Phaser is a powerful and intuitive library that allows you to make HTML games that look and function beautifully within your browser.  The best thing about it is that you can get started with little to no experience with coding and its syntax is extremely similar to popular languages such as Ruby and Javascript.  Therefore, those with a bit of web development experience can translate much of what they know into their first games.
+        </div>
+        </div>
+        <img className="center-block" src="http://i.imgur.com/24ZyjhH.png?1"></img>
+        <div className="row">
+        <div className="aboutText col-md-10 offset-md-1 text-center">
+          GGScript is the best way to get started because we create a customizable, comprehensize, and expansive platform to ensure anyone that is interested in creating games has the ability to do so.  By providing a tutorial that you can tailor to your specific needs and a sandbox that removes the need to set up a dev environment locally - we have removed many of the barriers that so often derail programmers from making significant progress in their development careers.
+      </div>
+      </div>
       </div>
       </div>
 

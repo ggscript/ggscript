@@ -149,7 +149,11 @@ class Sandbox extends React.Component {
     };
     return (
       <div>
-        <h1 id='makeVideo'> Phaser Sandbox</h1>
+        <div className="row">
+          <div className="sandColor">
+            <h1 className="sandTitle" id='makeVideo'> Phaser Sandbox </h1>
+          </div>
+        </div>
         <div onClick={this.hidesave} className="alert alert-success input-group" id="savealert" role="alert">
             <strong>Well done!</strong> You successfully saved your game!.
         </div>

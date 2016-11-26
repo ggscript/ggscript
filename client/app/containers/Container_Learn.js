@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import { connect } from 'react-redux'
-import { getLevelData, updateLevel, getLevelPoints, getDisplayName, updatePoints, loadLevelDataUponResponse } from '../actions'
+import { getLevelData, updateLevel, getLevelPoints, getDisplayName, updatePoints } from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
@@ -112,7 +112,7 @@ class Learn extends React.Component {
   componentWillReceiveProps(nextProps) {
     var component = this;
     //only open the modal if the level id has changed
-    if(this.props.levelData.id !== nextProps.levelData.id && !JSON.parse(sessionStorage.getItem('learnLogin'))) {
+    if(this.props.levelData.id !== nextProps.levelData.id) {
       this.setState({modalIsOpen: true});
     }
   }
@@ -128,19 +128,16 @@ class Learn extends React.Component {
     }
   }
 
+
   componentDidUpdate(prevProps, prevState){
     //once the props have been recieved, load the code if its the beginning of a level but not if codemirror text has been altered by user
     if(this.props.startLevel){
       this.loadCode();
     }
-
-    if(JSON.parse(sessionStorage.getItem('learnLogin'))) {
-      sessionStorage.setItem('learnLogin', JSON.stringify(false));
-      this.nextLevel();
-    }
   }
 
   nextLevel() {
+    this.setState({learned:false})
     this.props.updateLevel(true, this.props.levelData.id);
     this.props.updatePoints(this.props.levelData.id, this.state.difficultyLevel);
   }
@@ -181,9 +178,13 @@ class Learn extends React.Component {
           <button className="btn btn-default difficulty" onClick={this.startLevel.bind(this, 'mythiclevelcode', true, 'Mythic')}><DiffLevel level='Mythic' completed={this.props.levelData.mythicComplete} points={this.props.levelData.mythicpoints}/></button></div>}
           </div>
         </Modal>
-        <div className="row">
-          <div className="col-md-10 offset-md-1" id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span>
-        </div>
+        <div className="missionColor">
+          <div className="row">
+          <div className="col-md-11">
+            <div className="sandTitle" id="missionprompt">Your Mission:<span id="missionpromptwords"> {this.props.levelData.prompt}</span>
+            </div>
+          </div>
+          </div>
         </div>
         <span>
         <Codemirror id="tutorialCode"value={this.props.code} onChange={this.props.updateCode.bind(this, false)} options={options} />
