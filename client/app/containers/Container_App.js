@@ -31,7 +31,7 @@ class App extends React.Component {
       this.props.getProfileData();
      }
      //if the level has change, get the updated point values for navbar
-     if(this.props.level !== nextProps.level) {
+     if(this.props.level !== nextProps.level  && nextProps.displayname) {
       this.props.getProfileData();
      }
   }
