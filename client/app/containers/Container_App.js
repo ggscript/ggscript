@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link, hashHistory } from 'react-router'
 import { connect } from 'react-redux'
 import NavLink from '../components/NavLink'
 import { getDisplayName, getProfileData } from '../actions'
@@ -10,15 +10,39 @@ class App extends React.Component {
   componentWillMount(){
     this.props.getDisplayName();
     this.setUpProxy();
+    this.wakeUpGGShell();
+    //if redirected to homepage from login on learn page, send back to learn page
+    if(JSON.parse(sessionStorage.getItem('learnLogin'))) {
+      console.log('learn login redirect');
+      hashHistory.push('learn');
+      this.props.getProfileData();
+
+    }
+    //if redirected to homepage from login on sandbox page, send back to sandbox page
+    if(JSON.parse(sessionStorage.getItem('sandboxLogin'))) {
+      console.log('sandbox login redirect');
+      hashHistory.push('sandbox');
+      this.props.getProfileData();
+    }
   }
   componentWillReceiveProps(nextProps) {
-                      // <NavLink id="logged" to="/login">Log In</NavLink>
-      console.log(nextProps, 'next');
+    //if there is a display name, get the points to display as well
+     if(nextProps.displayname) {
+      this.props.getProfileData();
+     }
+     //if the level has change, get the updated point values for navbar
+     if(this.props.level !== nextProps.level) {
+      this.props.getProfileData();
+     }
   }
   setUpProxy() {
     var guestDomain = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com';
     console.log('HOSTNAME GGSCRIPT:', guestDomain);
     window.windowProxy = new Porthole.WindowProxy(guestDomain, "ggshell");
+  }
+
+  wakeUpGGShell() {
+    fetch('/wakeup').then(result => console.log('GGShell successfully woken')).catch(err => console.log('GGShell unable to be woken', err));
   }
 
   render() {
@@ -113,8 +137,11 @@ class App extends React.Component {
 
 function mapStateToProps(state){
   console.log(state, 'map state to props container app')
-  return {displayname: state.userData.displayname,
-    data: state.userData};
+  return {
+    displayname: state.userData.displayname,
+    data: state.userData,
+    level: state.getLevelData.id
+  };
 }
 
 function mapDispatchToProps(dispatch){

@@ -1,4 +1,4 @@
-import { getLevelData } from './Action_GetLevelData'
+import { getLevelData, loadLevelDataUponResponse } from './Action_GetLevelData'
 import saveGame from './Action_SaveGame'
 import { getProfileData, getDisplayName } from './Action_UserData'
 import updateLevel from './Action_UpdateLevel'
@@ -20,5 +20,6 @@ export {
   updatePoints,
   deleteGame,
   getUserGame,
-  shareGame
+  shareGame,
+  loadLevelDataUponResponse
 }
