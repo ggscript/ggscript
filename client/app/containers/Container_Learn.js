@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import { connect } from 'react-redux'
-import { getLevelData, updateLevel, getLevelPoints, getDisplayName, updatePoints, loadLevelDataUponResponse } from '../actions'
+import { getLevelData, updateLevel, getLevelPoints, getDisplayName, updatePoints } from '../actions'
 import Codemirror from 'react-codemirror'
 import Modal from 'react-modal'
 import { bindActionCreators } from 'redux';
@@ -76,15 +76,7 @@ class Learn extends React.Component {
   }
 
   componentWillMount(){
-    if(JSON.parse(sessionStorage.learnLogin)){
-      var data = JSON.parse(sessionStorage.getItem('levelData'));
-      var code = JSON.parse(sessionStorage.getItem('learnCode'));
-      this.props.dispatch({type: 'LOAD_LEVEL_DATA', data});
-      this.props.updateCode(false, code);
-
-    } else {
-      this.props.getLevelData();
-    }
+    this.props.getLevelData();
   }
 
 
@@ -112,7 +104,7 @@ class Learn extends React.Component {
   componentWillReceiveProps(nextProps) {
     var component = this;
     //only open the modal if the level id has changed
-    if(this.props.levelData.id !== nextProps.levelData.id && !JSON.parse(sessionStorage.getItem('learnLogin'))) {
+    if(this.props.levelData.id !== nextProps.levelData.id) {
       this.setState({modalIsOpen: true});
     }
   }
@@ -134,14 +126,10 @@ class Learn extends React.Component {
     if(this.props.startLevel){
       this.loadCode();
     }
-
-    if(JSON.parse(sessionStorage.getItem('learnLogin'))) {
-      sessionStorage.setItem('learnLogin', JSON.stringify(false));
-      this.nextLevel();
-    }
   }
 
   nextLevel() {
+    this.setState({learned:false})
     this.props.updateLevel(true, this.props.levelData.id);
     this.props.updatePoints(this.props.levelData.id, this.state.difficultyLevel);
   }

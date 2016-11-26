@@ -173,6 +173,7 @@ body {
 /*RESOURCES STYLING*/
 .topic {
   color: black !important;
+  text-decoration: none !important;
 }
 .topic:hover {
   color: #226666 !important;
