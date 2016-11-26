@@ -10,6 +10,7 @@ class App extends React.Component {
   componentWillMount(){
     this.props.getDisplayName();
     this.setUpProxy();
+    this.wakeUpGGShell();
   }
   componentWillReceiveProps(nextProps) {
                       // <NavLink id="logged" to="/login">Log In</NavLink>
@@ -19,6 +20,10 @@ class App extends React.Component {
     var guestDomain = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com';
     console.log('HOSTNAME GGSCRIPT:', guestDomain);
     window.windowProxy = new Porthole.WindowProxy(guestDomain, "ggshell");
+  }
+
+  wakeUpGGShell() {
+    fetch('/wakeup').then(result => console.log('GGShell successfully woken')).catch(err => console.log('GGShell unable to be woken', err));
   }
 
   login() {
