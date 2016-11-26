@@ -23,11 +23,21 @@ body {
 .navItem:hover {
   color: #226666 !important;
 }
+.strong {
+  font-weight: bold;
+  font-family: 'Courier';
+  font-size: 115%;
+}
 
 /********************homepage styling**************************/
 .aboutPhaser {
   background: #CFFFB3;
   overflow: hidden;
+  padding-bottom: 14px;
+}
+.howColor {
+  background: #FA7A5E;
+  padding-bottom: 14px;
 }
 
 .aboutText {

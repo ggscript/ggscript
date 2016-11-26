@@ -68,16 +68,25 @@ class Home extends React.Component{
       <br></br>
       </div>
       <div className="aboutPhaser">
+      <div className="container">
+        <h1 id="makeVideo" className="text-center"> How to Level Up with Phaser! </h1>
+        <div className="aboutText"><span className="strong"> Level 1: </span> Sign up for a GGScript account using your GMAIL account - this gives you the ability to save your tutorial progress as well as the ability to save and share games you create in the sandbox. 
+        </div>
+        <div className="aboutText"><span className="strong"> Level 2: </span> Hone your phaser skills by completing levels in our Phaser tutorial - each level is available in three different difficulties (normal, heroic, and mythic) and you'll receive points based on the difficulty of the level you complete.  As you complete levels and receive points you'll gain new Phaser titles which you can see on your profile.
+        </div>
+         <div className="aboutText"><span className="strong"> Level 3: </span> Once your skills are sharpened - try creating your own games from scratch in the Phaser sandbox. You can save your games here and share them with links that you can get from your profile.
+        </div>
+      </div>
+      </div>
         <div className="row">
         <div className="aboutText col-md-10 offset-md-1 text-center">
-          Phaser is a powerful and intuitive library that allows you to make HTML games that look and function beautifully within your browser.  The best thing about it is that you can get started with little to no experience with coding and its syntax is extremely similar to popular languages such as Ruby and Javascript.  Therefore, those with a bit of web development experience can translate much of what they know into their first games.
+          <span className="strong"> Phaser </span> is a powerful and intuitive library that allows you to make HTML games that look and function beautifully within your browser.  The best thing about it is that you can get started with little to no experience with coding and its syntax is extremely similar to popular languages such as Ruby and Javascript.  Therefore, those with a bit of web development experience can translate much of what they know into their first games.
         </div>
         </div>
         <img className="center-block" src="http://i.imgur.com/24ZyjhH.png?1"></img>
         <div className="row">
         <div className="aboutText col-md-10 offset-md-1 text-center">
-          GGScript is the best way to get started because we create a customizable, comprehensize, and expansive platform to ensure anyone that is interested in creating games has the ability to do so.  By providing a tutorial that you can tailor to your specific needs and a sandbox that removes the need to set up a dev environment locally - we have removed many of the barriers that so often derail programmers from making significant progress in their development careers.
-      </div>
+          <span className="strong"> GGScript </span> is the best way to get started because we create a customizable, comprehensize, and expansive platform to ensure anyone that is interested in creating games has the ability to do so.  By providing a tutorial that you can tailor to your specific needs and a sandbox that removes the need to set up a dev environment locally - we have removed many of the barriers that so often derail programmers from making significant progress in their development careers.
       </div>
       </div>
       </div>
