@@ -3,11 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
+    "babel-jest": "^17.0.2",
     "css-loader": "^0.25.0",
     "enzyme": "^2.6.0",
     "http-server": "^0.9.0",
     "jasmine": "^2.5.2",
     "jasmine-spec-reporter": "^2.7.0",
+    "jest": "^17.0.3",
     "supertest": "^2.0.1",
     "webpack-dev-server": "^1.16.2",
     "whatwg-fetch": "^2.0.1"
@@ -48,7 +50,7 @@
     "start-dev": "webpack-dev-server --inline --content-base client/public --config config/webpack.dev.config.js",
     "build": "webpack --config config/webpack.config.js",
     "heroku-postbuild": "webpack --config config/webpack.config.js",
-    "test": "NODE_ENV=production clientID=1 clientSecret=1 callbackURL=1 node spec/jasmine-runner.js"
+    "test": "jest && NODE_ENV=production clientID=1 clientSecret=1 callbackURL=1 node spec/jasmine-runner.js"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"
