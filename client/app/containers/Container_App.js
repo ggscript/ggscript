@@ -7,6 +7,12 @@ import { bindActionCreators } from 'redux';
 //makes sure action flows thru reducers
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false
+    }
+  }
   componentWillMount(){
     this.props.getDisplayName();
     this.setUpProxy();
@@ -26,12 +32,14 @@ class App extends React.Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    //if there is a display name, get the points to display as well
-     if(nextProps.displayname) {
-      this.props.getProfileData();
+    
+     //changed the logged in state to true upon reciept of data
+     if(!this.state.loggedIn && nextProps.displayname){
+      this.setState({loggedIn: true});
      }
+
      //if the level has change, get the updated point values for navbar
-     if(this.props.level !== nextProps.level  && nextProps.displayname) {
+     if(this.props.level !== nextProps.level  && this.state.loggedIn) {
       this.props.getProfileData();
      }
   }

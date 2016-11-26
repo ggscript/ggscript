@@ -92,7 +92,7 @@ class Profile extends React.Component {
   					<h2 id="username" className="text-center">{this.props.data.displayname}</h2>
   					<h4 className="text-center">{this.props.data.title}</h4>
   					<h4 className="text-center">{this.props.data.points} Points</h4>
-            <h4 className="text-center">Current Level: {this.props.data.currlevel}</h4>
+            <h4 className="text-center">Current Level: {this.props.data.maxlevel}</h4>
 
   				</div>
   				<div className="col-sm-8">
