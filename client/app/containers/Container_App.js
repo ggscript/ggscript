@@ -10,6 +10,7 @@ class App extends React.Component {
   componentWillMount(){
     this.props.getDisplayName();
     this.setUpProxy();
+    this.wakeUpGGShell();
   }
   componentWillReceiveProps(nextProps) {
                       // <NavLink id="logged" to="/login">Log In</NavLink>
@@ -19,6 +20,26 @@ class App extends React.Component {
     var guestDomain = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:3001' : 'https://ggshell.herokuapp.com';
     console.log('HOSTNAME GGSCRIPT:', guestDomain);
     window.windowProxy = new Porthole.WindowProxy(guestDomain, "ggshell");
+  }
+
+  wakeUpGGShell() {
+    fetch('/wakeup').then(result => console.log('GGShell successfully woken')).catch(err => console.log('GGShell unable to be woken', err));
+  }
+
+  login() {
+    var component = this;
+    var oauthWindow = window.open('/auth/google', "oauth", "location=yes,width=8");
+    window.loginInterval = window.setInterval(function() {
+      //if the pop up window's location equals the call back url, then the login is over (regardless of success)
+      if(oauthWindow.document.URL === window.location.origin + '/#/') {
+        window.clearInterval(window.loginInterval);
+        oauthWindow.close();
+        $('#login-modal').modal('hide');
+        component.props.getDisplayName();
+        component.props.getProfileData();
+      }
+    },
+    100);
   }
 
   render() {
@@ -33,7 +54,7 @@ class App extends React.Component {
                     <h3 id="makeVideo" className="text-center">Pew Pew, Welcome Back!</h3>
                     <br></br>
                     <div className="btn-group btn-group-justified">
-                      <a href="/auth/google" className="btn btn-danger">Google</a>
+                      <a onClick={this.login.bind(this)} className="btn btn-danger">Google</a>
                     </div>
                   </div>
                 </div>
