@@ -2,7 +2,7 @@ import {getLevelData} from './Action_GetLevelData'//this action creator is calle
 import { hashHistory } from 'react-router'
 //this is a thunk function that called initializeStoreUponResponse when a response is recieved
 function updateLevel(advanceBoolean, currlevel) {
-  return function(dispatch) {
+  return function(dispatch, getState) {
     fetch('/api/updatelevel', {
       headers: {
         'Accept': 'application/json',
@@ -17,6 +17,9 @@ function updateLevel(advanceBoolean, currlevel) {
     }).then(response => {
       //parse the response and then called the action creator via promise
         if(response.status === 401) {
+          sessionStorage.setItem('learnLogin', JSON.stringify(true));
+          sessionStorage.setItem('learnCode', JSON.stringify(getState().updateLearnCode.learnCode));
+          sessionStorage.setItem('levelData', JSON.stringify(getState().getLevelData));
           $('#login-modal').modal();
         } else {
           dispatch(getLevelData());

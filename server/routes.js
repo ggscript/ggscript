@@ -1,4 +1,5 @@
 var helpers = require('./routeHelpers');
+var request = require('request');
 
 
 module.exports.router = function(app, passport) {
@@ -25,6 +26,17 @@ module.exports.router = function(app, passport) {
 
   app.get('/api/templatedata', helpers.sendTemplateData);
 
+  app.get('/wakeup', function(req, res) {
+    request('https://ggshell.herokuapp.com', function (error, response, body) {
+      console.log(response, 'wakeup response')
+      if (!error) {
+        res.sendStatus(200);
+      } else {
+        res.send(error);
+      }
+    })
+  })
+
 
   app.get('/api/displayname', function(req, res) {
     if(req.session.passport){
@@ -41,7 +53,7 @@ module.exports.router = function(app, passport) {
   });
 
   app.get('/auth/google/callback',
-    passport.authenticate('google', {failureRedirect : '/', successRedirect: '/#/profile'}), (req,res) => {
+    passport.authenticate('google', {failureRedirect : '/', successRedirect: '/#/'}), (req,res) => {
     });
 
 
