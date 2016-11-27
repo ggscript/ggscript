@@ -36,7 +36,7 @@ class About extends React.Component {
       				<img className="img-responsive text-center" src="https://avatars0.githubusercontent.com/u/16483343?v=3&s=250"></img>
       			</div>
       			<h2 id="makeVideo" className="text-center"> Michelle Li </h2>
-      			<p className="text-center">I enjoy drawing and making things that bring values or better experiences, and that's what makes coding so appealing to me. Also, currently a jiu-jitsu white belt in training.</p>
+      			<p className="text-center">I love good food and traveling. I enjoy putting together puzzles and reading mystery novels, which is why I enjoy coding.</p>
       			<div className="col-md-12 text-center">
 		      			<a href="https://github.com/miteaisgreener" target="_blank"><img className='socialIcon' src="http://i.imgur.com/3x2RfT5.png"></img></a>
 		      			<a href="https://www.linkedin.com/in/jing-michelle-li" target="_blank"><img className='socialIcon' src='http://i.imgur.com/Dwt25GE.png'></img></a>
