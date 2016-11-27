@@ -369,6 +369,10 @@ iframe {
   text-align: center;
 }
 
+.hintText {
+  font-family: 'Leto';
+}
+
 .hinthearts {
   height: 60px;
   width: 60px;
@@ -395,7 +399,7 @@ iframe {
 
 .ReactCodeMirror{
   display: inline-block;
-  height:  80%;
+  height:  90%;
   width: -webkit-calc(100% - 630px);
   width:    -moz-calc(100% - 630px);
   width:         calc(100% - 630px);

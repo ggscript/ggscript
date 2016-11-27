@@ -72,8 +72,7 @@ class Hint extends React.Component {
           contentLabel="Example Modal">
 
           <h1 ref="subtitle" id="makeVideo"> Here's Your Cheat Code! </h1>
-          <h2 id="makeVideo">We hope this helps:</h2>
-          <h2 id="makeVideo">{this.props.hint}</h2>
+          <h2 className="hintText">{this.props.hint}</h2>
         {/*button for choosing difficulty level*/}
           <br></br>
           <br></br>
