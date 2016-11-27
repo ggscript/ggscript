@@ -5,6 +5,7 @@ class About extends React.Component {
   render() {
     return (
       <div className="container">
+            <div id="top"></div>
       	<div className="row">
             <div className="sandColor">
       		<h1 id="makeVideo"> About the Team </h1>
@@ -14,7 +15,7 @@ class About extends React.Component {
       				<img className="img-responsive text-center" src="https://lh3.googleusercontent.com/-bIswOe7xSYg/AAAAAAAAAAI/AAAAAAAAAA0/y0_6WkOxIv0/photo.jpg?sz=250"></img>
       			</div>
       			<h2 id="makeVideo" className="text-center"> Jason Maier </h2>
-      			<p className="text-center">I enjoy drawing and making things that bring values or better experiences, and that's what makes coding so appealing to me. Also, currently a jiu-jitsu white belt in training.</p>
+      			<p className="text-center">I enjoy crafting user experiences or solving problems in interesting ways as much as I enjoy getting exact lethal with tempo mage on Hearthstone. Also, go bears!</p>
       				<div className="col-md-12 text-center">
 		      			<a href="https://github.com/jason-maier" target="_blank"><img className='socialIcon' src="http://i.imgur.com/3x2RfT5.png"></img></a>
 		      			<a href="https://www.linkedin.com/in/maierjason" target="_blank"><img className='socialIcon' src='http://i.imgur.com/Dwt25GE.png'></img></a>
@@ -65,51 +66,46 @@ class About extends React.Component {
       				<img className="img-responsive text-center" src="http://i.imgur.com/hQaEDFD.png"></img>
       			</div>
       			<h2 id="makeVideo" className="text-center"> React/Redux </h2>
-      			<p className="text-center">I enjoy drawing and making things that bring values or better experiences, and that's what makes coding so appealing to me. Also, currently a jiu-jitsu white belt in training.</p>
       		</div>
       		<div className="col-md-3">
       			<div className="profile-userpic">
       				<img className="img-responsive text-center" src="http://i.imgur.com/AR2hx4w.png"></img>
       			</div>
       			<h2 id="makeVideo" className="text-center"> Postgres </h2>
-      			<p className="text-center">I enjoy drawing and making things that bring values or better experiences, and that's what makes coding so appealing to me. Also, currently a jiu-jitsu white belt in training.</p>
       		</div>
       		<div className="col-md-3">
       			<div className="profile-userpic">
       				<img className="img-responsive text-center" src="http://i.imgur.com/ILucwC8.png"></img>
       			</div>
       			<h2 id="makeVideo" className="text-center"> Node/Express </h2>
-      			<p className="text-center">I enjoy drawing and making things that bring values or better experiences, and that's what makes coding so appealing to me. Also, currently a jiu-jitsu white belt in training.</p>
       		</div>
       		<div className="col-md-3">
       			<div className="profile-userpic">
       				<img className="img-responsive text-center" src="http://i.imgur.com/Kiw2aZg.png"></img>
       			</div>
       			<h2 id="makeVideo" className="text-center"> Phaser </h2>
-      			<p className="text-center">I enjoy drawing and making things that bring values or better experiences, and that's what makes coding so appealing to me. Also, currently a jiu-jitsu white belt in training.</p>
       		</div>
       	</div>
+            <br></br>
+            <br></br>
       	<div className="row">
       		<div className="col-md-4">
       			<div className="profile-userpic">
       				<img className="img-responsive text-center" src="http://i.imgur.com/zSP9Pac.png"></img>
       			</div>
       			<h2 id="makeVideo" className="text-center"> Circle CI </h2>
-      			<p className="text-center">I enjoy drawing and making things that bring values or better experiences, and that's what makes coding so appealing to me. Also, currently a jiu-jitsu white belt in training.</p>
       		</div>
       		<div className="col-md-4">
       			<div className="profile-userpic">
       				<img className="img-responsive text-center" src="http://i.imgur.com/QS2Mv3Q.png"></img>
       			</div>
       			<h2 id="makeVideo" className="text-center">Jest / Jasmine / Enzyme</h2>
-      			<p className="text-center">I enjoy drawing and making things that bring values or better experiences, and that's what makes coding so appealing to me. Also, currently a jiu-jitsu white belt in training.</p>
       		</div>
       		<div className="col-md-4">
       			<div className="profile-userpic">
       				<img className="img-responsive text-center" src="http://i.imgur.com/TSyhQcu.png"></img>
       			</div>
       			<h2 id="makeVideo" className="text-center"> Webpack </h2>
-      			<p className="text-center">I enjoy drawing and making things that bring values or better experiences, and that's what makes coding so appealing to me. Also, currently a jiu-jitsu white belt in training.</p>
       		</div>
       	</div>
       	<br></br>

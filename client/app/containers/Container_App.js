@@ -143,7 +143,7 @@ class App extends React.Component {
         <footer className="footer">
           <div className="container">
             <div className="text-muted text-center footerItem">
-              <span className="item">Tech Stack &nbsp;&nbsp;</span><span className="item"> About Us &nbsp;&nbsp;</span><span className="item"> github &nbsp;&nbsp;</span><span className="item">/ggscript_ </span><span className="item"> &nbsp;&nbsp; © 2016 - GGScript | San Francisco CA </span>
+              <a href="/#/about/#top" target="_top" className="item"><span> About Us</span></a> &nbsp;&nbsp;<span><a className="item" href="https://github.com/ggscript/ggscript" target="_blank">  Github </a> &nbsp;&nbsp;</span><span><a href="/" className="item mainItem">/ggscript_ </a> </span><span><a href="/" className="item"> &nbsp;&nbsp; © 2016 - GGScript | San Francisco CA</a> </span>
             </div>
           </div>
         </footer>

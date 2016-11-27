@@ -189,6 +189,14 @@ class Sandbox extends React.Component {
           </div>
         </div>
         </div>
+        <br></br>
+        <br></br>
+
+        <div className="col-md-10 offset-md-1">
+          <div id="makeVideo" className="text-center"> Welcome to Phaser Sandbox! </div>
+          <div className="text-center sandBlurb mainBlurb">Here you can use your new skills to make Phaser games from scratch! </div>
+
+        </div>
         </div>
         </div>
         <div id="gameCode">

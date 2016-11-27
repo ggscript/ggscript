@@ -19,6 +19,7 @@ body {
 }
 .navItem {
   font-size: 115%;
+  font-family: 'Leto';
 }
 .navItem:hover {
   color: #226666 !important;
@@ -54,6 +55,17 @@ body {
 .footerItem {
   font-family: 'Courier';
 }
+
+.mainItem {
+  color: black !important;
+  font-size: 125%;
+}
+
+.item {
+  text-decoration: none !important;
+  color: #616060 !important;
+}
+
 .item:hover {
   color: #226666 !important;
 }
@@ -194,6 +206,11 @@ body {
 
 #moveright {
   margin-left: 10px !important;
+}
+
+.mainBlurb {
+  margin-bottom: 4px;
+  font-family: 'Leto';
 }
 
 #savealert {
