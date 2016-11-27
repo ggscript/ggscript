@@ -1,8 +1,8 @@
 const pg = require('pg');
 var DB_URL;
-if (process.env.NODE_ENV !== 'production') {
+// if (process.env.NODE_ENV !== 'production') {
   DB_URL = require('../config/database.credentials');
-}
+// }
 console.log(DB_URL)
 
 // Instantiate new pg client (client will read connection from pg cli tools)
