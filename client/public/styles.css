@@ -19,15 +19,26 @@ body {
 }
 .navItem {
   font-size: 115%;
+  font-family: 'Leto';
 }
 .navItem:hover {
   color: #226666 !important;
+}
+.strong {
+  font-weight: bold;
+  font-family: 'Courier';
+  font-size: 115%;
 }
 
 /********************homepage styling**************************/
 .aboutPhaser {
   background: #CFFFB3;
   overflow: hidden;
+  padding-bottom: 14px;
+}
+.howColor {
+  background: #FA7A5E;
+  padding-bottom: 14px;
 }
 
 .aboutText {
@@ -44,6 +55,17 @@ body {
 .footerItem {
   font-family: 'Courier';
 }
+
+.mainItem {
+  color: black !important;
+  font-size: 125%;
+}
+
+.item {
+  text-decoration: none !important;
+  color: #616060 !important;
+}
+
 .item:hover {
   color: #226666 !important;
 }
@@ -184,6 +206,11 @@ body {
 
 #moveright {
   margin-left: 10px !important;
+}
+
+.mainBlurb {
+  margin-bottom: 4px;
+  font-family: 'Leto';
 }
 
 #savealert {
@@ -342,6 +369,10 @@ iframe {
   text-align: center;
 }
 
+.hintText {
+  font-family: 'Leto';
+}
+
 .hinthearts {
   height: 60px;
   width: 60px;
@@ -368,7 +399,7 @@ iframe {
 
 .ReactCodeMirror{
   display: inline-block;
-  height:  80%;
+  height:  90%;
   width: -webkit-calc(100% - 630px);
   width:    -moz-calc(100% - 630px);
   width:         calc(100% - 630px);

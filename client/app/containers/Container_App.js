@@ -14,6 +14,7 @@ class App extends React.Component {
     }
   }
   componentWillMount(){
+    // this.props.getProfileData();
     this.props.getDisplayName();
     this.setUpProxy();
     this.wakeUpGGShell();
@@ -36,6 +37,8 @@ class App extends React.Component {
      //changed the logged in state to true upon reciept of data
      if(!this.state.loggedIn && nextProps.displayname){
       this.setState({loggedIn: true});
+      this.props.getProfileData();
+
      }
 
      //if the level has change, get the updated point values for navbar
@@ -121,7 +124,7 @@ class App extends React.Component {
             {this.props.displayname ? 
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <NavLink id="profile" to="/profile" className="navItem">Welcome, {this.props.displayname} {this.props.data.points} points </NavLink>
+                  <NavLink id="profile" to="/profile" className="navItem">Welcome, {this.props.data.title} {this.props.displayname} </NavLink>
                 </li> 
                 <li>
                   <a href='#/' data-target ='#logout-modal' data-toggle="modal" className="navItem landing-pg-links"> Log Out </a>
@@ -143,7 +146,7 @@ class App extends React.Component {
         <footer className="footer">
           <div className="container">
             <div className="text-muted text-center footerItem">
-              <span className="item">Tech Stack &nbsp;&nbsp;</span><span className="item"> About Us &nbsp;&nbsp;</span><span className="item"> github &nbsp;&nbsp;</span><span className="item">/ggscript_ </span><span className="item"> &nbsp;&nbsp; © 2016 - GGScript | San Francisco CA </span>
+              <a href="/#/about/#top" target="" className="item"><span> About Us</span></a> &nbsp;&nbsp;<span><a className="item" href="https://github.com/ggscript/ggscript" target="_blank">  Github </a> &nbsp;&nbsp;</span><span><a href="/" className="item mainItem">/ggscript_ </a> </span><span><a href="/" className="item"> &nbsp;&nbsp; © 2016 - GGScript | San Francisco CA</a> </span>
             </div>
           </div>
         </footer>
