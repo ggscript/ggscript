@@ -397,6 +397,15 @@ iframe {
 	margin-right: 5px;
 }
 
+#diffStar {
+  width: 42px;
+  height: 35px;
+}
+#diffStarFull {
+  width: 35px;
+  height: 35px;
+}
+
 .ReactCodeMirror{
   display: inline-block;
   height:  90%;
