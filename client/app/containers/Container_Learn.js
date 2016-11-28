@@ -112,7 +112,7 @@ class Learn extends React.Component {
   componentWillReceiveProps(nextProps) {
     var component = this;
     //only open the modal if the level id has changed
-    if(this.props.levelData.id !== nextProps.levelData.id) {
+    if(this.props.levelData.id !== nextProps.levelData.id && !JSON.parse(sessionStorage.getItem('learnLogin'))) {
       this.setState({modalIsOpen: true});
     }
   }
@@ -134,10 +134,14 @@ class Learn extends React.Component {
     if(this.props.startLevel){
       this.loadCode();
     }
+
+    if(JSON.parse(sessionStorage.getItem('learnLogin'))) {
+      sessionStorage.setItem('learnLogin', JSON.stringify(false));
+      this.nextLevel();
+    } 
   }
 
   nextLevel() {
-    this.setState({learned:false})
     this.props.updateLevel(true, this.props.levelData.id);
     this.props.updatePoints(this.props.levelData.id, this.state.difficultyLevel);
   }
