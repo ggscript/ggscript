@@ -26,7 +26,7 @@ class About extends React.Component {
       				<img className="img-responsive text-center" src="https://avatars2.githubusercontent.com/u/20237437?v=3&s=250"></img>
       			</div>
       			<h2 id="makeVideo" className="text-center"> Jeff Judkins </h2>
-      			<p className="text-center">I enjoy drawing and making things that bring values or better experiences, and that's what makes coding so appealing to me. Also, currently a jiu-jitsu white belt in training.</p>
+      			<p className="text-center">I’m passionate about building tools that allow others to learn and explore.  When I’m not coding, I’ll be kitesurfing or playing beach volleyball, or bing watching tv shows if the weather isn’t great for either of the former.</p>
       			<div className="col-md-12 text-center">
 		      			<a href="https://github.com/fej-snikduj" target="_blank"><img className='socialIcon' src="http://i.imgur.com/3x2RfT5.png"></img></a>
 		      			<a href="https://www.linkedin.com/in/1jeffjudkins" target="_blank"><img className='socialIcon' src='http://i.imgur.com/Dwt25GE.png'></img></a>
