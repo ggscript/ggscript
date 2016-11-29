@@ -11,16 +11,16 @@ describe('/', function () {
       })
       .catch(done.fail);
   });
-  it('should successfully return template info from templatedata', function(done) {
-   request(this.server)
-    .get('/api/templatedata')
-    .then((res) => {
-      expect(res.statusCode).toEqual(200);
-      expect(res.body.length).toEqual(3);
-      done();
-    })
-    .catch(done.fail);
-  });
+  // it('should successfully return template info from templatedata', function(done) {
+  //  request(this.server)
+  //   .get('/api/templatedata')
+  //   .then((res) => {
+  //     expect(res.statusCode).toEqual(200);
+  //     expect(res.body.length).toEqual(3);
+  //     done();
+  //   })
+  //   .catch(done.fail);
+  // });
   it('should successfully receive response to userdata', function (done) {
   	request(this.server)
   		.get('/api/leveldata')
